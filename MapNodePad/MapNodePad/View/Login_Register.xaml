@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MapNodePad.View.Login_Register">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid RowDefinitions=0.09*,0.09*,0.32*" 
+          RowSpacing="10">
+
+                <Image Grid.Row="0"
+               Source = "{Binding PictureUrl}"
+               BackgroundColor="Transparent"
+               >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnTapImage}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Entry Grid.Row="1"
+               x:Name="nickname"
+               Placeholder="NickName"
+               Text="{Binding NickName}"
+                Margin="40,0,40,10"
+               VerticalOptions="End"  />
+                <Entry Grid.Row="2"
+               x:Name="name"
+               Placeholder="Name" 
+               Text="{Binding Name }"
+                Margin="40,0,40,10"
+               VerticalOptions="End" />
+               
+
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
