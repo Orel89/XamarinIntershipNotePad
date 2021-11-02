@@ -13,5 +13,14 @@ namespace MapNotepad.ViewModel
         {
             base.OnNavigatedTo(parameters);
         }
+        #region ---public properties---
+
+        private string image = "logo3.png";
+        public string ImageUrl
+        {
+            get => image;
+            set => SetProperty(ref image, value);
+        }
+        #endregion
     }
 }

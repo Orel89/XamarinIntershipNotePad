@@ -93,7 +93,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\drawable\" />
+    <AndroidResource Include="Resources\drawable\logo3.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MapNotepad\MapNotepad.csproj">
