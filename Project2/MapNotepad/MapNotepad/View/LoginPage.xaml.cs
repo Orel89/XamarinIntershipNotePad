@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace MapNotepad
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace MapNotepad.View
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class LoginPage : BaseContentPage
     {
-        public MainPage()
+        public LoginPage()
         {
             InitializeComponent();
         }
