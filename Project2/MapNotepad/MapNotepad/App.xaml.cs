@@ -1,4 +1,5 @@
-﻿using MapNotepad.View;
+﻿using MapNotepad.Services.Repository;
+using MapNotepad.View;
 using MapNotepad.ViewModel;
 using Prism.Ioc;
 using Prism.Unity;
@@ -18,7 +19,7 @@ namespace MapNotepad
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //Services
-
+            containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
 
             // Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
