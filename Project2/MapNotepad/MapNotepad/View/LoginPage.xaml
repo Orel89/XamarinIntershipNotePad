@@ -3,15 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:view="clr-namespace:MapNotepad.View"
              x:Class="MapNotepad.View.LoginPage"
+                      BackgroundColor="White"
                       >
     <view:BaseContentPage.Content>
         <StackLayout>
-            <Grid RowDefinitions="0.3*, 0.05*, 0.05*"
-                  >
+            <Grid RowDefinitions="0.3*, 0.05*, 0.05*">
                 <Image Grid.Row="0"
-                        HeightRequest="100"
-                        WidthRequest="100"
-                        Aspect="Fill"
                         Source="{Binding ImageUrl}">
                     
                 </Image>

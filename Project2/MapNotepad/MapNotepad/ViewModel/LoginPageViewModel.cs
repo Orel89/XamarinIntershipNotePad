@@ -19,7 +19,7 @@ namespace MapNotepad.ViewModel
 
         #region ---public properties---
 
-        private string image = "logo.png";
+        private string image = "customLogo.png";
         public string ImageUrl
         {
             get => image;
