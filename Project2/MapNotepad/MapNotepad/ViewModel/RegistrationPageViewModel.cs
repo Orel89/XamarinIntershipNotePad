@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MapNotepad.ViewModel
 {
-    class RegistrationPageViewModel
+    public class RegistrationPageViewModel : BaseViewModel
     {
     }
 }
