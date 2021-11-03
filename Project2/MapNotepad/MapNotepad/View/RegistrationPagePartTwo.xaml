@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<view:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:view="clr-namespace:MapNotepad.View"
+                      x:Class="MapNotepad.View.RegistrationPagePartTwo"
+                      Title="Create an account">
+    <view:BaseContentPage.Content>
+        <StackLayout>
+            <Label Text="Password" TextColor="#858E9E" Margin="28,0,0,0"/>
+            <Entry x:Name="name" Placeholder="Create password" TextColor="#858E9E" Margin="16,0,16,0"/>
+            <Label Text="Confirm password" TextColor="#858E9E" Margin="28,0,0,0"/>
+            <Entry x:Name="email" Placeholder="Repeat password" TextColor="#858E9E" Margin="16,0,16,0"/>
+            <Button x:Name="next" BackgroundColor="#596EFB" Text="Create account" TextColor="White" Margin="16,0,16,0" Command="{Binding CreateAccountButtonTapCommand}" />
+        </StackLayout>
+    </view:BaseContentPage.Content>
+</view:BaseContentPage>

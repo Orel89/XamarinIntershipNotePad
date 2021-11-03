@@ -27,7 +27,7 @@ namespace MapNotepad.ViewModel
         }
         #endregion
         #region ---commands---
-        public ICommand CreateAccountButtonTapCommand => new Command(CreateAccount);
+        public ICommand CreateAccountButtonTapCommand => new Command(OnButtonTapCreateAccount);
         #endregion
 
         #region ovverides---
@@ -39,7 +39,7 @@ namespace MapNotepad.ViewModel
 
 
         #region ---private helpers---
-        private async void CreateAccount(object obj)
+        private async void OnButtonTapCreateAccount(object obj)
         {
             await _navigationService.NavigateAsync(nameof(RegistrationPage));
         }

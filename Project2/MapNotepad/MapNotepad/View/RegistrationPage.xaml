@@ -7,11 +7,11 @@
                       Title="Log in">
     <view:BaseContentPage.Content>
         <StackLayout>
-            <Label Text="Email" TextColor="#858E9E"/>
-            <Entry x:Name="email" Placeholder="Enter email" TextColor="#858E9E"/>
-            <Label Text="Password" TextColor="#858E9E"/>
-            <Entry x:Name="password" Placeholder="Enter password" TextColor="#858E9E"/>
-            <Button x:Name="LogIn" BackgroundColor="#596EFB" Text="Log in" TextColor="White" />
+            <Label Text="Name" TextColor="#858E9E" Margin="28,0,0,0"/>
+            <Entry x:Name="name" Placeholder="Enter your name" TextColor="#858E9E" Margin="16,0,16,0"/>
+            <Label Text="Email" TextColor="#858E9E" Margin="28,0,0,0"/>
+            <Entry x:Name="email" Placeholder="Enter email" TextColor="#858E9E" Margin="16,0,16,0"/>
+            <Button x:Name="next" BackgroundColor="#596EFB" Text="Next" TextColor="White" Margin="16,0,16,0" Command="{Binding NextButtonTapCommand}" />
         </StackLayout>
     </view:BaseContentPage.Content>
 </view:BaseContentPage>
