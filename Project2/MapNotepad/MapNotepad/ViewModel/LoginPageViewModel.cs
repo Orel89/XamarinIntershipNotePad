@@ -25,7 +25,7 @@ namespace MapNotepad.ViewModel
             get => image;
             set => SetProperty(ref image, value);
         }
-        #endregion
+        #endregion 
         #region ---commands---
         public ICommand CreateAccountButtonTapCommand => new Command(OnButtonTapCreateAccount);
         #endregion
