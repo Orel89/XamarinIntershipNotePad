@@ -40,7 +40,11 @@ namespace MapNotepad.ViewModel
 
         private async void OnButtonTapNext(object obj)
         {
-            await _navigationService.NavigateAsync(nameof(RegistrationPagePartTwo));
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add("Name", Name);
+            navigationParameters.Add("Email", Email);
+
+            await _navigationService.NavigateAsync(nameof(RegistrationPagePartTwo),navigationParameters);
         }
 
         #endregion

@@ -11,14 +11,14 @@ namespace MapNotepad.ViewModel
     {
         public RegistrationPagePartTwoViewModel(INavigationService navigationService) : base (navigationService)
         {
-
+            
         }
 
        
         #region ---commands---
-        //public ICommand NextButtonTapCommand => new Command(CreateAccountButtonTapCommand);
+        public ICommand NextButtonTapCommand => new Command(CreateAccountButtonTapCommand);
 
-
+        List<string> list = new List<string>();
 
         #endregion
         #region ---public properties---
@@ -39,11 +39,21 @@ namespace MapNotepad.ViewModel
 
         #region ---private helpers---
 
-        //private async void CreateAccountButtonTapCommand(object obj)
-        //{
-        //   // await _navigationService.NavigateAsync(nameof(RegistrationPagePart));
-        //}
+        private  void CreateAccountButtonTapCommand(object obj)
+        {
+            List<string> list = new List<string>();
+        }
 
+        #endregion
+        #region ---ovverides---
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            list.Add(parameters.GetValue<string>("Name"));
+            list.Add(parameters.GetValue<string>("Email"));
+
+        }
         #endregion
     }
 }
