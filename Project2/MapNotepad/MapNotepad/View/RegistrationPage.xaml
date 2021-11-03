@@ -2,12 +2,16 @@
 <view:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:view="clr-namespace:MapNotepad.View"
-             x:Class="MapNotepad.View.RegistrationPage">
+             x:Class="MapNotepad.View.RegistrationPage"
+                      BackgroundColor="White"
+                      Title="Log in">
     <view:BaseContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Email" TextColor="#858E9E"/>
+            <Entry x:Name="email" Placeholder="Enter email" TextColor="#858E9E"/>
+            <Label Text="Password" TextColor="#858E9E"/>
+            <Entry x:Name="password" Placeholder="Enter password" TextColor="#858E9E"/>
+            <Button x:Name="LogIn" BackgroundColor="#596EFB" Text="Log in" TextColor="White" />
         </StackLayout>
     </view:BaseContentPage.Content>
 </view:BaseContentPage>

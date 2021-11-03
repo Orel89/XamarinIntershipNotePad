@@ -3,14 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:view="clr-namespace:MapNotepad.View"
              x:Class="MapNotepad.View.LoginPage"
-                      BackgroundColor="White">
+                      >
     <view:BaseContentPage.Content>
         <StackLayout>
             <Grid RowDefinitions="0.3*, 0.05*, 0.05*"
                   >
                 <Image Grid.Row="0"
-                      BackgroundColor="White"
-                       Source="{Binding ImageUrl}">
+                        HeightRequest="100"
+                        WidthRequest="100"
+                        Aspect="AspectFill"
+                        Source="{Binding ImageUrl}">
                     
                 </Image>
                 <Button Grid.Row="1"
@@ -29,7 +31,8 @@
                         Margin="16,0,16,16"
                         HorizontalOptions="Fill"
                         BorderWidth="1"
-                        BorderColor="#596EFB">
+                        BorderColor="#596EFB"
+                        Command="{Binding CreateAccountButtonTapCommand}">
 
                 </Button>
             </Grid>
