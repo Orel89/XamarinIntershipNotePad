@@ -22,7 +22,6 @@ namespace MapNotepad
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
 
             // Navigation
-            containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RegistrationPage, RegistrationPageViewModel>();
             containerRegistry.RegisterForNavigation<RegistrationPagePartTwo, RegistrationPagePartTwoViewModel>();
@@ -32,7 +31,7 @@ namespace MapNotepad
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(LoginPage)}");
+            await NavigationService.NavigateAsync($"/{nameof(LoginPage)}");
         }
         protected override void OnStart()
         {
