@@ -6,6 +6,8 @@ namespace MapNotepad.View
     {
         public BaseContentPage()
         {
+            //change Safe aria for IOs
         }
+
     }
 }

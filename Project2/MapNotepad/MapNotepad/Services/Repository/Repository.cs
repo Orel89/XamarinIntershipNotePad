@@ -17,11 +17,12 @@ namespace MapNotepad.Services.Repository
         {
             _database = new Lazy<SQLiteAsyncConnection>(() =>
            {
-               var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MapNotepad.db");
+               var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MapNotepad.db2");
                var database = new SQLiteAsyncConnection(path);
                database.CreateTableAsync<UserModel>().Wait();
                database.CreateTableAsync<PinModel>().Wait();
                database.CreateTableAsync<PhotoPinModel>().Wait();
+               database.CreateTableAsync<EventModel>().Wait();
                return database;
 
            });

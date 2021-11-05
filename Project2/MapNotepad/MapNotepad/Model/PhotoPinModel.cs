@@ -12,5 +12,6 @@ namespace MapNotepad.Model
         public int Id { get; set; }
         public string PinId { get; set; }
         public string ImageUrl { get; set; }
+        public DateTime Time { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using MapNotepad.Services.Repository;
+using MapNotepad.Services.Services;
+using MapNotepad.Services.SettingsManager;
 using MapNotepad.View;
 using MapNotepad.ViewModel;
 using Prism.Ioc;
@@ -20,6 +22,8 @@ namespace MapNotepad
         {
             //Services
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
+            containerRegistry.RegisterInstance<ISettings>(Container.Resolve<Settings>());
+            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
 
             // Navigation
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();

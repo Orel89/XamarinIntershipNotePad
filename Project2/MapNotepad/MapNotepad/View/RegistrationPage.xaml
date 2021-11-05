@@ -3,18 +3,36 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       x:Class="MapNotepad.View.RegistrationPage"
                       xmlns:view="clr-namespace:MapNotepad.View"
-                      xmlns:controls="clr-namespace:MapNotepad.Controls">
+                      xmlns:controls="clr-namespace:MapNotepad.Controls"
+                      >
 
     <view:BaseContentPage.Content>
         <StackLayout>
             <controls:CustomToolBar Title="Create an account"
-                                    Button="{Binding GoToBackPageButtonTapCommand}"
+                                    BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"
                                     ArrowLeftImage="leftArrow.png"/>
-            <Label Text="Name" TextColor="#858E9E" Margin="28,0,0,0"/>
-            <Entry x:Name="name" Text="{Binding Name}" Placeholder="Enter your name" TextColor="#858E9E" Margin="16,0,16,0"/>
-            <Label Text="Email" TextColor="#858E9E" Margin="28,0,0,0"/>
-            <Entry x:Name="email" Text="{Binding Email}" Placeholder="Enter email" TextColor="#858E9E" Margin="16,0,16,0"/>
-            <Button x:Name="next" BackgroundColor="#596EFB" Text="Next" TextColor="White" Margin="16,0,16,0" Command="{Binding NextButtonTapCommand}" />
+            <Label Text="Name" 
+                   TextColor="#3D4E61" 
+                   Margin="16,0,16,0"/>
+
+            <Entry x:Name="name" Text="{Binding Name}" 
+                   Placeholder="Enter your name" 
+                   TextColor="#858E9E" Margin="16,0,16,0"/>
+            <Label Text="Email" 
+                   TextColor="#858E9E" 
+                   Margin="16,0,16,0"/>
+            <Entry x:Name="email" 
+                   
+                   Text="{Binding Email}" 
+                   Placeholder="Enter email" 
+                   TextColor="#858E9E" 
+                   Margin="16,0,16,0"/>
+            <Button x:Name="next" 
+                    BackgroundColor="#596EFB" 
+                    Text="Next" 
+                    TextColor="White" 
+                    Margin="16,0,16,0" 
+                    Command="{Binding NextButtonTapCommand}" />
         </StackLayout>
     </view:BaseContentPage.Content>
 </view:BaseContentPage>

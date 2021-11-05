@@ -12,17 +12,17 @@ namespace MapNotepad.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CustomToolBar : ContentView
     {
-        public static readonly BindableProperty ButtonProperty =
-           BindableProperty.Create("Button", typeof(ICommand), typeof(CustomToolBar));
-        public ICommand Button
+        public static readonly BindableProperty BackButtonTapCommandProperty =
+           BindableProperty.Create(nameof(BackButtonTapCommand), typeof(ICommand), typeof(CustomToolBar));
+        public ICommand BackButtonTapCommand
         {
             set
             {
-                SetValue(ButtonProperty, value);
+                SetValue(BackButtonTapCommandProperty, value);
             }
             get
             {
-                return (ICommand)GetValue(ButtonProperty);
+                return (ICommand)GetValue(BackButtonTapCommandProperty);
             }
         }
 

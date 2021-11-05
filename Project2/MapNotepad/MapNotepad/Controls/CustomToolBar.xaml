@@ -12,7 +12,7 @@
                    HeightRequest="10"
                    BackgroundColor="Transparent"
                    Margin="28,20,0,0"
-                   Command="{Binding Button, Source={x:Reference customToolBar}}"/>
+                   Command="{Binding BackButtonTapCommand, Source={x:Reference customToolBar}}"/>
           
             <Label Text="{Binding Title, Source={x:Reference customToolBar}}"
                    TextColor="{Binding TitleColor, Source={x:Reference customToolBar}}"

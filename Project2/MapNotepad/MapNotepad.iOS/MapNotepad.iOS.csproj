@@ -142,4 +142,7 @@
       <Name>MapNotepad</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ControlsIOs\" />
+  </ItemGroup>
 </Project>
