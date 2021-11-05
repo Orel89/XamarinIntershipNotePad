@@ -3,8 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       x:Class="MapNotepad.View.RegistrationPage"
                       xmlns:view="clr-namespace:MapNotepad.View"
-                      xmlns:controls="clr-namespace:MapNotepad.Controls"
-                      >
+                      xmlns:controls="clr-namespace:MapNotepad.Controls">
 
     <view:BaseContentPage.Content>
         <StackLayout>
@@ -15,9 +14,7 @@
                    TextColor="#3D4E61" 
                    Margin="16,0,16,0"/>
 
-            <Entry x:Name="name" Text="{Binding Name}" 
-                   Placeholder="Enter your name" 
-                   TextColor="#858E9E" Margin="16,0,16,0"/>
+            <controls:CustomEntry BorderColor="#E5E5E5"/>
             <Label Text="Email" 
                    TextColor="#858E9E" 
                    Margin="16,0,16,0"/>

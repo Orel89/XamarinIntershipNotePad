@@ -67,6 +67,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlsAndroid\CustomEntryRendererAndroid.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,8 +120,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\leftArrow.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ControlsAndroid\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -9,11 +9,10 @@ using Xamarin.Forms.Xaml;
 
 namespace MapNotepad.Controls
 {
-    public partial class CustomEntry : Frame
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MyEntry : ContentView
     {
-        
-
-        public CustomEntry()
+        public MyEntry()
         {
             InitializeComponent();
         }
