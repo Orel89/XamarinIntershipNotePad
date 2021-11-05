@@ -55,17 +55,17 @@ namespace MapNotepad.Controls
             }
         }
 
-        public static readonly BindableProperty ImageProperty =
-          BindableProperty.Create("Image", typeof(string), typeof(CustomToolBar), string.Empty);
-        public string Image
+        public static readonly BindableProperty ArrowLeftImageProperty =
+          BindableProperty.Create("ArrowLeftImage", typeof(string), typeof(CustomToolBar), string.Empty);
+        public string ArrowLeftImage
         {
             set
             {
-                SetValue(ImageProperty, value);
+                SetValue(ArrowLeftImageProperty, value);
             }
             get
             {
-                return (string)GetValue(ImageProperty);
+                return (string)GetValue(ArrowLeftImageProperty);
             }
         }
     

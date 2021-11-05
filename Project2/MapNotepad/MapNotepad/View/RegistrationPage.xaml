@@ -8,7 +8,8 @@
     <view:BaseContentPage.Content>
         <StackLayout>
             <controls:CustomToolBar Title="Create an account"
-                                    Button="{Binding GoToBackPageButtonTapCommand}" />
+                                    Button="{Binding GoToBackPageButtonTapCommand}"
+                                    ArrowLeftImage="leftArrow.png"/>
             <Label Text="Name" TextColor="#858E9E" Margin="28,0,0,0"/>
             <Entry x:Name="name" Text="{Binding Name}" Placeholder="Enter your name" TextColor="#858E9E" Margin="16,0,16,0"/>
             <Label Text="Email" TextColor="#858E9E" Margin="28,0,0,0"/>

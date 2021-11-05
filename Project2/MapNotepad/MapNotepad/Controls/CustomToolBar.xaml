@@ -6,7 +6,7 @@
   <ContentView.Content>
       <StackLayout Orientation="Horizontal"
                    >
-            <ImageButton Source="LeftArrow.png"
+            <ImageButton Source="{Binding ArrowLeftImage, Source={x:Reference customToolBar} }"
                    HorizontalOptions="StartAndExpand"
                    WidthRequest="10"
                    HeightRequest="10"
