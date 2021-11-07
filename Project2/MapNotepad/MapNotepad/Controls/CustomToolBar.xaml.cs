@@ -40,7 +40,6 @@ namespace MapNotepad.Controls
             }
         }
 
-
         public static readonly BindableProperty TitleColorProperty =
             BindableProperty.Create("TitleColor", typeof(Color), typeof(CustomToolBar), Color.Black);
         public Color TitleColor
