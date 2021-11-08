@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace MapNotepad.View
 {
@@ -6,7 +7,7 @@ namespace MapNotepad.View
     {
         public BaseContentPage()
         {
-            //change Safe aria for IOs
+            object p = On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
         }
 
     }
