@@ -16,11 +16,11 @@ namespace MapNotepad.ViewModel
         }
         #region ---commands---
 
-        private ICommand _ToNextPageButtonTapCommand;
-        public ICommand ToNextPageButtonTapCommand => _ToNextPageButtonTapCommand ?? (_ToNextPageButtonTapCommand = new Command(OnButtonTapNextPage));
+        private ICommand _toNextPageButtonTapCommand;
+        public ICommand ToNextPageButtonTapCommand => _toNextPageButtonTapCommand ?? (_toNextPageButtonTapCommand = new Command(OnButtonTapNextPage));
 
-        private ICommand _GoToBackPageButtonTapCommand;
-        public ICommand GoToBackPageButtonTapCommand => _GoToBackPageButtonTapCommand ?? (_GoToBackPageButtonTapCommand = new Command(OnButtonTapGoToBackPage));
+        private ICommand _goToBackPageButtonTapCommand;
+        public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = new Command(OnButtonTapGoToBackPage));
 
         #endregion
         #region ---public properties---

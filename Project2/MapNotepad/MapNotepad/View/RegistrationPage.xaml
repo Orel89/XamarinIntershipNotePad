@@ -13,37 +13,37 @@
             <controls:CustomToolBar Title="Create an account"
                                     BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"
                                     ArrowLeftImage="leftArrow.png"/>
-            <StackLayout Padding="16,5,16,5">
+            <StackLayout Padding="25,0,25,5">
                 
                 <Label Text="Name" 
                        TextColor="#3D4E61" 
-                       Margin="12,1,0,2"/>
+                       Margin="8,15,0,0"/>
 
-                <controls:CustomEntry BorderColor="#E5E5E5"
-                                      SurroundColor="White"
+                <controls:CustomEntry BorderColor="#D7DDE8"
                                       Placeholder="Enter your name"
-                                      PlaceholderColor="#858E9E"
+                                      PlaceholderColor="#858E9E" 
                                       Text="{Binding Name}"
                                       TextColor="Black"
                                       ImageSource="leftArrow.png"/>
                 
                 <Label Text="Email" 
-                   TextColor="#858E9E" 
-                   Margin="16,0,16,0"/>
-                
-                <Entry x:Name="email" 
-                   
-                   Text="{Binding Email}" 
-                   Placeholder="Enter email" 
-                   TextColor="#858E9E" 
-                   Margin="16,0,16,0"/>
-                
-                <Button x:Name="next" 
-                    BackgroundColor="#596EFB" 
-                    Text="Next" 
-                    TextColor="White" 
-                    Margin="16,0,16,0" 
-                    Command="{Binding NextButtonTapCommand}"/>
+                       TextColor="#3D4E61" 
+                       Margin="8,35,0,0"/>
+
+                <controls:CustomEntry BorderColor="#D7DDE8"
+                                      Placeholder="Enter email"
+                                      PlaceholderColor="#858E9E"
+                                      Text="{Binding Email}"
+                                      TextColor="Black"
+                                      ImageSource="leftArrow.png"/>
+
+                <Button x:Name="next"
+                        HorizontalOptions="Fill"
+                        BackgroundColor="#596EFB" 
+                        Text="Next" 
+                        TextColor="White" 
+                        Margin="3,60,0,0" 
+                        Command="{Binding ToNextPageButtonTapCommand}"/>
                 
             </StackLayout>
             

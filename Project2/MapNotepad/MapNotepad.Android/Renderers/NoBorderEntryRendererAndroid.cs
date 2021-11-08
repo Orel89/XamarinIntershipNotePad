@@ -24,10 +24,7 @@ namespace MapNotepad.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if(e.OldElement == null)
-            {
-                Control.SetBackgroundColor(((Color)VisualElement.BackgroundColorProperty.DefaultValue).ToAndroid());
-            }
+            Control.Background = null;
         }
     }
 }

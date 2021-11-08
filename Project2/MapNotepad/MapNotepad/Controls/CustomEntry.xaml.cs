@@ -19,7 +19,8 @@ namespace MapNotepad.Controls
           propertyName: nameof(Placeholder),
           returnType: typeof(string),
           declaringType: typeof(CustomEntry),
-          defaultValue: string.Empty);
+          defaultValue: string.Empty,
+          defaultBindingMode: BindingMode.TwoWay);
         public string Placeholder
         {
             set => SetValue(PlaceholderProperty, value);
@@ -29,29 +30,20 @@ namespace MapNotepad.Controls
             propertyName: nameof(PlaceholderColor),
             returnType: typeof(Color),
             declaringType: typeof(CustomEntry),
-            defaultValue: Color.Silver);
+            defaultValue: Color.Silver,
+            defaultBindingMode: BindingMode.TwoWay);
         public Color PlaceholderColor
         {
             set => SetValue(PlaceholderColorProperty, value);
             get => (Color)GetValue(PlaceholderColorProperty);
         }
 
-        public static readonly BindableProperty SurroundColorProperty = BindableProperty.Create(
-            propertyName: nameof(SurroundColor),
-            returnType: typeof(Color),
-            declaringType: typeof(CustomEntry),
-            defaultValue: Color.White);
-        public Color SurroundColor
-        {
-            set => SetValue(SurroundColorProperty, value);
-            get => (Color)GetValue(SurroundColorProperty);
-        }
-
         public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
             propertyName: nameof(ImageSource),
             returnType: typeof(string),
             declaringType: typeof(CustomEntry),
-            defaultValue: string.Empty);
+            defaultValue: string.Empty,
+            defaultBindingMode: BindingMode.TwoWay);
         public string ImageSource
         {
             set => SetValue(ImageSourceProperty, value);
@@ -62,7 +54,8 @@ namespace MapNotepad.Controls
           propertyName: nameof(Text),
           returnType: typeof(string),
           declaringType: typeof(CustomEntry),
-          defaultValue: string.Empty);
+          defaultValue: string.Empty,
+          defaultBindingMode: BindingMode.TwoWay);
         public string Text
         {
             set => SetValue(TextProperty, value);
@@ -73,7 +66,8 @@ namespace MapNotepad.Controls
            propertyName: nameof(TextColor),
            returnType: typeof(Color),
            declaringType: typeof(CustomEntry),
-           defaultValue: Color.Silver);
+           defaultValue: Color.Silver,
+           defaultBindingMode: BindingMode.TwoWay);
         public Color TextColor
         {
             set => SetValue(TextColorProperty, value);
@@ -84,7 +78,8 @@ namespace MapNotepad.Controls
           propertyName: nameof(ButtonCommand),
           returnType: typeof(ICommand),
           declaringType: typeof(CustomEntry),
-          defaultValue: null);
+          defaultValue: null,
+          defaultBindingMode: BindingMode.TwoWay);
         public ICommand ButtonCommand
         {
             set => SetValue(ButtonCommandProperty, value);
@@ -95,7 +90,8 @@ namespace MapNotepad.Controls
          propertyName: nameof(IsVisibleButton),
          returnType: typeof(bool),
          declaringType: typeof(CustomEntry),
-         defaultValue: true);
+         defaultValue: true,
+         defaultBindingMode: BindingMode.TwoWay);
         public bool IsVisibleButton
         {
             set => SetValue(IsVisibleButtonProperty, value);

@@ -14,13 +14,13 @@ namespace MapNotepad.ViewModel
             
         }
 
-       
         #region ---commands---
         public ICommand NextButtonTapCommand => new Command(CreateAccountButtonTapCommand);
 
         List<string> list = new List<string>();
 
         #endregion
+
         #region ---public properties---
 
         private string password;
@@ -45,6 +45,7 @@ namespace MapNotepad.ViewModel
         }
 
         #endregion
+
         #region ---ovverides---
 
         public override void Initialize(INavigationParameters parameters)
