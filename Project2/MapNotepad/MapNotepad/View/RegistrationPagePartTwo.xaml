@@ -1,16 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <view:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:view="clr-namespace:MapNotepad.View"
-                      x:Class="MapNotepad.View.RegistrationPagePartTwo"
-                      Title="Create an account">
+                      xmlns:view="clr-namespace:MapNotepad.View" 
+                      xmlns:controls="clr-namespace:MapNotepad.Controls"
+                      x:Class="MapNotepad.View.RegistrationPagePartTwo">
     <view:BaseContentPage.Content>
         <StackLayout>
-            <Label Text="Password" TextColor="#858E9E" Margin="28,0,0,0"/>
-            <Entry x:Name="name" Placeholder="Create password" TextColor="#858E9E" Margin="16,0,16,0"/>
-            <Label Text="Confirm password" TextColor="#858E9E" Margin="28,0,0,0"/>
-            <Entry x:Name="email" Placeholder="Repeat password" TextColor="#858E9E" Margin="16,0,16,0"/>
-            <Button x:Name="next" BackgroundColor="#596EFB" Text="Create account" TextColor="White" Margin="16,0,16,0" Command="{Binding CreateAccountButtonTapCommand}" />
+
+            <controls:CustomToolBar Title="Create an account"
+                                    BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"
+                                    ArrowLeftImage="leftArrow.png"/>
+            <StackLayout Padding="25,0,25,5">
+
+                <Label Text="Password" 
+                       TextColor="#3D4E61" 
+                       Margin="8,15,0,0"/>
+
+                <controls:CustomEntry BorderColor="#D7DDE8"
+                                      Placeholder="Create password"
+                                      PlaceholderColor="#858E9E" 
+                                      Text="{Binding Name}"
+                                      TextColor="Black"
+                                      ImageSource="leftArrow.png"/>
+
+                <Label Text="Confirm Password" 
+                       TextColor="#3D4E61" 
+                       Margin="8,35,0,0"/>
+
+                <controls:CustomEntry BorderColor="#D7DDE8"
+                                      Placeholder="Repeat password"
+                                      PlaceholderColor="#858E9E"
+                                      Text="{Binding Email}"
+                                      TextColor="Black"
+                                      ImageSource="leftArrow.png"/>
+
+                <Button x:Name="next"
+                        HorizontalOptions="Fill"
+                        BackgroundColor="#596EFB" 
+                        Text="Next" 
+                        TextColor="White" 
+                        Margin="2,60,0,0" 
+                        Command="{Binding ToNextPageButtonTapCommand}"/>
+
+                <StackLayout Orientation="Horizontal"
+                             Margin="2,20,0,0">
+
+                    <BoxView HeightRequest="1"
+                             VerticalOptions="Center"
+                             BackgroundColor="#D7DDE8"
+                             HorizontalOptions="FillAndExpand"/>
+
+                    <Label Text="or"/>
+
+                    <BoxView HeightRequest="1"
+                             VerticalOptions="Center"
+                             BackgroundColor="#D7DDE8"
+                             HorizontalOptions="FillAndExpand"/>
+
+                </StackLayout>
+
+                <ImageButton Source="ic_google.png"
+                             HeightRequest="45"
+                             BackgroundColor="White"
+                             BorderColor="#D7DDE8"
+                             BorderWidth="1"
+                             Margin="2,20,0,0"/>
+
+            </StackLayout>
+
         </StackLayout>
     </view:BaseContentPage.Content>
 </view:BaseContentPage>

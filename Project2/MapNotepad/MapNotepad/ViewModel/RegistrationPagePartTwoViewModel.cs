@@ -16,7 +16,10 @@ namespace MapNotepad.ViewModel
 
         #region ---commands---
         public ICommand NextButtonTapCommand => new Command(CreateAccountButtonTapCommand);
+        private ICommand _goToBackPageButtonTapCommand;
+        public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = new Command(OnButtonTapGoToBackPage));
 
+       
         List<string> list = new List<string>();
 
         #endregion
@@ -42,6 +45,10 @@ namespace MapNotepad.ViewModel
         private  void CreateAccountButtonTapCommand(object obj)
         {
             List<string> list = new List<string>();
+        }
+        private async void OnButtonTapGoToBackPage(object obj)
+        {
+            await _navigationService.GoBackAsync();
         }
 
         #endregion
