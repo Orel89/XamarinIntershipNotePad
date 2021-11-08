@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,7 +20,6 @@ namespace MapNotepad.Controls
           returnType: typeof(string),
           declaringType: typeof(CustomEntry),
           defaultValue: string.Empty);
-
         public string Placeholder
         {
             set => SetValue(PlaceholderProperty, value);
@@ -36,6 +35,7 @@ namespace MapNotepad.Controls
             set => SetValue(PlaceholderColorProperty, value);
             get => (Color)GetValue(PlaceholderColorProperty);
         }
+
         public static readonly BindableProperty SurroundColorProperty = BindableProperty.Create(
             propertyName: nameof(SurroundColor),
             returnType: typeof(Color),
@@ -46,6 +46,7 @@ namespace MapNotepad.Controls
             set => SetValue(SurroundColorProperty, value);
             get => (Color)GetValue(SurroundColorProperty);
         }
+
         public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
             propertyName: nameof(ImageSource),
             returnType: typeof(string),
@@ -56,6 +57,7 @@ namespace MapNotepad.Controls
             set => SetValue(ImageSourceProperty, value);
             get => (string)GetValue(ImageSourceProperty);
         }
+
         public static readonly BindableProperty TextProperty = BindableProperty.Create(
           propertyName: nameof(Text),
           returnType: typeof(string),
@@ -66,17 +68,42 @@ namespace MapNotepad.Controls
             set => SetValue(TextProperty, value);
             get => (string)GetValue(TextProperty);
         }
+
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(
            propertyName: nameof(TextColor),
            returnType: typeof(Color),
-           declaringType: typeof(CustomToolBar),
+           declaringType: typeof(CustomEntry),
            defaultValue: Color.Silver);
         public Color TextColor
         {
             set => SetValue(TextColorProperty, value);
             get => (Color)GetValue(TextColorProperty);
         }
+
+        public static readonly BindableProperty ButtonCommandProperty = BindableProperty.Create(
+          propertyName: nameof(ButtonCommand),
+          returnType: typeof(ICommand),
+          declaringType: typeof(CustomEntry),
+          defaultValue: null);
+        public ICommand ButtonCommand
+        {
+            set => SetValue(ButtonCommandProperty, value);
+            get => (ICommand)GetValue(ButtonCommandProperty);
+        }
+
+        public static readonly BindableProperty IsVisibleButtonProperty = BindableProperty.Create(
+         propertyName: nameof(IsVisibleButton),
+         returnType: typeof(bool),
+         declaringType: typeof(CustomEntry),
+         defaultValue: true);
+        public bool IsVisibleButton
+        {
+            set => SetValue(IsVisibleButtonProperty, value);
+            get => (bool)GetValue(IsVisibleButtonProperty);
+        }
+
         #endregion
+
         public CustomEntry()
         {
             InitializeComponent();

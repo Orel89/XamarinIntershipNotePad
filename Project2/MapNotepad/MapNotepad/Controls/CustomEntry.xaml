@@ -4,6 +4,7 @@
        x:Class="MapNotepad.Controls.CustomEntry"
        xmlns:controls="clr-namespace:MapNotepad.Controls"
        x:Name="customEntry"
+       HasShadow="False"
        BackgroundColor="{Binding SurroundColor, Source={x:Reference customEntry}}"
        Padding="12">
 
@@ -12,9 +13,18 @@
         <controls:NoBorderEntry Text="{Binding Text, Source={x:Reference customEntry}}"
                                 TextColor="{Binding TextColor, Source={x:Reference customEntry}}"
                                 Placeholder="{Binding Placeholder, Source={x:Reference customEntry}}"
-                                PlaceholderColor="{Binding PlaceholderColor, Source={x:Reference customEntry}}"/>
+                                PlaceholderColor="{Binding PlaceholderColor, Source={x:Reference customEntry}}"
+                                BackgroundColor="{Binding SurroundColor, Source={x:Reference customEntry}}"/>
 
-        
+        <ImageButton Aspect="Fill"
+                     HorizontalOptions="EndAndExpand"
+                     BackgroundColor="Transparent"
+                     HeightRequest="16"
+                     WidthRequest="16"
+                     Source="{Binding ImageSource, Source={x:Reference customEntry}}"
+                     IsVisible="{Binding IsVisibleButton, Source={x:Reference customEntry}}"
+                     Command="{Binding ButtonCommand, Source={x:Reference customEntry}}">
+        </ImageButton>
 
     </StackLayout>
 

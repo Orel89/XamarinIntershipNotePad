@@ -4,18 +4,20 @@
                       x:Class="MapNotepad.View.RegistrationPage"
                       xmlns:view="clr-namespace:MapNotepad.View"
                       xmlns:controls="clr-namespace:MapNotepad.Controls"
-                      >
+                      BackgroundColor="White">
 
     <view:BaseContentPage.Content>
+        
         <StackLayout>
+            
             <controls:CustomToolBar Title="Create an account"
                                     BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"
                                     ArrowLeftImage="leftArrow.png"/>
-            <StackLayout Padding="20,5,30,5">
+            <StackLayout Padding="16,5,16,5">
                 
                 <Label Text="Name" 
-                       TextColor="Black" 
-                       Margin="20,1,0,2"/>
+                       TextColor="#3D4E61" 
+                       Margin="12,1,0,2"/>
 
                 <controls:CustomEntry BorderColor="#E5E5E5"
                                       SurroundColor="White"
@@ -23,24 +25,30 @@
                                       PlaceholderColor="#858E9E"
                                       Text="{Binding Name}"
                                       TextColor="Black"
-                                      ImageSource=""/>
+                                      ImageSource="leftArrow.png"/>
                 
                 <Label Text="Email" 
                    TextColor="#858E9E" 
                    Margin="16,0,16,0"/>
+                
                 <Entry x:Name="email" 
                    
                    Text="{Binding Email}" 
                    Placeholder="Enter email" 
                    TextColor="#858E9E" 
                    Margin="16,0,16,0"/>
+                
                 <Button x:Name="next" 
                     BackgroundColor="#596EFB" 
                     Text="Next" 
                     TextColor="White" 
                     Margin="16,0,16,0" 
-                    Command="{Binding NextButtonTapCommand}" />
+                    Command="{Binding NextButtonTapCommand}"/>
+                
             </StackLayout>
+            
         </StackLayout>
+        
     </view:BaseContentPage.Content>
+    
 </view:BaseContentPage>
