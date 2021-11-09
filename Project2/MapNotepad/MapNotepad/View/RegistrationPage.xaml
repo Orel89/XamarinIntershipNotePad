@@ -24,8 +24,10 @@
                                       PlaceholderColor="#858E9E" 
                                       Text="{Binding Name}"
                                       TextColor="Black"
-                                      ImageSource="leftArrow.png"/>
-                
+                                      ImageSource="ic_clear.png"
+                                      IsVisibleButton ="{Binding IsVisibleNameEntryLeftButton}"
+                                      ButtonCommand="{Binding ClearEntryNameButtonTapCommand}"/>
+
                 <Label Text="Email" 
                        TextColor="#3D4E61" 
                        Margin="8,35,0,0"/>
@@ -35,7 +37,9 @@
                                       PlaceholderColor="#858E9E"
                                       Text="{Binding Email}"
                                       TextColor="Black"
-                                      ImageSource="leftArrow.png"/>
+                                      ImageSource="ic_clear.png"
+                                      IsVisibleButton ="{Binding IsVisibleEmailEntryLeftButton}"
+                                      ButtonCommand="{Binding ClearEntryEmailButtonTapCommand}"/>
 
                 <Button HorizontalOptions="Fill"
                         BackgroundColor="#596EFB" 

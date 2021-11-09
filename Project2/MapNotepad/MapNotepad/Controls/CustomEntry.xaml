@@ -15,14 +15,14 @@
                                 Placeholder="{Binding Placeholder, Source={x:Reference customEntry}}"
                                 PlaceholderColor="{Binding PlaceholderColor, Source={x:Reference customEntry}}"/>
 
-        <ImageButton Aspect="Fill"
+        <ImageButton Aspect="AspectFit"
                      HorizontalOptions="EndAndExpand"
                      BackgroundColor="Transparent"
-                     HeightRequest="10"
-                     WidthRequest="10"
+                     HeightRequest="18"
+                     WidthRequest="18"
                      Source="{Binding ImageSource, Source={x:Reference customEntry}}"
                      IsVisible="{Binding IsVisibleButton, Source={x:Reference customEntry}}"
-                     Command="{Binding ButtonCommand, Source={x:Reference customEntry}}">
+                     Command="{Binding ButtonCommand, Source={x:Reference customEntry}}" >
         </ImageButton>
 
     </StackLayout>

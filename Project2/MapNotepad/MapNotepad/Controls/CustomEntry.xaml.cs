@@ -90,7 +90,7 @@ namespace MapNotepad.Controls
          propertyName: nameof(IsVisibleButton),
          returnType: typeof(bool),
          declaringType: typeof(CustomEntry),
-         defaultValue: true,
+         defaultValue: false,
          defaultBindingMode: BindingMode.TwoWay);
         public bool IsVisibleButton
         {

@@ -2,6 +2,7 @@
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -22,9 +23,16 @@ namespace MapNotepad.ViewModel
         private ICommand _goToBackPageButtonTapCommand;
         public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = new Command(OnButtonTapGoToBackPage));
 
-        #endregion
-        #region ---public properties---
+        private ICommand clearEntryNameButtonTapCommand;
+        public ICommand ClearEntryNameButtonTapCommand => clearEntryNameButtonTapCommand ?? (clearEntryNameButtonTapCommand = new Command(OnClearEntryButtonTapCommand));
 
+        private ICommand clearEntryEmailButtonTapCommand;
+        public ICommand ClearEntryEmailButtonTapCommand => clearEntryEmailButtonTapCommand ?? (clearEntryEmailButtonTapCommand = new Command(OnClearEntryEmailButtonTapCommand));
+
+        #endregion
+
+        #region ---public properties---
+        private string emailValidationText = "oleksii";
         private string name;
         public string Name
         {
@@ -38,10 +46,42 @@ namespace MapNotepad.ViewModel
             get => email;
             set => SetProperty(ref email, value);
         }
+
+        private bool isVisibleNameEntryLeftButton;
+        public bool IsVisibleNameEntryLeftButton
+        {
+            get => isVisibleNameEntryLeftButton;
+            set => SetProperty(ref isVisibleNameEntryLeftButton, value);
+        }
+
+        private bool isVisibleEmailEntryLeftButton;
+        public bool IsVisibleEmailEntryLeftButton
+        {
+            get => isVisibleEmailEntryLeftButton;
+            set => SetProperty(ref isVisibleEmailEntryLeftButton, value);
+        }
+
         #endregion
 
-        #region ---private helpers---
-        
+        #region --- overrides ---
+
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+            switch (args.PropertyName)
+            {
+                case nameof(Name):
+                    IsVisibleNameEntryLeftButton = !String.IsNullOrWhiteSpace(Name);
+                    break;
+                case nameof(Email):
+                    IsVisibleEmailEntryLeftButton = !String.IsNullOrWhiteSpace(Email);
+                    break;
+            }
+        }
+
+        #endregion
+        #region ---execution commands---
+
         private async void OnButtonTapGoToBackPage(object obj)
         {
             await _navigationService.GoBackAsync();
@@ -54,7 +94,16 @@ namespace MapNotepad.ViewModel
 
             await _navigationService.NavigateAsync(nameof(RegistrationPagePartTwo),navigationParameters);
         }
+        
+        private void OnClearEntryButtonTapCommand(object obj)
+        {
+            Name = null;
+        }
 
+        private void OnClearEntryEmailButtonTapCommand(object obj)
+        {
+            Email = null;
+        }
         #endregion
     }
 }
