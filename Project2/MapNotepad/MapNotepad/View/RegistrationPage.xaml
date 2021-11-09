@@ -2,8 +2,10 @@
 <view:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       x:Class="MapNotepad.View.RegistrationPage"
+                      xmlns:local="clr-namespace:MapNotepad"
                       xmlns:view="clr-namespace:MapNotepad.View"
-                      xmlns:controls="clr-namespace:MapNotepad.Controls"
+                      xmlns:controls="clr-namespace:MapNotepad.Controls" 
+                      xmlns:behaviours="clr-namespace:MapNotepad.Behaviours"
                       BackgroundColor="White">
 
     <view:BaseContentPage.Content>
@@ -28,6 +30,7 @@
                                       IsVisibleButton ="{Binding IsVisibleNameEntryLeftButton}"
                                       ButtonCommand="{Binding ClearEntryNameButtonTapCommand}"/>
 
+
                 <Label Text="Email" 
                        TextColor="#3D4E61" 
                        Margin="8,35,0,0"/>
@@ -39,7 +42,15 @@
                                       TextColor="Black"
                                       ImageSource="ic_clear.png"
                                       IsVisibleButton ="{Binding IsVisibleEmailEntryLeftButton}"
-                                      ButtonCommand="{Binding ClearEntryEmailButtonTapCommand}"/>
+                                      ButtonCommand="{Binding ClearEntryEmailButtonTapCommand}">
+
+                    <controls:CustomEntry.Behaviors>
+
+                        <behaviours:CustomEntryValidationBehaviour Regex="{x:Static local:Constants.EMAIL_REGEX}"/>
+
+                    </controls:CustomEntry.Behaviors>
+
+                </controls:CustomEntry>
 
                 <Button HorizontalOptions="Fill"
                         BackgroundColor="#596EFB" 

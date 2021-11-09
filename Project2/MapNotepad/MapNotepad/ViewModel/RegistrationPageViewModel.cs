@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -31,8 +32,8 @@ namespace MapNotepad.ViewModel
 
         #endregion
 
-        #region ---public properties---
-        private string emailValidationText = "oleksii";
+        #region -- Public properties --
+
         private string name;
         public string Name
         {
@@ -71,10 +72,10 @@ namespace MapNotepad.ViewModel
             switch (args.PropertyName)
             {
                 case nameof(Name):
-                    IsVisibleNameEntryLeftButton = !String.IsNullOrWhiteSpace(Name);
+                    IsVisibleNameEntryLeftButton = !string.IsNullOrWhiteSpace(Name);
                     break;
                 case nameof(Email):
-                    IsVisibleEmailEntryLeftButton = !String.IsNullOrWhiteSpace(Email);
+                    IsVisibleEmailEntryLeftButton = !string.IsNullOrWhiteSpace(Email);
                     break;
             }
         }

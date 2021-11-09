@@ -87,11 +87,12 @@ namespace MapNotepad.Controls
         }
 
         public static readonly BindableProperty IsVisibleButtonProperty = BindableProperty.Create(
-         propertyName: nameof(IsVisibleButton),
-         returnType: typeof(bool),
-         declaringType: typeof(CustomEntry),
-         defaultValue: false,
-         defaultBindingMode: BindingMode.TwoWay);
+            propertyName: nameof(IsVisibleButton),
+            returnType: typeof(bool),
+            declaringType: typeof(CustomEntry),
+            defaultValue: false,
+            defaultBindingMode: BindingMode.TwoWay);
+
         public bool IsVisibleButton
         {
             set => SetValue(IsVisibleButtonProperty, value);
