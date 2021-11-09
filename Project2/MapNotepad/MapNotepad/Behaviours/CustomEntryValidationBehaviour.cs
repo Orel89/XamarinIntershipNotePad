@@ -47,7 +47,7 @@ namespace MapNotepad.Behaviours
         {
             if (e.PropertyName == CustomEntry.TextProperty.PropertyName && _entry.Text != null && Regex != null)
             {
-                _entry.BorderColor = IsTextValid(_entry.Text) ? Color.FromHex("#FFFFFF") : Color.FromHex("#000000");
+                _entry.BorderColor = IsTextValid(_entry.Text) ? Color.FromHex("#D7DDE8") : Color.FromHex("#ff0000");
             }
         }
 

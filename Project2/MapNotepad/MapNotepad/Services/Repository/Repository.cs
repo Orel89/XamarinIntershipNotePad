@@ -35,7 +35,7 @@ namespace MapNotepad.Services.Repository
             return _database.Value.DeleteAsync(Entity);
         }
 
-        public Task<List<T>> GetAllPinsAsync<T>(T Entity) where T : IEntityBase, new()
+        public Task<List<T>> GetAllItemsAsync<T>() where T : IEntityBase, new()
         {
             return _database.Value.Table<T>().ToListAsync();
         }

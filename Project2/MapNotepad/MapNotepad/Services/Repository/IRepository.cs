@@ -11,7 +11,7 @@ namespace MapNotepad.Services.Repository
         Task<int> InsertAsync<T>(T Entity) where T : IEntityBase, new();
         Task<int> UpdateAsync<T>(T Entity) where T : IEntityBase, new();
         Task<int> DeleteAsync<T>(T Entity) where T : IEntityBase, new();
-        Task<List<T>> GetAllPinsAsync<T>(T Entity) where T : IEntityBase, new();
+        Task<List<T>> GetAllItemsAsync<T>() where T : IEntityBase, new();
 
     }
 }

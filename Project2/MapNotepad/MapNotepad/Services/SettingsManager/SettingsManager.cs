@@ -17,10 +17,5 @@ namespace MapNotepad.Services.SettingsManager
             get => _settings.Login;
             set => _settings.Login = value;
         }
-        public string Password 
-        {
-            get => _settings.Password;
-            set => _settings.Password = value;
-        }
     }
 }

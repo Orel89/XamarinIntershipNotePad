@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Authentication\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="View\RegistrationPagePartTwo.xaml.cs">
       <DependentUpon>RegistrationPagePartTwo.xaml</DependentUpon>
     </Compile>

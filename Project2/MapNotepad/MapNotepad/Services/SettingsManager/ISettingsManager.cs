@@ -7,6 +7,5 @@ namespace MapNotepad.Services.SettingsManager
     public interface ISettingsManager
     {
         string Login { get; set; }
-        string Password { get; set; }
     }
 }
