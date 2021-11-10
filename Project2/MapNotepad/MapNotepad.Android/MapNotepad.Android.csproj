@@ -121,7 +121,7 @@
     <AndroidResource Include="Resources\drawable\leftArrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ControlsAndroid\" />
+    <AndroidResource Include="Resources\drawable\ic_eye.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_google.png" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -15,6 +16,20 @@ namespace MapNotepad.Controls
 
         #region ---public properties---
 
+        public static readonly BindableProperty LabelProperty =
+        BindableProperty.Create("Label", typeof(string), typeof(CustomEntry), string.Empty);
+        public string Label
+        {
+            set
+            {
+                SetValue(LabelProperty, value);
+            }
+            get
+            {
+                return (string)GetValue(LabelProperty);
+            }
+        }
+
         public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(
           propertyName: nameof(Placeholder),
           returnType: typeof(string),
@@ -26,6 +41,7 @@ namespace MapNotepad.Controls
             set => SetValue(PlaceholderProperty, value);
             get => (string)GetValue(PlaceholderProperty);
         }
+
         public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(
             propertyName: nameof(PlaceholderColor),
             returnType: typeof(Color),
@@ -99,7 +115,34 @@ namespace MapNotepad.Controls
             get => (bool)GetValue(IsVisibleButtonProperty);
         }
 
+        public static readonly BindableProperty IsMessageVisibleProperty = BindableProperty.Create(
+            propertyName: nameof(IsMessageVisible),
+            returnType: typeof(bool),
+            declaringType: typeof(CustomEntry),
+            defaultValue: false,
+            defaultBindingMode: BindingMode.TwoWay);
+
+        public bool IsMessageVisible
+        {
+            set => SetValue(IsMessageVisibleProperty, value);
+            get => (bool)GetValue(IsMessageVisibleProperty);
+        }
+
+        public static readonly BindableProperty MessageProperty = BindableProperty.Create(
+            propertyName: nameof(Message),
+            returnType: typeof(string),
+            declaringType: typeof(CustomEntry),
+            defaultBindingMode: BindingMode.TwoWay);
+
+        public string Message
+        {
+            set => SetValue(MessageProperty, value);
+            get => (string)GetValue(MessageProperty);
+        }
+
         #endregion
+
+        
 
         public CustomEntry()
         {

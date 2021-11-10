@@ -10,7 +10,7 @@ namespace MapNotepad.Behaviours
 {
     class CustomEntryValidationBehaviour : Behavior<CustomEntry>
     {
-
+        
         private CustomEntry _entry;
 
         public static readonly BindableProperty RegexProperty = BindableProperty.Create(
@@ -29,7 +29,7 @@ namespace MapNotepad.Behaviours
         protected override void OnAttachedTo(CustomEntry entry)
         {
             base.OnAttachedTo(entry);
-
+            
             _entry = entry;
             _entry.PropertyChanged += EntryPropertyChanged;
         }
@@ -47,7 +47,7 @@ namespace MapNotepad.Behaviours
         {
             if (e.PropertyName == CustomEntry.TextProperty.PropertyName && _entry.Text != null && Regex != null)
             {
-                _entry.BorderColor = IsTextValid(_entry.Text) ? Color.FromHex("#D7DDE8") : Color.FromHex("#ff0000");
+                (_entry.BorderColor, _entry.IsMessageVisible) = IsTextValid(_entry.Text) ? (Color.FromHex("#D7DDE8"), false) : (Color.FromHex("#ff0000"), true);
             }
         }
 

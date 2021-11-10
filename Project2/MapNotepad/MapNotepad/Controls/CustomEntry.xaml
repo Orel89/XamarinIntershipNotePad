@@ -7,24 +7,33 @@
        HasShadow="False"
        Padding="0">
 
-    <StackLayout Orientation="Horizontal"
+    <StackLayout>
+        
+        <StackLayout Orientation="Horizontal"
                  Padding="5,4,5,0">
 
-        <controls:NoBorderEntry Text="{Binding Text, Source={x:Reference customEntry}}"
+            <controls:NoBorderEntry Text="{Binding Text, Source={x:Reference customEntry}}"
                                 TextColor="{Binding TextColor, Source={x:Reference customEntry}}"
                                 Placeholder="{Binding Placeholder, Source={x:Reference customEntry}}"
                                 PlaceholderColor="{Binding PlaceholderColor, Source={x:Reference customEntry}}"/>
 
-        <ImageButton Aspect="AspectFit"
+            <ImageButton Aspect="AspectFit"
                      HorizontalOptions="EndAndExpand"
                      BackgroundColor="Transparent"
                      HeightRequest="18"
                      WidthRequest="18"
                      Source="{Binding ImageSource, Source={x:Reference customEntry}}"
                      IsVisible="{Binding IsVisibleButton, Source={x:Reference customEntry}}"
-                     Command="{Binding ButtonCommand, Source={x:Reference customEntry}}" >
-        </ImageButton>
+                     Command="{Binding ButtonCommand, Source={x:Reference customEntry}}" />
 
+        </StackLayout>
+
+        <Label Text="{Binding Message, Source={x:Reference customEntry}}"
+               IsVisible="{Binding IsMessageVisible, Source={x:Reference customEntry}}"
+               TextColor="Red"/>
+        
     </StackLayout>
+
+
 
 </Frame>
