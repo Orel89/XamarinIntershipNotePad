@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\MainProfilePage.xaml.cs">
+      <DependentUpon>MainProfilePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\RegistrationPagePartTwo.xaml.cs">
       <DependentUpon>RegistrationPagePartTwo.xaml</DependentUpon>
     </Compile>
@@ -32,6 +35,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\LoginPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\MainProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\Login_Register.xaml">

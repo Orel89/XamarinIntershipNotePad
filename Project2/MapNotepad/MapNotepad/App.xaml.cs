@@ -3,6 +3,7 @@ using MapNotepad.Services.Repository;
 using MapNotepad.Services.Services;
 using MapNotepad.View;
 using MapNotepad.ViewModel;
+using MapNotepad.Views;
 using Prism.Ioc;
 using Prism.Unity;
 using System;
@@ -27,6 +28,7 @@ namespace MapNotepad
 
             // Navigation
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+            containerRegistry.RegisterForNavigation<MainProfilePage, MainProfilePageViewModel>();
             containerRegistry.RegisterForNavigation<RegistrationPage, RegistrationPageViewModel>();
             containerRegistry.RegisterForNavigation<RegistrationPagePartTwo, RegistrationPagePartTwoViewModel>();
 
