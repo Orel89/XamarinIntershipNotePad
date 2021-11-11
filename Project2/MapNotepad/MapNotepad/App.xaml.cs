@@ -37,7 +37,9 @@ namespace MapNotepad
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            await NavigationService.NavigateAsync($"/{nameof(LoginPage)}");
+            MainPage = new MainProfilePage();
+
+            //await NavigationService.NavigateAsync($"/{nameof(LoginPage)}");
         }
         protected override void OnStart()
         {
