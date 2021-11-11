@@ -1,10 +1,14 @@
-﻿using MapNotepad.View;
+﻿using Acr.UserDialogs;
+using MapNotepad.Helpers;
+using MapNotepad.Services.Authentication;
+using MapNotepad.View;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -12,17 +16,18 @@ namespace MapNotepad.ViewModel
 {
     public class RegistrationPageViewModel : BaseViewModel
     {
-        public RegistrationPageViewModel(INavigationService navigationService) : base (navigationService)
+        IRegistration _registration;
+        public RegistrationPageViewModel(INavigationService navigationService, IRegistration registration) : base (navigationService)
         {
-
+            _registration = registration;
         }
         #region ---commands---
 
         private ICommand _toNextPageButtonTapCommand;
-        public ICommand ToNextPageButtonTapCommand => _toNextPageButtonTapCommand ?? (_toNextPageButtonTapCommand = new Command(OnButtonTapNextPage));
+        public ICommand ToNextPageButtonTapCommand => _toNextPageButtonTapCommand ?? (_toNextPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapNextPageAsync, () => false));
 
         private ICommand _goToBackPageButtonTapCommand;
-        public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = new Command(OnButtonTapGoToBackPage));
+        public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapGoToBackPage));
 
         private ICommand clearEntryNameButtonTapCommand;
         public ICommand ClearEntryNameButtonTapCommand => clearEntryNameButtonTapCommand ?? (clearEntryNameButtonTapCommand = new Command(OnClearEntryButtonTapCommand));
@@ -81,30 +86,49 @@ namespace MapNotepad.ViewModel
         }
 
         #endregion
+
         #region ---execution commands---
 
-        private async void OnButtonTapGoToBackPage(object obj)
+        private async Task OnButtonTapGoToBackPage()
         {
             await _navigationService.GoBackAsync();
         }
-        private async void OnButtonTapNextPage(object obj)
+        private async Task OnButtonTapNextPageAsync()
         {
-            var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("Name", Name);
-            navigationParameters.Add("Email", Email);
 
-            await _navigationService.NavigateAsync(nameof(RegistrationPagePartTwo),navigationParameters);
+            ConfirmConfig confirnConfig = new ConfirmConfig()
+            {
+                OkText = "Ok",
+                CancelText = string.Empty
+            };
+
+            if (_registration.IsEmailAvailable(email))
+            { 
+                var navigationParameters = new NavigationParameters();
+                navigationParameters.Add("Name", Name);
+                navigationParameters.Add("Email", Email);
+
+                await _navigationService.NavigateAsync(nameof(RegistrationPagePartTwo), navigationParameters);
+            }
+            else
+            {
+                confirnConfig.Message = "Email is already in database";
+                await UserDialogs.Instance.ConfirmAsync(confirnConfig);
+                
+            }
+          
         }
         
-        private void OnClearEntryButtonTapCommand(object obj)
+        private void OnClearEntryButtonTapCommand()
         {
-            Name = null;
+             Name = null;
         }
 
-        private void OnClearEntryEmailButtonTapCommand(object obj)
+        private void OnClearEntryEmailButtonTapCommand()
         {
             Email = null;
         }
+
         #endregion
     }
 }

@@ -11,8 +11,8 @@ namespace MapNotepad.Model
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string UserName { get; set; }
-        [Unique]
         public string Password { get; set; }
+        [Unique]
         public string Email { get; set; }
         public DateTime CreationTime {get; set;}
     }

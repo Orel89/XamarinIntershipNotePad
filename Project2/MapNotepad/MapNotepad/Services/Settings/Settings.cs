@@ -7,10 +7,10 @@ namespace MapNotepad.Services.Services
 {
     public class Settings : ISettings
     {
-        public string Login 
+        public int UserId 
         {
-            get => Preferences.Get(nameof(Login), string.Empty);
-            set => Preferences.Set(nameof(Login), value);
+            get => Preferences.Get(nameof(UserId), 0);
+            set => Preferences.Set(nameof(UserId), value);
         }
     }
 }

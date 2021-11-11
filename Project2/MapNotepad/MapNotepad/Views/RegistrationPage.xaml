@@ -3,44 +3,53 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       x:Class="MapNotepad.View.RegistrationPage"
                       xmlns:local="clr-namespace:MapNotepad"
-                      xmlns:view="clr-namespace:MapNotepad.View"
+                      xmlns:view="clr-namespace:MapNotepad.Views"
                       xmlns:controls="clr-namespace:MapNotepad.Controls" 
-                      xmlns:behaviours="clr-namespace:MapNotepad.Behaviours"
+                      xmlns:behaviours="clr-namespace:MapNotepad.Behaviours" 
+                      xmlns:converter="clr-namespace:MapNotepad.Converters" 
                       BackgroundColor="White">
 
+    <view:BaseContentPage.Resources>
+        <converter:MultiTriggerConverter x:Key="dataHasBeenEntered"/>
+    </view:BaseContentPage.Resources>
+
     <view:BaseContentPage.Content>
-        
+
         <StackLayout>
-            
+
             <controls:CustomToolBar Title="Create an account"
                                     BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"
                                     ArrowLeftImage="leftArrow.png"/>
             <StackLayout Padding="25,0,25,5">
-                
+
                 <Label Text="Name" 
                        TextColor="#3D4E61" 
                        Margin="8,15,0,0"/>
 
-                <controls:CustomEntry BorderColor="#D7DDE8"
+                <controls:CustomEntry x:Name="name"
+                                      BorderColor="#D7DDE8"
                                       Placeholder="Enter your name"
                                       PlaceholderColor="#858E9E" 
                                       Text="{Binding Name}"
                                       TextColor="Black"
                                       ImageSource="ic_clear.png"
                                       IsVisibleButton ="{Binding IsVisibleNameEntryLeftButton}"
-                                      ButtonCommand="{Binding ClearEntryNameButtonTapCommand}"/>
+                                      ButtonCommand="{Binding ClearEntryNameButtonTapCommand}">
 
+                </controls:CustomEntry>
 
                 <Label Text="Email" 
                        TextColor="#3D4E61" 
                        Margin="8,35,0,0"/>
 
-                <controls:CustomEntry BorderColor="#D7DDE8"
+                <controls:CustomEntry x:Name="email"
+                                      BorderColor="#D7DDE8"
                                       Placeholder="Enter email"
                                       PlaceholderColor="#858E9E"
                                       Text="{Binding Email}"
                                       TextColor="Black"
                                       ImageSource="ic_clear.png"
+                                      Message="Email is not valid"
                                       IsVisibleButton ="{Binding IsVisibleEmailEntryLeftButton}"
                                       ButtonCommand="{Binding ClearEntryEmailButtonTapCommand}">
 
@@ -57,7 +66,27 @@
                         Text="Create account" 
                         TextColor="White" 
                         Margin="2,60,0,0" 
-                        Command="{Binding ToNextPageButtonTapCommand}"/>
+                        IsEnabled="False"
+                        Command="{Binding ToNextPageButtonTapCommand}">
+
+                    <Button.Triggers>
+
+                        <MultiTrigger TargetType="Button">
+
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding Source={x:Reference name}, Path=Text.Length, Converter={StaticResource dataHasBeenEntered}}"
+                                                  Value="true" />
+                                <BindingCondition Binding="{Binding Source={x:Reference email},Path=Text.Length, Converter={StaticResource dataHasBeenEntered}}"
+                                                  Value="true" />
+                            </MultiTrigger.Conditions>
+
+                            <Setter Property="IsEnabled" Value="true" />
+
+                        </MultiTrigger>
+
+                    </Button.Triggers>
+
+                </Button>
 
                 <StackLayout Orientation="Horizontal"
                              Margin="2,20,0,0">
@@ -66,7 +95,7 @@
                              VerticalOptions="Center"
                              BackgroundColor="#D7DDE8"
                              HorizontalOptions="FillAndExpand"/>
-                    
+
                     <Label Text="or"/>
 
                     <BoxView HeightRequest="1"
@@ -75,7 +104,7 @@
                              HorizontalOptions="FillAndExpand"/>
 
                 </StackLayout>
-                
+
                 <ImageButton Source="ic_google.png"
                              HeightRequest="45"
                              BackgroundColor="White"
@@ -84,9 +113,9 @@
                              Margin="2,20,0,0"/>
 
             </StackLayout>
-            
+
         </StackLayout>
-        
+
     </view:BaseContentPage.Content>
-    
+
 </view:BaseContentPage>

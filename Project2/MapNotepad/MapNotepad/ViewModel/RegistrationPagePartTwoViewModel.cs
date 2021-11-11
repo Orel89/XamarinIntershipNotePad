@@ -1,7 +1,13 @@
-﻿using Prism.Navigation;
+﻿using Acr.UserDialogs;
+using MapNotepad.Helpers;
+using MapNotepad.Services.Authentication;
+using MapNotepad.View;
+using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -9,44 +15,84 @@ namespace MapNotepad.ViewModel
 {
     public class RegistrationPagePartTwoViewModel : BaseViewModel
     {
-        public RegistrationPagePartTwoViewModel(INavigationService navigationService) : base (navigationService)
+
+        private IRegistration _registration;
+        private string _name;
+        private string _email;
+        public RegistrationPagePartTwoViewModel(INavigationService navigationService, IRegistration registration) : base (navigationService)
         {
-            
+            _registration = registration;
         }
 
         #region ---commands---
-        public ICommand NextButtonTapCommand => new Command(CreateAccountButtonTapCommand);
-        private ICommand _goToBackPageButtonTapCommand;
-        public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = new Command(OnButtonTapGoToBackPage));
 
-       
-        List<string> list = new List<string>();
+        private ICommand _createAccountButtonTapCommand;
+        public ICommand CreateAccountButtonTapCommand => _createAccountButtonTapCommand ?? (_createAccountButtonTapCommand = SingleExecutionCommand.FromFunc(ExecuteCreateAccountButtonTapCommand));
+
+        private ICommand _goToBackPageButtonTapCommand;
+        public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapGoToBackPage));
+
+        private ICommand _hideEntryPasswordButtonTapCommand;
+        public ICommand HideEntryPasswordButtonTapCommand => _hideEntryPasswordButtonTapCommand ?? (_hideEntryPasswordButtonTapCommand = new Command(HidePasswordEntryButtonTapCommand));
 
         #endregion
 
         #region ---public properties---
 
-        private string password;
+        private string _password;
         public string Password
         {
-            get => password;
-            set => SetProperty(ref password, value);
+            get => _password;
+            set => SetProperty(ref _password, value);
         }
-        private string confirmpassword;
+
+        private string _confirmpassword;
         public string ConfirmPassword
         {
-            get => password;
-            set => SetProperty(ref confirmpassword, value);
+            get => _confirmpassword;
+            set => SetProperty(ref _confirmpassword, value);
         }
+
+        private bool _isVisiblePasswordEntryLeftButton;
+        public bool IsVisiblePasswordEntryLeftButton
+        {
+            get => _isVisiblePasswordEntryLeftButton;
+            set => SetProperty(ref _isVisiblePasswordEntryLeftButton, value);
+        }
+
+        private bool _isPassword = true;
+        public bool IsPassword
+        {
+            get => _isPassword;
+            set => SetProperty(ref _isPassword, value);
+        }
+
         #endregion
 
-        #region ---private helpers---
+        #region --- execution commands ---
 
-        private  void CreateAccountButtonTapCommand(object obj)
+        private async Task ExecuteCreateAccountButtonTapCommand()
         {
-            List<string> list = new List<string>();
+            ConfirmConfig confirnConfig = new ConfirmConfig()
+            {
+                OkText = "Ok",
+                CancelText = string.Empty
+            };
+                
+            confirnConfig.Message = await _registration.RegistrationAsync(_email, _password, _confirmpassword, _name);
+
+            await UserDialogs.Instance.ConfirmAsync(confirnConfig);
+
+            await _navigationService.NavigateAsync(nameof(LoginPage));
+
         }
-        private async void OnButtonTapGoToBackPage(object obj)
+
+        private void HidePasswordEntryButtonTapCommand()
+        {
+            IsPassword = !IsPassword;
+        }
+
+        private async Task OnButtonTapGoToBackPage()
         {
             await _navigationService.GoBackAsync();
         }
@@ -55,13 +101,25 @@ namespace MapNotepad.ViewModel
 
         #region ---ovverides---
 
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+            switch (args.PropertyName)
+            {
+                case nameof(Password):
+                    IsVisiblePasswordEntryLeftButton = !string.IsNullOrWhiteSpace(Password);
+                    break;
+            }
+        }
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            list.Add(parameters.GetValue<string>("Name"));
-            list.Add(parameters.GetValue<string>("Email"));
+            _name = parameters.GetValue<string>("Name");
+            _email = parameters.GetValue<string>("Email");
 
         }
+
         #endregion
     }
 }

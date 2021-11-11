@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
-namespace MapNotepad.View
+namespace MapNotepad.Views
 {
     public class BaseContentPage : ContentPage
     {

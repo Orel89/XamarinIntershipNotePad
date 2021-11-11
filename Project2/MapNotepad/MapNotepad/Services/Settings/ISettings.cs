@@ -6,7 +6,7 @@ namespace MapNotepad.Services.Services
 {
     public interface ISettings
     {
-        string Login { get;set; }
+        int UserId { get;set; }
 
     }
 }

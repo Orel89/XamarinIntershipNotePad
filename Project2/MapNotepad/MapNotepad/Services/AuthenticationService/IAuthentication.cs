@@ -1,15 +1,17 @@
-﻿using System;
+﻿using MapNotepad.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MapNotepad.Services.Authentication
 {
     public interface IAuthentication
     {
+        UserModel User { get; }
+        Task<string> AuthorizationAsync(string email, string password);
         bool IsPasswordMatched(string passsword);
-        bool Registration(string login, string password);
-        bool Authorization(string login, string password);
-        bool IsEmailAvailable(string email);
         bool IsEmailMatched(string email);
+        void LogOut();
     }
 }

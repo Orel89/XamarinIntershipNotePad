@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <view:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:view="clr-namespace:MapNotepad.View" 
+                      xmlns:view="clr-namespace:MapNotepad.Views" 
                       xmlns:controls="clr-namespace:MapNotepad.Controls"
                       x:Class="MapNotepad.View.RegistrationPagePartTwo">
     <view:BaseContentPage.Content>
@@ -19,9 +19,12 @@
                 <controls:CustomEntry BorderColor="#D7DDE8"
                                       Placeholder="Create password"
                                       PlaceholderColor="#858E9E" 
-                                      Text="{Binding Name}"
+                                      Text="{Binding Password}"
+                                      IsPassword="{Binding IsPassword}"
+                                      IsVisibleButton="{Binding IsVisiblePasswordEntryLeftButton}"
+                                      ButtonCommand="{Binding HideEntryPasswordButtonTapCommand}"
                                       TextColor="Black"
-                                      ImageSource="leftArrow.png"/>
+                                      ImageSource="ic_eye.png"/>
 
                 <Label Text="Confirm Password" 
                        TextColor="#3D4E61" 
@@ -30,9 +33,10 @@
                 <controls:CustomEntry BorderColor="#D7DDE8"
                                       Placeholder="Repeat password"
                                       PlaceholderColor="#858E9E"
-                                      Text="{Binding Email}"
+                                      Text="{Binding ConfirmPassword}"
                                       TextColor="Black"
-                                      ImageSource="leftArrow.png"/>
+                                      Message="Password mismatch"
+                                      ImageSource="ic_eye.png"/>
 
                 <Button x:Name="next"
                         HorizontalOptions="Fill"
@@ -40,7 +44,7 @@
                         Text="Next" 
                         TextColor="White" 
                         Margin="2,60,0,0" 
-                        Command="{Binding ToNextPageButtonTapCommand}"/>
+                        Command="{Binding CreateAccountButtonTapCommand}"/>
 
                 <StackLayout Orientation="Horizontal"
                              Margin="2,20,0,0">

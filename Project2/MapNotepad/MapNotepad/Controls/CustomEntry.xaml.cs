@@ -128,6 +128,18 @@ namespace MapNotepad.Controls
             get => (bool)GetValue(IsMessageVisibleProperty);
         }
 
+        public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(
+            propertyName: nameof(IsPassword),
+            returnType: typeof(bool),
+            declaringType: typeof(CustomEntry),
+            defaultBindingMode: BindingMode.TwoWay);
+
+        public bool IsPassword
+        {
+            set => SetValue(IsPasswordProperty, value);
+            get => (bool)GetValue(IsPasswordProperty);
+        }
+
         public static readonly BindableProperty MessageProperty = BindableProperty.Create(
             propertyName: nameof(Message),
             returnType: typeof(string),
@@ -141,8 +153,6 @@ namespace MapNotepad.Controls
         }
 
         #endregion
-
-        
 
         public CustomEntry()
         {
