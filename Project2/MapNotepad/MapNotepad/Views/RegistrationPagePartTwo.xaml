@@ -24,7 +24,7 @@
                                       IsVisibleButton="{Binding IsVisiblePasswordEntryLeftButton}"
                                       ButtonCommand="{Binding HideEntryPasswordButtonTapCommand}"
                                       TextColor="Black"
-                                      ImageSource="ic_eye.png"/>
+                                      ImageSource="{Binding ImageButton}"/>
 
                 <Label Text="Confirm Password" 
                        TextColor="#3D4E61" 

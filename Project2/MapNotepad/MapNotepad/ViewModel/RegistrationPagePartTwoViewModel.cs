@@ -53,6 +53,13 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _confirmpassword, value);
         }
 
+        private string _imageButton = "ic_eye_off.png";
+        public string ImageButton
+        {
+            get => _imageButton;
+            set => SetProperty(ref _imageButton, value);
+        }
+
         private bool _isVisiblePasswordEntryLeftButton;
         public bool IsVisiblePasswordEntryLeftButton
         {
@@ -90,6 +97,14 @@ namespace MapNotepad.ViewModel
         private void HidePasswordEntryButtonTapCommand()
         {
             IsPassword = !IsPassword;
+            if (IsPassword)
+            {
+                ImageButton = "ic_eye_off.png";
+            }
+            else
+            {
+                ImageButton ="ic_eye.png";
+            }
         }
 
         private async Task OnButtonTapGoToBackPage()
