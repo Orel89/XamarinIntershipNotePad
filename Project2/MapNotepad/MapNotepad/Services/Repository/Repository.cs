@@ -1,4 +1,5 @@
 ﻿using MapNotepad.Model;
+using MapNotepad.Model.Pin;
 using SQLite;
 using System;
 using System.Collections.Generic;

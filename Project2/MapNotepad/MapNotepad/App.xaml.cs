@@ -29,6 +29,7 @@ namespace MapNotepad
             // Navigation
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<MainProfilePage, MainProfilePageViewModel>();
+            containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
             containerRegistry.RegisterForNavigation<RegistrationPage, RegistrationPageViewModel>();
             containerRegistry.RegisterForNavigation<RegistrationPagePartTwo, RegistrationPagePartTwoViewModel>();
 
@@ -39,7 +40,7 @@ namespace MapNotepad
             InitializeComponent();
             //MainPage = new MainProfilePage();
 
-            await NavigationService.NavigateAsync($"/{nameof(MainProfilePage)}");
+            await NavigationService.NavigateAsync($"/{nameof(MapPage)}");
         }
         protected override void OnStart()
         {

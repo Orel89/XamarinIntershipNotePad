@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MapNotepad.Model
+namespace MapNotepad.Model.Pin
 {
     [Table("Pins")]
     public class PinModel : IEntityBase
