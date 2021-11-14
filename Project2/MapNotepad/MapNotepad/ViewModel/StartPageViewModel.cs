@@ -9,9 +9,9 @@ using Xamarin.Forms;
 
 namespace MapNotepad.ViewModel
 {
-    public class LoginPageViewModel : BaseViewModel
+    public class StartPageViewModel : BaseViewModel
     {
-        public LoginPageViewModel(INavigationService navigationService): base (navigationService)
+        public StartPageViewModel(INavigationService navigationService): base (navigationService)
         {
 
         }

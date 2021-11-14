@@ -2,7 +2,7 @@
 <view:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:view="clr-namespace:MapNotepad.Views"
-                      x:Class="MapNotepad.View.LoginPage"
+                      x:Class="MapNotepad.View.StartPage"
                       BackgroundColor="White"
                       >
     <view:BaseContentPage.Content>

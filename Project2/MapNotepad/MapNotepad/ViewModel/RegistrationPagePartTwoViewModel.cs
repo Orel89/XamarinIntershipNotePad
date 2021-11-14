@@ -90,7 +90,7 @@ namespace MapNotepad.ViewModel
 
             await UserDialogs.Instance.ConfirmAsync(confirnConfig);
 
-            await _navigationService.NavigateAsync(nameof(LoginPage));
+            await _navigationService.NavigateAsync(nameof(StartPage));
 
         }
 
