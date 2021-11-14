@@ -29,9 +29,6 @@ namespace MapNotepad.Services.Authentication
 
         public UserModel User { get => _user; }
 
-
-
-
         #endregion
 
         #region --- public methods ---

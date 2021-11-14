@@ -47,12 +47,14 @@ namespace MapNotepad.Services.Authentication
                 {
                     success = "Wrong Password";
 
-                    if (IsPasswordMatched(email))
+                    if (IsPasswordMatched(password))
                     {
                         if (_user.Password == password)
                         {
                             success = "successfulAuthentication";
                             _settings.UserId = _user.Id;
+                            _settings.UserEmail = _user.Email;
+                            _settings.UserPassword = _user.Password;
                         }
                         
                     }
@@ -99,7 +101,9 @@ namespace MapNotepad.Services.Authentication
 
         public void LogOut()
         {
-            _settings.UserId = 0;
+            _settings.UserId = default;
+            _settings.UserPassword = default;
+            _settings.UserEmail = default;
         }
 
         #endregion

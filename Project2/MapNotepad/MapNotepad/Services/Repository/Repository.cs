@@ -29,7 +29,6 @@ namespace MapNotepad.Services.Repository
            });
         }
 
-
         #region ---common methods---
         public Task<int> DeleteAsync<T>(T Entity) where T : IEntityBase, new()
         {
