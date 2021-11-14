@@ -1,4 +1,5 @@
 ﻿using MapNotepad.Services.Authentication;
+using MapNotepad.Services.PinService;
 using MapNotepad.Services.Repository;
 using MapNotepad.Services.Services;
 using MapNotepad.View;
@@ -14,16 +15,14 @@ namespace MapNotepad
 {
     public partial class App : PrismApplication
     {
-        public App()
-        {
-
-        }
+        public App(){}
         #region ---Overrides---
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //Services
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
             containerRegistry.RegisterInstance<ISettings>(Container.Resolve<Settings>());
+            containerRegistry.RegisterInstance<IPinService>(Container.Resolve<IPinService>());
             containerRegistry.RegisterInstance<IRegistration>(Container.Resolve<Registration>());
 
             // Navigation
