@@ -16,8 +16,9 @@
                         TextColor="#FEFEFD"
                         BackgroundColor="#596EFB"
                         Margin="16,0,16,16"
-                        HorizontalOptions="Fill">
-                    
+                        HorizontalOptions="Fill"
+                        Command="{Binding GoToLoginPageButtonTapCommand}">
+
                 </Button>
                 <Button Grid.Row="2"
                         Text="Create account"

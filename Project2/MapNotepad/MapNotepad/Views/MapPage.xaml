@@ -6,19 +6,13 @@
              xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
              x:Class="MapNotepad.Views.MapPage">
 
-    <!--<controls:CustomMap ItemsSource="{Binding Pins}">
-
-        <controls:CustomMap.Behaviors>
-
-            <prism:EventToCommandBehavior EventArgsParameterPath="Pin"
-                                          EventName="PinClicked"
-                                          Command="{Binding PinTapCommand}"/>
-
-        </controls:CustomMap.Behaviors>
-        
-    </controls:CustomMap>-->
-    <StackLayout>
-        <maps:Map />
-    </StackLayout>
+    <ContentPage.Content>
+        <Grid>
+            <controls:CustomMap
+                PinSource="{Binding PinCollection}">
+            </controls:CustomMap>
+                
+        </Grid>
+    </ContentPage.Content>
     
 </ContentPage>

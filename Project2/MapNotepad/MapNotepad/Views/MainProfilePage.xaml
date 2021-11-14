@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<view:BaseContentPage xmlns:view="clr-namespace:MapNotepad.Views" 
-                      xmlns="http://xamarin.com/schemas/2014/forms"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-                      xmlns:map="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
-                      x:Class="MapNotepad.Views.MainProfilePage">
-    <view:BaseContentPage.Content>
-        <map:Map/>
-    </view:BaseContentPage.Content>
-</view:BaseContentPage>
+<controls:CustomTabbedPage xmlns:controls="clr-namespace:MapNotepad.Controls" 
+                           xmlns:local="clr-namespace:MapNotepad.Views" 
+                           xmlns="http://xamarin.com/schemas/2014/forms"
+                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                           xmlns:map="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+                           x:Class="MapNotepad.Views.MainProfilePage">
+    <controls:CustomTabbedPage.Children>
+        <local:MapPage Title="Map" IconImageSource="ic_map.png"/>
+    </controls:CustomTabbedPage.Children>
+</controls:CustomTabbedPage>
