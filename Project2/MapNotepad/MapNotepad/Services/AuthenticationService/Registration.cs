@@ -29,6 +29,9 @@ namespace MapNotepad.Services.Authentication
 
         public UserModel User { get => _user; }
 
+
+
+
         #endregion
 
         #region --- public methods ---
@@ -83,12 +86,12 @@ namespace MapNotepad.Services.Authentication
                         CreationTime = DateTime.Now
                     };
                 }
-                    
+
                 var userId = _repository.InsertAsync(_user);
 
             }
             return await Task.Run(() => messageForUser);
-          
+
         }
 
         public bool IsEmailAvailable(string email)
@@ -104,7 +107,7 @@ namespace MapNotepad.Services.Authentication
                     result = true;
                 }
             }
-        
+
             return result;
         }
 

@@ -56,7 +56,7 @@ namespace MapNotepad.Services.Authentication
                             _settings.UserEmail = _user.Email;
                             _settings.UserPassword = _user.Password;
                         }
-                        
+
                     }
                 }
             }
@@ -88,9 +88,9 @@ namespace MapNotepad.Services.Authentication
 
             if (!string.IsNullOrWhiteSpace(password))
             {
-                if (password.Length >=6)
+                if (password.Length >= 6)
                 {
-                    if (Regex.IsMatch(password.Trim(),@"[0-9]") && Regex.IsMatch(password.Trim(), @"[A-Z]"))
+                    if (Regex.IsMatch(password.Trim(), @"[0-9]") && Regex.IsMatch(password.Trim(), @"[A-Z]"))
                     {
                         result = true;
                     }
