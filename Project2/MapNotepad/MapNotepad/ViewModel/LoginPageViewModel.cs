@@ -45,11 +45,9 @@ namespace MapNotepad.ViewModel
 
         #region -- Public properties --
 
-        private string _password;
-        public string Password
+        private Task OnClearLabelAsync()
         {
-            get => _password;
-            set => SetProperty(ref _password, value);
+            throw new NotImplementedException();
         }
 
         private string email;

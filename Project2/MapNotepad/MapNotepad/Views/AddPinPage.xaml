@@ -25,7 +25,7 @@
                                   TextColor="Black"
                                   ImageSource="ic_clear.png"
                                   IsVisibleButton ="{Binding IsVisibleEntryLabelLeftButton}"
-                                  ButtonCommand="{Binding ClearEntryLabelButtonTapCommand}"/>
+                                  ButtonCommand="{Binding ClearEntryLabelButtonCommand}"/>
             
             <Label Text="Description"
                    TextColor="#3D4E61" 
@@ -39,7 +39,7 @@
                                   TextColor="Black"
                                   ImageSource="ic_clear.png"
                                   IsVisibleButton ="{Binding IsVisibleEntryDescriptionLeftButton}"
-                                  ButtonCommand="{Binding ClearEntryDescriptionButtonTapCommand}"/>
+                                  ButtonCommand="{Binding ClearEntryDescriptionButtonCommand}"/>
             
             <Label Text="Coordinates"
                    TextColor="#3D4E61" 
