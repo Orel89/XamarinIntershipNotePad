@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<view:BaseContentPage xmlns:view="clr-namespace:MapNotepad.Views"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      x:Class="MapNotepad.Views.PinListPage">
+
+    <view:BaseContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <ListView HasUnevenRows="True"
+                      ItemsSource="{Binding ObservPinCollection}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Label Text="{Binding Label}"/>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+            <Frame BackgroundColor="Blue"
+               HorizontalOptions="End"
+               VerticalOptions="End"
+               CornerRadius="90"
+               HasShadow="True">
+                <ImageButton Margin='0'
+                         Background="Black"
+                         CornerRadius="45"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Source="ic_plus.png"
+                         Command="{Binding OnAddButtonTapCommand}"/>
+            </Frame>
+        </Grid>
+    </view:BaseContentPage.Content>
+</view:BaseContentPage>
