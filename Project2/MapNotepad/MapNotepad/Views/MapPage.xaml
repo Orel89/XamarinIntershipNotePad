@@ -7,7 +7,9 @@
              x:Class="MapNotepad.Views.MapPage">
 
     <ContentPage.Content>
-        <Grid>
+        <Grid HorizontalOptions="Fill"
+              VerticalOptions="Fill"
+              RowDefinitions="*">
             <controls:CustomMap
                 PinSource="{Binding PinCollection}">
             </controls:CustomMap>
