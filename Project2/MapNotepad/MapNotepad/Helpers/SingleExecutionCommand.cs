@@ -36,6 +36,11 @@ namespace MapNotepad.Helpers
             return ret;
         }
 
+        internal static object FromFunc(object onGoBackCommandAsync)
+        {
+            throw new NotImplementedException();
+        }
+
         public static SingleExecutionCommand FromFunc(Func<object, Task> command, Func<object, bool> canExecute = null, int delayMillisec = 400)
         {
             if (command == null)

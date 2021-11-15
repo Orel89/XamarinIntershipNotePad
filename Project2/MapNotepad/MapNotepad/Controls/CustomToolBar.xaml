@@ -4,9 +4,9 @@
              x:Class="MapNotepad.Controls.CustomToolBar"
              x:Name="customToolBar">
   <ContentView.Content>
-      <StackLayout Orientation="Horizontal"
-                   >
-            <ImageButton Source="{Binding ArrowLeftImage, Source={x:Reference customToolBar} }"
+      <StackLayout Orientation="Horizontal">
+          
+            <ImageButton Source="{Binding ArrowLeftImage, Source={x:Reference customToolBar}}"
                    HorizontalOptions="StartAndExpand"
                    WidthRequest="10"
                    HeightRequest="10"
@@ -19,8 +19,13 @@
                    HorizontalOptions="StartAndExpand"
                    FontSize="20"
                    Margin="0,20,0,0"
-                   FontAttributes="Bold"
-                   />
-      </StackLayout>
+                   FontAttributes="Bold"/>
+            <ImageButton Source="{Binding RightImage, Source={x:Reference customToolBar}}"
+                         HorizontalOptions="End"
+                         WidthRequest="10"
+                         HeightRequest="10"
+                         BackgroundColor="Transparent"
+                         Command="{Binding RightButtonCommand, Source={x:Reference customToolBar}}"/>
+        </StackLayout>
   </ContentView.Content>
 </ContentView>
