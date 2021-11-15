@@ -3,9 +3,7 @@
                        xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
                        xmlns:converter="clr-namespace:MapNotepad.Converters" 
-                       xmlns:behaviours="clr-namespace:MapNotepad.Behaviours" 
                        xmlns:controls="clr-namespace:MapNotepad.Controls"
-                       xmlns:local="clr-namespace:MapNotepad"
                        x:Class="MapNotepad.Views.LoginPage">
 
     <view:BaseContentPage.Resources>
