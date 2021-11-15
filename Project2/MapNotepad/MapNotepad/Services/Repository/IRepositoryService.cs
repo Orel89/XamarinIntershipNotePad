@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MapNotepad.Services.Repository
 {
-    public interface IRepository
+    public interface IRepositoryService
     {
         Task<int> InsertAsync<T>(T Entity) where T : IEntityBase, new();
         Task<int> UpdateAsync<T>(T Entity) where T : IEntityBase, new();

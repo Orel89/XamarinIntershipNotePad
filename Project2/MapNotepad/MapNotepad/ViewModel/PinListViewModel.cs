@@ -55,7 +55,7 @@ namespace MapNotepad.ViewModel
             var observUserPinCollection = new ObservableCollection<PinModel>();
             var userPins = await _pinService.GetPinsAsync();
 
-            foreach (var p in userPins)
+            foreach (var p in userPins.Result)
             {
                 observUserPinCollection.Add(p);
             }

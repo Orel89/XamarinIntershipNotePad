@@ -23,12 +23,8 @@ namespace MapNotepad.ViewModel
             : base(navigationService)
         {
             _pinService = pinService;
-            InitAsync();
         }
 
-        #region --- commands ---
-
-        #endregion
         #region -- Public properties --
 
         private ObservableCollection<PinViewModel> _Pins;
@@ -38,24 +34,45 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _Pins, value);
         }
 
-        private List<PinModel> _pinCollection;
-        public List<PinModel> PinCollection
-        {
-            get => _pinCollection;
-            set => SetProperty(ref _pinCollection, value);
-        }
+        private ICommand _PinClickedCommand;
+        public ICommand PinClickedCommand => _PinClickedCommand ?? (_PinClickedCommand = SingleExecutionCommand.FromFunc<Position>(OnPinClickedCommandAsync));
+
 
         #endregion
 
         #region -- Overrides --
 
+        public override async void InitializeAsync(INavigationParameters parameters)
+        {
+            base.InitializeAsync(parameters);
+
+            await InitPins();
+        }
+
         #endregion
 
         #region -- Private helpers --
 
-        private async void InitAsync()
+        private async Task InitPins()
         {
-            PinCollection = await _pinService.GetPinsAsync();
+            var getPinsResult = await _pinService.GetPinsAsync();
+
+            if (getPinsResult.IsSuccess)
+            {
+                Pins = new ObservableCollection<PinViewModel>(getPinsResult.Result.Select(x => x.ToPinViewModel()));
+
+                foreach (var pin in Pins)
+                {
+                    pin.TapCommand = PinClickedCommand;
+                }
+            }
+        }
+
+        private Task OnPinClickedCommandAsync(Position arg)
+        {
+            var a = arg;
+
+            return Task.CompletedTask;
         }
 
         #endregion

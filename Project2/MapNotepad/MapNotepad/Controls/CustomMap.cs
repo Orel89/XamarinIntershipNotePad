@@ -18,53 +18,19 @@ namespace MapNotepad.Controls
             UiSettings.MyLocationButtonEnabled = true;
             MyLocationEnabled = true;
             UiSettings.ZoomControlsEnabled = false;
-            MapClicked += CustomMapClicked;
-            PinClicked += CustomMapPinClicked;
         }
-
-        #region --- execute command ---
-
-        private void CustomMapClicked(object sender, MapClickedEventArgs e)
-        {
-            MapClickedCommand?.Execute(null);
-        }
-
-        private void CustomMapPinClicked(object sender, PinClickedEventArgs e)
-        {
-            var model = PinSource?.FirstOrDefault(item => item.Label == e.Pin.Label);
-            if (model != null)
-                PinClickedCommand?.Execute(model);
-        }
-
-        #endregion
-
 
         #region --- Public Properties ---
 
-        public static readonly BindableProperty MapClickedCommandProperty =
-         BindableProperty.Create(nameof(MapClickedCommand), typeof(ICommand), typeof(CustomMap), null, BindingMode.TwoWay);
-        public ICommand MapClickedCommand
+        public static readonly BindableProperty PinsSourceProperty = BindableProperty.Create(
+            propertyName: nameof(PinsSource),
+            returnType: typeof(IEnumerable<IPin>),
+            declaringType: typeof(CustomMap));
+
+        public IEnumerable<IPin> PinsSource
         {
-            get { return (ICommand)GetValue(MapClickedCommandProperty); }
-            set { SetValue(MapClickedCommandProperty, value); }
-        }
-
-        public static readonly BindableProperty PinSourceProperty =
-            BindableProperty.Create(nameof(PinSource), typeof(List<PinModel>), typeof(CustomMap), null);
-
-        public List<PinModel> PinSource
-        {
-            get { return (List<PinModel>)GetValue(PinSourceProperty); }
-            set { SetValue(PinSourceProperty, value); }
-        }
-
-        public static readonly BindableProperty PinClickedCommandProperty =
-        BindableProperty.Create(nameof(PinClickedCommand), typeof(ICommand), typeof(CustomMap), null, BindingMode.TwoWay);
-
-        public ICommand PinClickedCommand
-        {
-            get { return (ICommand)GetValue(PinClickedCommandProperty); }
-            set { SetValue(PinClickedCommandProperty, value); }
+            get => (IEnumerable<IPin>)GetValue(PinsSourceProperty);
+            set => SetValue(PinsSourceProperty, value);
         }
 
         #endregion
@@ -73,7 +39,7 @@ namespace MapNotepad.Controls
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(PinSource) && PinSource != null)
+            if (propertyName == nameof(PinsSource) && PinsSource != null)
             {
                 UpdatePins();
             }
@@ -85,7 +51,7 @@ namespace MapNotepad.Controls
         {
             Pins.Clear();
 
-            foreach (var pin in PinSource)
+            foreach (var pin in PinsSource)
             {
                 Pins.Add(new Pin
                 {
@@ -94,7 +60,6 @@ namespace MapNotepad.Controls
                 });
 
             }
-
         }
 
         #endregion

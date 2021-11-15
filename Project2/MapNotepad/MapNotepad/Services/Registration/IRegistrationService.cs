@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MapNotepad.Services.Authentication
+namespace MapNotepad.Services.Registration
 {
-    public interface IRegistration
+    public interface IRegistrationService
     {
         UserModel User { get;}
         bool IsPasswordMatched(string passsword);

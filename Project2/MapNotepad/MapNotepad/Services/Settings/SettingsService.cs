@@ -5,7 +5,7 @@ using Xamarin.Essentials;
 
 namespace MapNotepad.Services.Services
 {
-    public class Settings : ISettings
+    public class SettingsManager : ISettingsManager
     {
         public int UserId
         {

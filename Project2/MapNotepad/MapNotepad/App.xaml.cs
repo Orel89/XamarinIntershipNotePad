@@ -1,6 +1,7 @@
 ﻿using MapNotepad.Services.Authentication;
 using MapNotepad.Services.PinService;
 using MapNotepad.Services.ProfileService;
+using MapNotepad.Services.Registration;
 using MapNotepad.Services.Repository;
 using MapNotepad.Services.Services;
 using MapNotepad.View;
@@ -21,12 +22,13 @@ namespace MapNotepad
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //Services
-            containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
-            containerRegistry.RegisterInstance<ISettings>(Container.Resolve<Settings>());
-            containerRegistry.RegisterInstance<IAuthentication>(Container.Resolve<Authentication>());
-            containerRegistry.RegisterInstance<IRegistration>(Container.Resolve<Registration>());       
+            containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());
+            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+            containerRegistry.RegisterInstance<IUserService>(Container.Resolve<UserService>());
+            containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationService>());
+            containerRegistry.RegisterInstance<IRegistrationService>(Container.Resolve<RegistrationService>());
             containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
-            containerRegistry.RegisterInstance<IProfileService>(Container.Resolve<ProfileService>());
+            containerRegistry.RegisterInstance<IUserService>(Container.Resolve<UserService>());
             
 
             // Navigation

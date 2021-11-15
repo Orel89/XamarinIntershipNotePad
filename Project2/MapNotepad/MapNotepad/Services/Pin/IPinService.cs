@@ -1,4 +1,5 @@
-﻿using MapNotepad.Model.Pin;
+﻿using MapNotepad.Helpers;
+using MapNotepad.Model.Pin;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,6 @@ namespace MapNotepad.Services.PinService
     public interface IPinService
     {
         Task AddPin(string label, string description, float longitude, float latitude, bool isfavorite);
-        Task<List<PinModel>> GetPinsAsync();
+        Task<AOResult<IEnumerable<PinModel>>> GetPinsAsync();
     }
 }

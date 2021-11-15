@@ -1,4 +1,5 @@
 ﻿using MapNotepad.Helpers;
+using MapNotepad.Services.ProfileService;
 using MapNotepad.View;
 using MapNotepad.Views;
 using Prism.Mvvm;
@@ -14,7 +15,9 @@ namespace MapNotepad.ViewModel
 {
     public class StartPageViewModel : BaseViewModel
     {
-        public StartPageViewModel(INavigationService navigationService) : base(navigationService)
+        private IUserService _userService;
+        public StartPageViewModel(INavigationService navigationService,
+                                  IUserService userServise) : base(navigationService)
         {
 
         }
@@ -49,6 +52,11 @@ namespace MapNotepad.ViewModel
         {
             await _navigationService.NavigateAsync(nameof(RegistrationPage));
         }
+
+        #endregion
+
+        #region --- Ovverides ---
+
 
         #endregion
     }

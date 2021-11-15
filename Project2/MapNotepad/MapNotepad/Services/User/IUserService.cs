@@ -5,7 +5,8 @@ using System.Text;
 
 namespace MapNotepad.Services.ProfileService
 {
-    interface IProfileService : ISettings
+    public interface IUserService
     {
+        int UserId { get; }
     }
 }

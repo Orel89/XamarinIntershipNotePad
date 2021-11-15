@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace MapNotepad.Services.Repository
 {
-    public class Repository : IRepository
+    public class RepositoryService : IRepositoryService
     {
         private Lazy<SQLiteAsyncConnection> _database;
             
       
-        public Repository()
+        public RepositoryService()
         {
             _database = new Lazy<SQLiteAsyncConnection>(() =>
            {

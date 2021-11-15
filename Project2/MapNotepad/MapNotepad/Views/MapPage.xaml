@@ -8,10 +8,37 @@
 
     <ContentPage.Content>
         <Grid HorizontalOptions="Fill"
-              VerticalOptions="Fill"
-              RowDefinitions="*">
-            <controls:CustomMap
-                PinSource="{Binding PinCollection}">
+              VerticalOptions="Fill" >
+            <controls:CustomMap PinsSource="{Binding PinCollection}">
+
+                <controls:CustomMap.Behaviors>
+
+                    <prism:EventToCommandBehavior Command="{Binding PinClickedCommand}"
+                                                  EventName="PinClicked"
+                                                  EventArgsParameterPath="Pin.Position"/>
+
+                    <!-- MOVE TO ADD PIN PAGE-->
+                    <!--<prism:EventToCommandBehavior Command="{Binding MapClickedCommand}" 
+                                                      EventName="MapClicked"
+                                                      EventArgsParameterPath="Point"/>-->
+
+                </controls:CustomMap.Behaviors>
+
+                <controls:CustomMap.Pins>
+                    <maps:Pin Label="Santa Cruz"
+                              Address="The city with a boardwalk"
+                              Type="Place">
+                        <maps:Pin.Position>
+                            <maps:Position>
+                                <x:Arguments>
+                                    <x:Double>36.9628066</x:Double>
+                                    <x:Double>-122.0194722</x:Double>
+                                </x:Arguments>
+                            </maps:Position>
+                        </maps:Pin.Position>
+                    </maps:Pin>
+                </controls:CustomMap.Pins>
+
             </controls:CustomMap>
                 
         </Grid>

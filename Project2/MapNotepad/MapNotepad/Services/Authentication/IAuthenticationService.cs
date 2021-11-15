@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MapNotepad.Services.Authentication
 {
-    public interface IAuthentication
+    public interface IAuthenticationService
     {
         UserModel User { get; }
         Task<string> AuthorizationAsync(string email, string password);

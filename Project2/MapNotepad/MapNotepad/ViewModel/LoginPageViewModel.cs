@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using MapNotepad.Helpers;
 using MapNotepad.Services.Authentication;
+using MapNotepad.Services.ProfileService;
 using MapNotepad.Views;
 using Prism.Navigation;
 using System;
@@ -15,11 +16,14 @@ namespace MapNotepad.ViewModel
 {
     public class LoginPageViewModel : BaseViewModel
     {
-        IAuthentication _authentication;
+        IAuthenticationService _authentication;
+        IUserService _profileService;
         public LoginPageViewModel(INavigationService navigationService,
-                                  IAuthentication authentication)
+                                  IUserService profileService,
+                                  IAuthenticationService authentication)
                : base(navigationService)
         {
+            _profileService = profileService;
             _authentication = authentication;
         }
 

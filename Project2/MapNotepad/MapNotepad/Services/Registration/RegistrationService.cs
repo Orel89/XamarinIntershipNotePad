@@ -8,62 +8,33 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MapNotepad.Services.Authentication
+namespace MapNotepad.Services.Registration
 {
-    public class Authentication : IAuthentication
+    public class RegistrationService : IRegistrationService
     {
-        private IRepository _repository;
+        private IRepositoryService _repository;
 
-        private ISettings _settings;
+        private ISettingsManager _settings;
 
-        public Authentication(IRepository repository, ISettings settings)
+        public RegistrationService(IRepositoryService repository, ISettingsManager settings)
         {
             _repository = repository;
+
             _settings = settings;
         }
 
         #region --- public properties ---
 
         private UserModel _user;
+
         public UserModel User { get => _user; }
+
+
+
 
         #endregion
 
-
-
         #region --- public methods ---
-
-        public async Task<string> AuthorizationAsync(string email, string password)
-        {
-            string success = "Wrong Email";
-
-            _user = null;
-
-            if (IsEmailMatched(email))
-            {
-                _user = GetUserByEmail(email);
-
-                if (_user != null)
-                {
-                    success = "Wrong Password";
-
-                    if (IsPasswordMatched(password))
-                    {
-                        if (_user.Password == password)
-                        {
-                            success = "successfulAuthentication";
-                            _settings.UserId = _user.Id;
-                            _settings.UserEmail = _user.Email;
-                            _settings.UserPassword = _user.Password;
-                        }
-
-                    }
-                }
-            }
-
-            return await Task.Run(() => success);
-
-        }
 
         public bool IsEmailMatched(string email)
         {
@@ -85,7 +56,6 @@ namespace MapNotepad.Services.Authentication
         public bool IsPasswordMatched(string password)
         {
             bool result = false;
-
             if (!string.IsNullOrWhiteSpace(password))
             {
                 if (password.Length >= 6)
@@ -99,11 +69,46 @@ namespace MapNotepad.Services.Authentication
             return result;
         }
 
-        public void LogOut()
+        public async Task<string> RegistrationAsync(string email, string password, string confirmMessage, string name)
         {
-            _settings.UserId = default;
-            _settings.UserPassword = default;
-            _settings.UserEmail = default;
+            string messageForUser = "Password mismatch";
+            if (password == confirmMessage)
+            {
+                messageForUser = "Password must have minimum 6 symbols and at least one digit with a capital letter";
+                if (IsPasswordMatched(password))
+                {
+                    messageForUser = "Successful user registration";
+                    _user = new UserModel()
+                    {
+                        UserName = name,
+                        Password = password,
+                        Email = email,
+                        CreationTime = DateTime.Now
+                    };
+                }
+
+                var userId = _repository.InsertAsync(_user);
+
+            }
+            return await Task.Run(() => messageForUser);
+
+        }
+
+        public bool IsEmailAvailable(string email)
+        {
+            bool result = false;
+
+            if (IsEmailMatched(email))
+            {
+                var response = _repository.GetAllItemsAsync<UserModel>().Result.Where(u => u.Email == email).FirstOrDefault();
+
+                if (response == null)
+                {
+                    result = true;
+                }
+            }
+
+            return result;
         }
 
         #endregion
@@ -113,9 +118,11 @@ namespace MapNotepad.Services.Authentication
         private UserModel GetUserByEmail(string email)
         {
             UserModel user = null;
+
             if (!string.IsNullOrWhiteSpace(email))
             {
                 Task<List<UserModel>> listOfUsers = _repository.GetAllItemsAsync<UserModel>();
+
                 if (listOfUsers != null)
                 {
                     if (listOfUsers.Result != null)

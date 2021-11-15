@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using MapNotepad.Helpers;
 using MapNotepad.Services.Authentication;
+using MapNotepad.Services.Registration;
 using MapNotepad.View;
 using Prism.Navigation;
 using System;
@@ -16,8 +17,8 @@ namespace MapNotepad.ViewModel
 {
     public class RegistrationPageViewModel : BaseViewModel
     {
-        IRegistration _registration;
-        public RegistrationPageViewModel(INavigationService navigationService, IRegistration registration) : base (navigationService)
+        IRegistrationService _registration;
+        public RegistrationPageViewModel(INavigationService navigationService, IRegistrationService registration) : base (navigationService)
         {
             _registration = registration;
         }

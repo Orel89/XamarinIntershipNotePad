@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MapNotepad.Services.Services
 {
-    public interface ISettings
+    public interface ISettingsManager
     {
         int UserId { get; set; }
         string UserPassword { get; set; }

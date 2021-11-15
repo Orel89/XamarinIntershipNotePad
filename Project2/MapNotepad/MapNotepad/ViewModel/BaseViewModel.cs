@@ -13,10 +13,17 @@ namespace MapNotepad.ViewModel
         {
             _navigationService = navigationService;
         }
+
+        public virtual void Initialize(INavigationParameters parameters)
+        {
+        }
+
+
+
         #region ---navigation---
 
         #endregion
-        public virtual void Initialize(INavigationParameters parameters)
+        public virtual void InitializeAsync(INavigationParameters parameters)
         {
         }
 
