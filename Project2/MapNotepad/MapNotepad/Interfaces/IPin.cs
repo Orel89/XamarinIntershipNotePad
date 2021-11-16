@@ -9,8 +9,8 @@ namespace MapNotepad.Interfaces
     {
         string Label { get; set; }
 
-        float Latitude { get; set; }
+        double Latitude { get; set; }
 
-        float Longitude { get; set; }
+        double Longitude { get; set; }
     }
 }

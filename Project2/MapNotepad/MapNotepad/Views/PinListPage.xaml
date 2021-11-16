@@ -31,12 +31,12 @@
                CornerRadius="90"
                HasShadow="True">
                 <ImageButton Margin='0'
-                         Background="Black"
-                         CornerRadius="45"
-                         HorizontalOptions="Center"
-                         VerticalOptions="Center"
-                         Source="ic_plus.png"
-                         Command="{Binding OnAddButtonTapCommand}"/>
+                             CornerRadius="65"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Source="ic_plus.png"
+                             IsEnabled="True"
+                             Command="{Binding AddButtonCommand}"/>
             </Frame>
         </Grid>
     </view:BaseContentPage.Content>

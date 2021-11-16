@@ -21,18 +21,36 @@ namespace MapNotepad.Services.PinService
             _settings = settings;
         }
 
-        public Task AddPin(string label, string description, float longitude, float latitude, bool isfavorite)
+        public async Task<AOResult<int>> AddPin(PinModel pin)
         {
-            PinModel pinModel = new PinModel()
+            AOResult<int> result = new AOResult<int>();
+
+            try
             {
-                Label = label,
-                Description = description,
-                UserId = _settings.UserId,
-                IsFavorite = isfavorite,
-                Latitude = latitude,
-                Longitude = longitude
-            };
-            return _repository.InsertAsync(pinModel);
+                if (pin == null)
+                {
+                    result.SetFailure();
+                }
+                else
+                {
+                    var response = await _repository.InsertAsync(pin);
+                    if (response == 0)
+                    {
+                        result.SetFailure();
+                    }
+                    else
+                    {
+                        result.SetSuccess(result.Result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                result.SetError("0", "Exeption from PinService AddPin", ex);
+            }
+
+            return result;
         }
 
         public async Task<AOResult<IEnumerable<PinModel>>> GetPinsAsync()

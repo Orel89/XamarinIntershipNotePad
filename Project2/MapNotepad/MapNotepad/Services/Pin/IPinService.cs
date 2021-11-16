@@ -9,7 +9,7 @@ namespace MapNotepad.Services.PinService
 {
     public interface IPinService
     {
-        Task AddPin(string label, string description, float longitude, float latitude, bool isfavorite);
+        Task<AOResult<int>> AddPin(PinModel pin);
         Task<AOResult<IEnumerable<PinModel>>> GetPinsAsync();
     }
 }

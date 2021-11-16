@@ -1,4 +1,5 @@
 ﻿using MapNotepad.Model;
+using MapNotepad.Services.ProfileService;
 using MapNotepad.Services.Repository;
 using MapNotepad.Services.Services;
 using System;
@@ -13,13 +14,16 @@ namespace MapNotepad.Services.Authentication
     public class AuthenticationService : IAuthenticationService
     {
         private IRepositoryService _repository;
-
         private ISettingsManager _settings;
+        private IUserService _userService;
 
-        public AuthenticationService(IRepositoryService repository, ISettingsManager settings)
+        public AuthenticationService(IRepositoryService repository, 
+               ISettingsManager settings, 
+               IUserService userService)
         {
             _repository = repository;
             _settings = settings;
+            _userService = userService;
         }
 
         #region --- public properties ---
@@ -53,8 +57,6 @@ namespace MapNotepad.Services.Authentication
                         {
                             success = "successfulAuthentication";
                             _settings.UserId = _user.Id;
-                            _settings.UserEmail = _user.Email;
-                            _settings.UserPassword = _user.Password;
                         }
 
                     }
@@ -102,8 +104,6 @@ namespace MapNotepad.Services.Authentication
         public void LogOut()
         {
             _settings.UserId = default;
-            _settings.UserPassword = default;
-            _settings.UserEmail = default;
         }
 
         #endregion

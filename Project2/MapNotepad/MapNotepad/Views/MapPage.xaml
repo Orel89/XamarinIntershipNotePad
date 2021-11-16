@@ -16,12 +16,7 @@
                     <prism:EventToCommandBehavior Command="{Binding PinClickedCommand}"
                                                   EventName="PinClicked"
                                                   EventArgsParameterPath="Pin.Position"/>
-
-                    <!-- MOVE TO ADD PIN PAGE-->
-                    <!--<prism:EventToCommandBehavior Command="{Binding MapClickedCommand}" 
-                                                      EventName="MapClicked"
-                                                      EventArgsParameterPath="Point"/>-->
-
+                   
                 </controls:CustomMap.Behaviors>
 
                 <controls:CustomMap.Pins>

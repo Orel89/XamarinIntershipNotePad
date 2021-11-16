@@ -90,6 +90,18 @@ namespace MapNotepad.Controls
             get => (ICommand)GetValue(RightButtonCommandProperty);
         }
 
+        public static readonly BindableProperty IsEnableRightButtonProperty = BindableProperty.Create(
+         propertyName: nameof(IsEnableRightButton),
+         returnType: typeof(bool),
+         declaringType: typeof(CustomToolBar),
+         defaultValue: true,
+         defaultBindingMode: BindingMode.TwoWay);
+        public bool IsEnableRightButton
+        {
+            set => SetValue(IsEnableRightButtonProperty, value);
+            get => (bool)GetValue(IsEnableRightButtonProperty);
+        }
+
         public CustomToolBar()
         {
             InitializeComponent();

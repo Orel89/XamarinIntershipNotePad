@@ -37,15 +37,15 @@ namespace MapNotepad.Model.Pin
             set => SetProperty(ref _Description, value);
         }
 
-        private float _Longitude;
-        public float Longitude
+        private double _Longitude;
+        public double Longitude
         {
             get => _Longitude;
             set => SetProperty(ref _Longitude, value);
         }
 
-        private float _Latitude;
-        public float Latitude
+        private double _Latitude;
+        public double Latitude
         {
             get => _Latitude;
             set => SetProperty(ref _Latitude, value);

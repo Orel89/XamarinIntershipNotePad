@@ -17,7 +17,7 @@ namespace MapNotepad.Controls
         {
             UiSettings.MyLocationButtonEnabled = true;
             MyLocationEnabled = true;
-            UiSettings.ZoomControlsEnabled = false;
+            UiSettings.ZoomControlsEnabled = true;
         }
 
         #region --- Public Properties ---

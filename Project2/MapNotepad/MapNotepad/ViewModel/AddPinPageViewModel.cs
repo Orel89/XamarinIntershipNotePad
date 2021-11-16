@@ -51,15 +51,15 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _label, value);
         }
 
-        private float _longitude;
-        public float Longitude
+        private double _longitude;
+        public double Longitude
         {
             get => _longitude;
             set => SetProperty(ref _longitude, value);
         }
 
-        private float _latitude;
-        public float Latitude
+        private double _latitude;
+        public double Latitude
         {
             get => _latitude;
             set => SetProperty(ref _latitude, value);
@@ -107,7 +107,7 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _borderColorLatitude, value);
         }
 
-        private Color _borderColorLabel;
+        private Color _borderColorLabel = Color.Gray;
         public Color BorderColorLabel
         {
             get => _borderColorLabel;
@@ -126,6 +126,9 @@ namespace MapNotepad.ViewModel
 
         private ICommand _saveButtonCommand;
         public ICommand SaveButtonCommand => _saveButtonCommand ?? (_saveButtonCommand = SingleExecutionCommand.FromFunc(OnSaveCommandAsync));
+
+        private ICommand _mapClickCommand;
+        public ICommand MapClickCommand => _mapClickCommand ?? (_mapClickCommand = SingleExecutionCommand.FromFunc<Position>(OnMapClickCommandAsync));
 
         #endregion
 
@@ -177,7 +180,17 @@ namespace MapNotepad.ViewModel
         #endregion
 
         #region --- Private helpers ---
-       
+
+        private Task OnMapClickCommandAsync(Position position)
+        {
+            Longitude = position.Longitude;
+
+            Latitude = position.Latitude;
+
+            return Task.CompletedTask;
+        }
+
+
         private void OnClearEntryDescription()
         {
             Description = null;

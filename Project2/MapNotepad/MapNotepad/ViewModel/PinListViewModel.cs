@@ -1,5 +1,7 @@
-﻿using MapNotepad.Model.Pin;
+﻿using MapNotepad.Helpers;
+using MapNotepad.Model.Pin;
 using MapNotepad.Services.PinService;
+using MapNotepad.Views;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -21,16 +23,15 @@ namespace MapNotepad.ViewModel
             InitAsync();
         }
 
-        #region --- Command ----
-
-        private ICommand _onAddButtonTap;
-        //public ICommand OnAddButtonTap => _onAddButtonTap ?? (_onAddButtonTap = new Command(GoToAddPage);
-
-        #endregion
-
         #region --- Public Properties ---
 
+        private ICommand _addButtonCommand;
+
+        public ICommand AddButtonCommand => _addButtonCommand ?? (_addButtonCommand = SingleExecutionCommand.FromFunc(OnAddButtonPinAsync));
+
+
         private ObservableCollection<PinModel> _observPinCollection;
+
         public ObservableCollection<PinModel> ObservPinCollection
         {
             get => _observPinCollection;
@@ -39,16 +40,12 @@ namespace MapNotepad.ViewModel
 
         #endregion
 
-        #region --- Navigation ---
-
-        private async Task GoToAddPage()
-        {
-            //await _navigationService.NavigateAsync(nameof(AddPinPage));
-        }
-
-        #endregion
-
         #region --- Private Helpers ---
+
+        private async Task OnAddButtonPinAsync()
+        {
+            await _navigationService.NavigateAsync(nameof(AddPinPage));
+        }
 
         private async void InitAsync()
         {

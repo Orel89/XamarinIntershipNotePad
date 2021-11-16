@@ -14,8 +14,8 @@ namespace MapNotepad.Model.Pin
         public int UserId { get; set;}
         public string Label { get; set; }
         public string Description { get; set; }
-        public float Longitude { get; set; }
-        public float Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
         public bool IsFavorite { get; set; }
         public DateTime CreationTime { get; set; }
     }
