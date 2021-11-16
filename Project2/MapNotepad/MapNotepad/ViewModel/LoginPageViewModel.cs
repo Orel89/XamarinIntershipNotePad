@@ -50,11 +50,18 @@ namespace MapNotepad.ViewModel
             throw new NotImplementedException();
         }
 
-        private string email;
+        private string _email;
         public string Email
         {
-            get => email;
-            set => SetProperty(ref email, value);
+            get => _email;
+            set => SetProperty(ref _email, value);
+        }
+
+        private string _Password;
+        public string Password
+        {
+            get => _Password;
+            set => SetProperty(ref _Password, value);
         }
 
         private bool isVisibleEntryPasswordLeftButton;

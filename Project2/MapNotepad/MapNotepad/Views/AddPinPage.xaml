@@ -9,27 +9,31 @@
         <StackLayout>
             
             <controls:CustomToolBar Title="Add pin"
-                                    BackButtonTapCommand="{Binding BackPageButtonCommand}"
+                                    BackButtonTapCommand="{Binding GoBackCommand}"
                                     RightButtonCommand="{Binding SaveButtonCommand}"
-                                    ArrowLeftImage="leftArrow.png"/>
+                                    IsEnableRightButton="{Binding IsEnableSaveButton}"
+                                    ArrowLeftImage="leftArrow.png"
+                                    RightImage="ic_save.png"
+                                    />
 
             <Label Text="Label"
                    TextColor="#3D4E61" 
-                   Margin="8,15,0,0"/>
+                   Margin="16,15,0,0"/>
 
             <controls:CustomEntry x:Name="label"
-                                  BorderColor="#D7DDE8"
+                                  BorderColor="{Binding BorderColorLabel}"
                                   Placeholder="Enter the label"
                                   PlaceholderColor="#858E9E" 
                                   Text="{Binding Label}"
                                   TextColor="Black"
                                   ImageSource="ic_clear.png"
+                                  Margin="16, 0, 16, 0"
                                   IsVisibleButton ="{Binding IsVisibleEntryLabelLeftButton}"
                                   ButtonCommand="{Binding ClearEntryLabelButtonCommand}"/>
             
             <Label Text="Description"
                    TextColor="#3D4E61" 
-                   Margin="8,15,0,0"/>
+                   Margin="16,15,0,0"/>
 
             <controls:CustomEntry x:Name="description"
                                   BorderColor="#D7DDE8"
@@ -38,6 +42,7 @@
                                   Text="{Binding Description}"
                                   TextColor="Black"
                                   ImageSource="ic_clear.png"
+                                  Margin="16, 0, 16, 0"
                                   IsVisibleButton ="{Binding IsVisibleEntryDescriptionLeftButton}"
                                   ButtonCommand="{Binding ClearEntryDescriptionButtonCommand}"/>
             
@@ -49,19 +54,30 @@
 
                 <controls:CustomEntry x:Name="Longitude"
                                       BorderColor="#D7DDE8"
+                                      HorizontalOptions="FillAndExpand"
                                       Placeholder="Longitude"
-                                      PlaceholderColor="#858E9E" 
+                                      PlaceholderColor="#858E9E"
+                                      Keyboard="Numeric"
                                       Text="{Binding Longitude}"
-                                      TextColor="Black"/>
+                                      TextColor="Black"
+                                      Margin="16, 0, 5, 0"/>
 
                 <controls:CustomEntry x:Name="Latitude"
                                       BorderColor="#D7DDE8"
+                                      HorizontalOptions="FillAndExpand"
                                       Placeholder="Longitude"
+                                      Keyboard="Numeric"
                                       PlaceholderColor="#858E9E" 
-                                      Text="{Binding Latitude}"/>
+                                      Text="{Binding Latitude}"
+                                      TextColor="Black"
+                                      Margin="0, 0, 16, 0"/>
 
             </StackLayout>
             
+            <controls:CustomMap/>
+
         </StackLayout>
+        
     </view:BaseContentPage.Content>
+    
 </view:BaseContentPage>

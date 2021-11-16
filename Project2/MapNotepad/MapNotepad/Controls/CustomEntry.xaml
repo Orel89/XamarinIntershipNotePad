@@ -15,6 +15,7 @@
             <controls:NoBorderEntry Text="{Binding Text, Source={x:Reference customEntry}}"
                                     TextColor="{Binding TextColor, Source={x:Reference customEntry}}"
                                     Placeholder="{Binding Placeholder, Source={x:Reference customEntry}}"
+                                    Keyboard="{Binding Keyboard, Source={x:Reference customEntry}}"
                                     IsPassword="{Binding IsPassword, Source={x:Reference customEntry}}"
                                     PlaceholderColor="{Binding PlaceholderColor, Source={x:Reference customEntry}}"/>
 

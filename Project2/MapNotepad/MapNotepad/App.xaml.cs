@@ -39,15 +39,24 @@ namespace MapNotepad
             containerRegistry.RegisterForNavigation<PinListPage, PinListViewModel>();
             containerRegistry.RegisterForNavigation<MainProfilePage, MainProfilePageViewModel>();
             containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
+            containerRegistry.RegisterForNavigation<AddPinPage, AddPinPageViewModel>();
        
         }
 
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            //MainPage = new MainProfilePage();
 
-            await NavigationService.NavigateAsync($"/{nameof(StartPage)}");
+            var authenticationService = Container.Resolve<IUserService>();
+
+            if (authenticationService.UserId != 0)
+            {
+                await NavigationService.NavigateAsync($"/{nameof(MainProfilePage)}");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync($"/{nameof(StartPage)}");
+            }
         }
         protected override void OnStart()
         {

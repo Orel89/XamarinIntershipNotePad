@@ -16,16 +16,33 @@
           
             <Label Text="{Binding Title, Source={x:Reference customToolBar}}"
                    TextColor="{Binding TitleColor, Source={x:Reference customToolBar}}"
-                   HorizontalOptions="StartAndExpand"
+                   HorizontalOptions="Center"
                    FontSize="20"
-                   Margin="0,20,0,0"
+                   Margin="0,23,0,0"
                    FontAttributes="Bold"/>
             <ImageButton Source="{Binding RightImage, Source={x:Reference customToolBar}}"
-                         HorizontalOptions="End"
-                         WidthRequest="10"
-                         HeightRequest="10"
+                         HorizontalOptions="EndAndExpand"
+                         WidthRequest="50"
+                         HeightRequest="50"
                          BackgroundColor="Transparent"
-                         Command="{Binding RightButtonCommand, Source={x:Reference customToolBar}}"/>
+                         Padding="0,20, 20, 0 "
+                         Command="{Binding RightButtonCommand, Source={x:Reference customToolBar}}">
+
+                <ImageButton.Triggers>
+                    <DataTrigger Binding="{Binding IsEnableRightButton, Source={x:Reference customToolBar}}"
+                                 Value="True"
+                                 TargetType="ImageButton">
+                        <Setter Property="IsEnabled"
+                                Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsEnableRightButton, Source={x:Reference customToolBar}}"
+                                 Value="False"
+                                 TargetType="ImageButton">
+                        <Setter Property="IsEnabled"
+                                Value="False"/>
+                    </DataTrigger>
+                </ImageButton.Triggers>
+            </ImageButton>
         </StackLayout>
   </ContentView.Content>
 </ContentView>

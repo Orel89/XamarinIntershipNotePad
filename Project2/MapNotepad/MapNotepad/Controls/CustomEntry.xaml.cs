@@ -36,6 +36,7 @@ namespace MapNotepad.Controls
           declaringType: typeof(CustomEntry),
           defaultValue: string.Empty,
           defaultBindingMode: BindingMode.TwoWay);
+
         public string Placeholder
         {
             set => SetValue(PlaceholderProperty, value);
@@ -48,6 +49,7 @@ namespace MapNotepad.Controls
             declaringType: typeof(CustomEntry),
             defaultValue: Color.Silver,
             defaultBindingMode: BindingMode.TwoWay);
+
         public Color PlaceholderColor
         {
             set => SetValue(PlaceholderColorProperty, value);
@@ -60,6 +62,7 @@ namespace MapNotepad.Controls
             declaringType: typeof(CustomEntry),
             defaultValue: string.Empty,
             defaultBindingMode: BindingMode.TwoWay);
+
         public string ImageSource
         {
             set => SetValue(ImageSourceProperty, value);
@@ -72,6 +75,7 @@ namespace MapNotepad.Controls
           declaringType: typeof(CustomEntry),
           defaultValue: string.Empty,
           defaultBindingMode: BindingMode.TwoWay);
+
         public string Text
         {
             set => SetValue(TextProperty, value);
@@ -84,10 +88,24 @@ namespace MapNotepad.Controls
            declaringType: typeof(CustomEntry),
            defaultValue: Color.Silver,
            defaultBindingMode: BindingMode.TwoWay);
+
         public Color TextColor
         {
             set => SetValue(TextColorProperty, value);
             get => (Color)GetValue(TextColorProperty);
+        }
+
+        public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(
+          propertyName: nameof(Keyboard),
+          returnType: typeof(Keyboard),
+          declaringType: typeof(CustomEntry),
+          defaultValue: Keyboard.Default,
+          defaultBindingMode: BindingMode.TwoWay);
+
+        public Keyboard Keyboard
+        {
+            set => SetValue(KeyboardProperty, value);
+            get => (Keyboard)GetValue(KeyboardProperty);
         }
 
         public static readonly BindableProperty ButtonCommandProperty = BindableProperty.Create(
@@ -96,6 +114,7 @@ namespace MapNotepad.Controls
           declaringType: typeof(CustomEntry),
           defaultValue: null,
           defaultBindingMode: BindingMode.TwoWay);
+
         public ICommand ButtonCommand
         {
             set => SetValue(ButtonCommandProperty, value);
