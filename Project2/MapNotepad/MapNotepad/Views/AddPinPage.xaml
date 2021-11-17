@@ -21,6 +21,7 @@
                    Margin="16,15,0,0"/>
 
             <controls:CustomEntry x:Name="label"
+                                  Keyboard="Text"
                                   BorderColor="#D7DDE8"
                                   Placeholder="Enter the label"
                                   PlaceholderColor="#858E9E" 
@@ -36,6 +37,7 @@
                    Margin="16,15,0,0"/>
 
             <controls:CustomEntry x:Name="description"
+                                  Keyboard="Text"
                                   BorderColor="#D7DDE8"
                                   Placeholder="Enter a description"
                                   PlaceholderColor="#858E9E" 
