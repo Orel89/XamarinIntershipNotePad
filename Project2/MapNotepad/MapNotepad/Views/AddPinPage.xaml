@@ -14,15 +14,14 @@
                                     RightButtonCommand="{Binding SaveButtonCommand}"
                                     IsEnableRightButton="{Binding IsEnableSaveButton}"
                                     ArrowLeftImage="leftArrow.png"
-                                    RightImage="ic_save.png"
-                                    />
+                                    RightImage="ic_save.png"/>
 
             <Label Text="Label"
                    TextColor="#3D4E61" 
                    Margin="16,15,0,0"/>
 
             <controls:CustomEntry x:Name="label"
-                                  BorderColor="{Binding BorderColorLabel}"
+                                  BorderColor="#D7DDE8"
                                   Placeholder="Enter the label"
                                   PlaceholderColor="#858E9E" 
                                   Text="{Binding Label}"
@@ -75,7 +74,7 @@
 
             </StackLayout>
 
-            <controls:CustomMap>
+            <controls:CustomMap PinsSource="{Binding Pins}">
                 <controls:CustomMap.Behaviors>
                     
                     <prism:EventToCommandBehavior Command="{Binding MapClickedCommand}" 

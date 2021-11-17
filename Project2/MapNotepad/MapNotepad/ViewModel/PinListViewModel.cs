@@ -20,22 +20,28 @@ namespace MapNotepad.ViewModel
             : base(navigationService)
         {
             _pinService = pinService;
-            InitAsync();
         }
 
         #region --- Public Properties ---
 
         private ICommand _addButtonCommand;
-
         public ICommand AddButtonCommand => _addButtonCommand ?? (_addButtonCommand = SingleExecutionCommand.FromFunc(OnAddButtonPinAsync));
 
 
         private ObservableCollection<PinModel> _observPinCollection;
-
         public ObservableCollection<PinModel> ObservPinCollection
         {
             get => _observPinCollection;
             set => SetProperty(ref _observPinCollection, value);
+        }
+
+        #endregion
+
+        #region -- Overrides --
+
+        public override async void OnNavigatedTo(INavigationParameters parameters)
+        {
+            await InitAsync();
         }
 
         #endregion
@@ -47,7 +53,7 @@ namespace MapNotepad.ViewModel
             await _navigationService.NavigateAsync(nameof(AddPinPage));
         }
 
-        private async void InitAsync()
+        private async Task InitAsync()
         {
             var observUserPinCollection = new ObservableCollection<PinModel>();
             var userPins = await _pinService.GetPinsAsync();

@@ -58,11 +58,23 @@ namespace MapNotepad.Model.Pin
             set => SetProperty(ref _CreationTime, value);
         }
 
+        private ICommand _DeleteCommand;
+        public ICommand DeleteCommand
+        {
+            get => _DeleteCommand;
+            set => SetProperty(ref _DeleteCommand, value);
+        }
         private ICommand _TapCommand;
         public ICommand TapCommand
         {
             get => _TapCommand;
             set => SetProperty(ref _TapCommand, value);
+        }
+        private ICommand _EditCommand;
+        public ICommand EditCommand
+        {
+            get => _TapCommand;
+            set => SetProperty(ref _EditCommand, value);
         }
     }
 }

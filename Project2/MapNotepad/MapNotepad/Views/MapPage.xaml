@@ -9,15 +9,21 @@
     <ContentPage.Content>
         <Grid HorizontalOptions="Fill"
               VerticalOptions="Fill" >
-            <controls:CustomMap PinsSource="{Binding PinCollection}">
+            <controls:CustomMap PinsSource="{Binding Pins}">
 
                 <controls:CustomMap.Behaviors>
 
                     <prism:EventToCommandBehavior Command="{Binding PinClickedCommand}"
                                                   EventName="PinClicked"
                                                   EventArgsParameterPath="Pin.Position"/>
-                   
+
+                    <prism:EventToCommandBehavior Command="{Binding MapClickedCommand}" 
+                                                  EventName="MapClicked"
+                                                  EventArgsParameterPath="Point"/>
+
                 </controls:CustomMap.Behaviors>
+                
+                
 
                 <controls:CustomMap.Pins>
                     <maps:Pin Label="Santa Cruz"

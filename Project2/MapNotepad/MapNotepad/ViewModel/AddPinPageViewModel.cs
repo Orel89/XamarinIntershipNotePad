@@ -6,6 +6,7 @@ using MapNotepad.Services.ProfileService;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,21 +29,7 @@ namespace MapNotepad.ViewModel
             _userService = userService;
         }
 
-
         #region --- Public Properties ---
-
-        //private bool _CanSave;
-        //public bool CanSave
-        //{
-        //    get => _CanSave;
-        //    set
-        //    {
-        //        if (SetProperty(ref _CanSave, value))
-        //        {
-        //            RaisePropertyChanged(nameof(SavePinCommand));
-        //        }
-        //    }
-        //}
 
         private string _label;
         public string Label
@@ -123,38 +110,42 @@ namespace MapNotepad.ViewModel
         private ICommand _goBackCommand;
         public ICommand GoBackCommand => _goBackCommand ?? (_goBackCommand = SingleExecutionCommand.FromFunc(OnGoBackCommandAsync));
 
-
         private ICommand _saveButtonCommand;
         public ICommand SaveButtonCommand => _saveButtonCommand ?? (_saveButtonCommand = SingleExecutionCommand.FromFunc(OnSaveCommandAsync));
 
-        private ICommand _mapClickCommand;
-        public ICommand MapClickCommand => _mapClickCommand ?? (_mapClickCommand = SingleExecutionCommand.FromFunc<Position>(OnMapClickCommandAsync));
+        private ICommand _mapClickedCommand;
+        public ICommand MapClickedCommand => _mapClickedCommand ?? (_mapClickedCommand = SingleExecutionCommand.FromFunc<Position>(OnMapClickedCommandAsync));
+
+        private ObservableCollection<PinViewModel> _Pins;
+        public ObservableCollection<PinViewModel> Pins
+        {
+            get => _Pins;
+            set => SetProperty(ref _Pins, value);
+        }
 
         #endregion
 
         #region --- ovverides ---
 
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+        }
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             base.OnPropertyChanged(args);
 
-            IsEnableSaveButton = !string.IsNullOrWhiteSpace(Label);
+            IsEnableSaveButton = !string.IsNullOrWhiteSpace(Label) && Latitude >= -90 && Latitude <=90 && Longitude >= -180 && Longitude <= 180;
 
             switch(args.PropertyName)
             {
-                case nameof(Label):
-                    if (string.IsNullOrWhiteSpace(Label))
-                    {
-                        BorderColorLabel = Color.Red;
-                    }
-                    else
-                    {
-                        BorderColorLabel = Color.Gray;
-                    }
-                    break;
-
                 case nameof(Latitude):
-                    if (Latitude > -90 && Latitude > 90)
+                    if (Latitude < -90 && Latitude > 90)
                     {
                         BorderColorLatitude = Color.Red;
                     }
@@ -165,7 +156,7 @@ namespace MapNotepad.ViewModel
                     break;
 
                 case nameof(Longitude):
-                    if (Latitude > -180 && Latitude > 180)
+                    if (Latitude < -180 && Latitude > 180)
                     {
                         BorderColorLongitude = Color.Red;
                     }
@@ -181,15 +172,24 @@ namespace MapNotepad.ViewModel
 
         #region --- Private helpers ---
 
-        private Task OnMapClickCommandAsync(Position position)
+        private Task OnMapClickedCommandAsync(Position position)
         {
             Longitude = position.Longitude;
 
             Latitude = position.Latitude;
 
+            var pins = new ObservableCollection<PinViewModel>();
+            pins.Add(new PinViewModel()
+            {
+               Label = Label ?? "No label",
+               Latitude = Latitude,
+               Longitude = Longitude
+            });
+
+            Pins = new ObservableCollection<PinViewModel>(pins);
+
             return Task.CompletedTask;
         }
-
 
         private void OnClearEntryDescription()
         {
@@ -206,9 +206,9 @@ namespace MapNotepad.ViewModel
             Label = null;
         }
 
-        private Task OnSaveCommandAsync()
+        private async Task OnSaveCommandAsync()
         {
-            var result = _pinService.AddPin(new PinModel()
+            var result = await _pinService.AddPinAsync(new PinModel()
             {
                 UserId = _userService.UserId,
                 Label = Label,
@@ -219,9 +219,9 @@ namespace MapNotepad.ViewModel
                 CreationTime = DateTime.Now
             });
 
-            if (result.Result.IsSuccess)
+            if (result.IsSuccess)
             {
-                _navigationService.GoBackAsync();
+                await _navigationService.GoBackAsync();
             }
             else
             {
@@ -231,7 +231,6 @@ namespace MapNotepad.ViewModel
                     Message = "Cannot save a pin"
                 });
             }
-            return Task.CompletedTask;
         }
 
         #endregion
