@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Acr.UserDialogs;
+using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,14 @@ namespace MapNotepad.ViewModel
 {
     public class BaseViewModel : BindableBase, INavigatedAware, IInitialize
     {
-        protected INavigationService _navigationService;
-        public BaseViewModel(INavigationService navigationService)
+        public BaseViewModel()
         {
-            _navigationService = navigationService;
+            NavigationService = App.Resolve<INavigationService>();
+            UserDialogs = App.Resolve<IUserDialogs>();
         }
+        protected INavigationService NavigationService { get; }
+
+        protected IUserDialogs UserDialogs { get; }
 
         public virtual void Initialize(INavigationParameters parameters)
         {

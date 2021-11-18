@@ -20,10 +20,8 @@ namespace MapNotepad.ViewModel
     {
         private readonly IPinService _pinService;
         private IUserService _userService;
-        public AddPinPageViewModel(INavigationService navigationService,
-                                   IUserService userService,
+        public AddPinPageViewModel(IUserService userService,
                                    IPinService pinService)
-               : base(navigationService)
         {
             _pinService = pinService;
             _userService = userService;
@@ -198,7 +196,7 @@ namespace MapNotepad.ViewModel
 
         private async Task OnGoBackCommandAsync()
         {
-            await _navigationService.GoBackAsync();
+            await NavigationService.GoBackAsync();
         }
 
         private void OnClearLabelAsync()
@@ -221,11 +219,11 @@ namespace MapNotepad.ViewModel
 
             if (result.IsSuccess)
             {
-                await _navigationService.GoBackAsync();
+                await NavigationService.GoBackAsync();
             }
             else
             {
-                UserDialogs.Instance.Alert(new AlertConfig()
+                UserDialogs.Alert(new AlertConfig()
                 {
                     OkText = "Ok",
                     Message = "Cannot save a pin"

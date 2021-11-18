@@ -102,7 +102,7 @@ namespace MapNotepad.ViewModel
 
         private async Task OnButtonTapGoToBackPage()
         {
-            await _navigationService.GoBackAsync();
+            await NavigationService.GoBackAsync();
         }
         private async Task OnLoginButtonAsync()
         {
@@ -117,7 +117,7 @@ namespace MapNotepad.ViewModel
 
             if (confirnConfig.Message == "successfulAuthentication")
             {
-                await _navigationService.NavigateAsync(nameof(MainProfilePage));
+                await NavigationService.NavigateAsync(nameof(MainProfilePage));
             }
 
             else { await UserDialogs.Instance.ConfirmAsync(confirnConfig); }

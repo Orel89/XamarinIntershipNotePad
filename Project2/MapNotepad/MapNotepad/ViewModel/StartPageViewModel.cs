@@ -16,10 +16,9 @@ namespace MapNotepad.ViewModel
     public class StartPageViewModel : BaseViewModel
     {
         private IUserService _userService;
-        public StartPageViewModel(INavigationService navigationService,
-                                  IUserService userServise) : base(navigationService)
+        public StartPageViewModel(IUserService userService)
         {
-
+            _userService = userService;
         }
 
         #region ---public properties---
@@ -46,11 +45,11 @@ namespace MapNotepad.ViewModel
 
         private async Task GoToLoginPage()
         {
-            await _navigationService.NavigateAsync(nameof(LoginPage));
+            await NavigationService.NavigateAsync(nameof(LoginPage));
         }
         private async Task GoToRegistrationPage()
         {
-            await _navigationService.NavigateAsync(nameof(RegistrationPage));
+            await NavigationService.NavigateAsync(nameof(RegistrationPage));
         }
 
         #endregion

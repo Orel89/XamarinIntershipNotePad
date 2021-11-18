@@ -1,6 +1,8 @@
 ﻿using Acr.UserDialogs;
 using MapNotepad.Helpers;
+using MapNotepad.Helpers.Validation;
 using MapNotepad.Services.Authentication;
+using MapNotepad.Services.ProfileService;
 using MapNotepad.Services.Registration;
 using MapNotepad.View;
 using Prism.Navigation;
@@ -17,26 +19,16 @@ namespace MapNotepad.ViewModel
 {
     public class RegistrationPageViewModel : BaseViewModel
     {
-        IRegistrationService _registration;
-        public RegistrationPageViewModel(INavigationService navigationService, IRegistrationService registration) : base (navigationService)
+        private readonly IRegistrationService _registrationService;
+        private readonly IUserService _userService;
+
+        public RegistrationPageViewModel(IRegistrationService registrationService,
+                                         IUserService userService,) 
         {
-            _registration = registration;
+            _registrationService = registrationService;
+            _userService = userService;
         }
-        #region ---commands---
 
-        private ICommand _toNextPageButtonTapCommand;
-        public ICommand ToNextPageButtonTapCommand => _toNextPageButtonTapCommand ?? (_toNextPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapNextPageAsync, () => false));
-
-        private ICommand _goToBackPageButtonTapCommand;
-        public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapGoToBackPage));
-
-        private ICommand clearEntryNameButtonTapCommand;
-        public ICommand ClearEntryNameButtonTapCommand => clearEntryNameButtonTapCommand ?? (clearEntryNameButtonTapCommand = new Command(OnClearEntryButtonTapCommand));
-
-        private ICommand clearEntryEmailButtonTapCommand;
-        public ICommand ClearEntryEmailButtonTapCommand => clearEntryEmailButtonTapCommand ?? (clearEntryEmailButtonTapCommand = new Command(OnClearEntryEmailButtonTapCommand));
-
-        #endregion
 
         #region -- Public properties --
 
@@ -68,9 +60,21 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref isVisibleEmailEntryLeftButton, value);
         }
 
+        private ICommand _toNextPageButtonTapCommand;
+        public ICommand ToNextPageButtonTapCommand => _toNextPageButtonTapCommand ?? (_toNextPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapNextPageAsync, () => false));
+
+        private ICommand _goToBackPageButtonTapCommand;
+        public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapGoToBackPage));
+
+        private ICommand clearEntryNameButtonTapCommand;
+        public ICommand ClearEntryNameButtonTapCommand => clearEntryNameButtonTapCommand ?? (clearEntryNameButtonTapCommand = new Command(OnClearEntryButtonTapCommand));
+
+        private ICommand clearEntryEmailButtonTapCommand;
+        public ICommand ClearEntryEmailButtonTapCommand => clearEntryEmailButtonTapCommand ?? (clearEntryEmailButtonTapCommand = new Command(OnClearEntryEmailButtonTapCommand));
+
         #endregion
 
-        #region --- overrides ---
+        #region -- Overrides --
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
@@ -88,34 +92,41 @@ namespace MapNotepad.ViewModel
 
         #endregion
 
-        #region ---execution commands---
+        #region -- Private helpers --
 
         private async Task OnButtonTapGoToBackPage()
         {
-            await _navigationService.GoBackAsync();
+            await NavigationService.GoBackAsync();
         }
+
         private async Task OnButtonTapNextPageAsync()
         {
+            var message = "Email is mismatch";
 
-            ConfirmConfig confirnConfig = new ConfirmConfig()
+            if (EmailValidation.IsEmailMatched(Email))
             {
-                OkText = "Ok",
-                CancelText = string.Empty
-            };
+                var isEmailAvailable = await _userService.IsEmailAvailable(Email);
 
-            if (_registration.IsEmailAvailable(email))
-            { 
-                var navigationParameters = new NavigationParameters();
-                navigationParameters.Add("Name", Name);
-                navigationParameters.Add("Email", Email);
+                if (isEmailAvailable.IsSuccess && isEmailAvailable.Result)
+                {
+                    var navigationParameters = new NavigationParameters
+                    {
+                        { nameof(Name), Name },
+                        { nameof(Email), Email }
+                    };
 
-                await _navigationService.NavigateAsync(nameof(RegistrationPagePartTwo), navigationParameters);
+                    await NavigationService.NavigateAsync(nameof(RegistrationPagePartTwo), navigationParameters);
+                }
+                else
+                {
+                    message = "Email is already in database";
+                    await UserDialogs.AlertAsync(message);
+                }
             }
             else
             {
-                confirnConfig.Message = "Email is already in database";
-                await UserDialogs.Instance.ConfirmAsync(confirnConfig);
-                
+                message = "Email is not valid";
+                await UserDialogs.AlertAsync(message);
             }
           
         }

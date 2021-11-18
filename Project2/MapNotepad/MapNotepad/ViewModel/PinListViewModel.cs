@@ -15,9 +15,7 @@ namespace MapNotepad.ViewModel
     public class PinListViewModel : BaseViewModel
     {
         private readonly IPinService _pinService;
-        public PinListViewModel(INavigationService navigationService,
-                                IPinService pinService)
-            : base(navigationService)
+        public PinListViewModel(IPinService pinService)
         {
             _pinService = pinService;
         }
@@ -50,7 +48,7 @@ namespace MapNotepad.ViewModel
 
         private async Task OnAddButtonPinAsync()
         {
-            await _navigationService.NavigateAsync(nameof(AddPinPage));
+            await NavigationService.NavigateAsync(nameof(AddPinPage));
         }
 
         private async Task InitAsync()

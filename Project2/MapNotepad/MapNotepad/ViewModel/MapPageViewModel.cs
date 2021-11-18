@@ -21,9 +21,7 @@ namespace MapNotepad.ViewModel
     {
         private IPinService _pinService;
 
-        public MapPageViewModel(INavigationService navigationService,
-                                IPinService pinService)
-            : base(navigationService)
+        public MapPageViewModel(IPinService pinService)
         {
             _pinService = pinService;
         }
@@ -91,7 +89,7 @@ namespace MapNotepad.ViewModel
                     CancelText = "Cancel"
                 };
 
-                var confirm = await UserDialogs.Instance.ConfirmAsync(confirmConfig);
+                var confirm = await UserDialogs.ConfirmAsync(confirmConfig);
 
                 if (confirm)
                 {
@@ -102,13 +100,13 @@ namespace MapNotepad.ViewModel
                     {
                         Pins.Remove(pin);
 
-                        await _navigationService.NavigateAsync(nameof(PinListPage));
+                        await NavigationService.NavigateAsync(nameof(PinListPage));
                     }
                     else
                     {
                         confirmConfig.Message = result.Message;
 
-                        await UserDialogs.Instance.ConfirmAsync(confirmConfig);
+                        await UserDialogs.ConfirmAsync(confirmConfig);
                     }
                 }
             }
@@ -139,7 +137,7 @@ namespace MapNotepad.ViewModel
 
             parameter.Add("id", pinId);
 
-            await _navigationService.NavigateAsync(nameof(AddPinPage));
+            await NavigationService.NavigateAsync(nameof(AddPinPage));
 
         }
 

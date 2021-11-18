@@ -1,8 +1,11 @@
 ﻿using Acr.UserDialogs;
 using MapNotepad.Helpers;
+using MapNotepad.Helpers.Validation;
 using MapNotepad.Services.Authentication;
+using MapNotepad.Services.ProfileService;
 using MapNotepad.Services.Registration;
 using MapNotepad.View;
+using Prism.Common;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -17,26 +20,21 @@ namespace MapNotepad.ViewModel
     public class RegistrationPagePartTwoViewModel : BaseViewModel
     {
 
-        private IRegistrationService _registration;
+        private readonly IRegistrationService _registrationService;
+
+        private readonly IUserService _userService;
+
         private string _name;
+
         private string _email;
-        public RegistrationPagePartTwoViewModel(INavigationService navigationService, IRegistrationService registration) : base (navigationService)
+
+        public RegistrationPagePartTwoViewModel(IUserService userService,
+                                                IRegistrationService registrationService)
         {
-            _registration = registration;
+            _userService = userService;
+
+            _registrationService = registrationService;
         }
-
-        #region ---commands---
-
-        private ICommand _createAccountButtonTapCommand;
-        public ICommand CreateAccountButtonTapCommand => _createAccountButtonTapCommand ?? (_createAccountButtonTapCommand = SingleExecutionCommand.FromFunc(ExecuteCreateAccountButtonTapCommand));
-
-        private ICommand _goToBackPageButtonTapCommand;
-        public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapGoToBackPage));
-
-        private ICommand _hideEntryPasswordButtonTapCommand;
-        public ICommand HideEntryPasswordButtonTapCommand => _hideEntryPasswordButtonTapCommand ?? (_hideEntryPasswordButtonTapCommand = new Command(HidePasswordEntryButtonTapCommand));
-
-        #endregion
 
         #region ---public properties---
 
@@ -75,23 +73,49 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _isPassword, value);
         }
 
+        private ICommand _createAccountButtonTapCommand;
+        public ICommand CreateAccountButtonTapCommand => _createAccountButtonTapCommand ?? (_createAccountButtonTapCommand = SingleExecutionCommand.FromFunc(ExecuteCreateAccountButtonTapCommand));
+
+        private ICommand _goToBackPageButtonTapCommand;
+        public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapGoToBackPage));
+
+        private ICommand _hideEntryPasswordButtonTapCommand;
+        public ICommand HideEntryPasswordButtonTapCommand => _hideEntryPasswordButtonTapCommand ?? (_hideEntryPasswordButtonTapCommand = new Command(HidePasswordEntryButtonTapCommand));
         #endregion
 
-        #region --- execution commands ---
+        #region -- Private helpers --
 
         private async Task ExecuteCreateAccountButtonTapCommand()
         {
-            ConfirmConfig confirnConfig = new ConfirmConfig()
+            var message = "Password mismatch";
+
+            if (Password == ConfirmPassword)
             {
-                OkText = "Ok",
-                CancelText = string.Empty
-            };
-                
-            confirnConfig.Message = await _registration.RegistrationAsync(_email, _password, _confirmpassword, _name);
+                message = "The Password must contain 6 symbols, one digit and a capital letter";
 
-            await UserDialogs.Instance.ConfirmAsync(confirnConfig);
+                if (PasswordValidation.IsPasswordMatched(Password))
+                {
+                    var result = await _userService.AddUserAsync(new Model.UserModel()
+                    {
+                        UserName = _name,
+                        Email = _email,
+                        Password = Password,
+                        CreationTime = DateTime.Now
+                    });
 
-            await _navigationService.NavigateAsync(nameof(StartPage));
+                    if (result.IsSuccess && result.Result > 0)
+                    {
+                        message = "Successful registration";
+                        await UserDialogs.AlertAsync(message);
+                        await NavigationService.NavigateAsync(nameof(StartPage));
+                    }
+               
+                }
+            }
+            else
+            {
+                await UserDialogs.AlertAsync(message);
+            }
 
         }
 
@@ -110,7 +134,7 @@ namespace MapNotepad.ViewModel
 
         private async Task OnButtonTapGoToBackPage()
         {
-            await _navigationService.GoBackAsync();
+            await NavigationService.GoBackAsync();
         }
 
         #endregion
@@ -128,11 +152,11 @@ namespace MapNotepad.ViewModel
             }
         }
 
-        public override void InitializeAsync(INavigationParameters parameters)
+        public override void Initialize(INavigationParameters parameters)
         {
-            base.InitializeAsync(parameters);
-            _name = parameters.GetValue<string>("Name");
-            _email = parameters.GetValue<string>("Email");
+            
+            parameters.TryGetValue("Email", out _email);
+            parameters.TryGetValue("Name", out _name);
 
         }
 

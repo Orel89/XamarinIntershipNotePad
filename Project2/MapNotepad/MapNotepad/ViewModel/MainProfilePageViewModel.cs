@@ -7,7 +7,7 @@ namespace MapNotepad.ViewModel
 {
     public class MainProfilePageViewModel : BaseViewModel
     {
-        public MainProfilePageViewModel(INavigationService navigationService) : base(navigationService)
+        public MainProfilePageViewModel()
         {
 
         }
