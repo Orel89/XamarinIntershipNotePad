@@ -11,7 +11,8 @@ namespace MapNotepad.Services.ProfileService
     public interface IUserService
     {
         int UserId { get; }
-        Task<AOResult<bool>> IsEmailAvailable(string email);
+        Task<AOResult> CheckEmailExists(string email);
+        Task<AOResult<UserModel>> GetUserAsync(string email, string password);
         Task<AOResult<int>> AddUserAsync(UserModel user);
     }
 }

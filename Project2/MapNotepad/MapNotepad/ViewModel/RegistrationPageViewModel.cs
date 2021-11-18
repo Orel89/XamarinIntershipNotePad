@@ -19,13 +19,10 @@ namespace MapNotepad.ViewModel
 {
     public class RegistrationPageViewModel : BaseViewModel
     {
-        private readonly IRegistrationService _registrationService;
         private readonly IUserService _userService;
 
-        public RegistrationPageViewModel(IRegistrationService registrationService,
-                                         IUserService userService,) 
+        public RegistrationPageViewModel(IUserService userService) 
         {
-            _registrationService = registrationService;
             _userService = userService;
         }
 
@@ -103,11 +100,11 @@ namespace MapNotepad.ViewModel
         {
             var message = "Email is mismatch";
 
-            if (EmailValidation.IsEmailMatched(Email))
+            if (Validator.IsEmailMatched(Email))
             {
-                var isEmailAvailable = await _userService.IsEmailAvailable(Email);
+                var IsEmailExists = await _userService.CheckEmailExists(Email);
 
-                if (isEmailAvailable.IsSuccess && isEmailAvailable.Result)
+                if (!IsEmailExists.IsSuccess)
                 {
                     var navigationParameters = new NavigationParameters
                     {

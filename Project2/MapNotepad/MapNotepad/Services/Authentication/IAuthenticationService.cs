@@ -1,4 +1,5 @@
-﻿using MapNotepad.Model;
+﻿using MapNotepad.Helpers;
+using MapNotepad.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,9 +10,7 @@ namespace MapNotepad.Services.Authentication
     public interface IAuthenticationService
     {
         UserModel User { get; }
-        Task<string> AuthorizationAsync(string email, string password);
-        bool IsPasswordMatched(string passsword);
-        bool IsEmailMatched(string email);
+        Task<AOResult<bool>> AuthorizationAsync(string email, string password);
         void LogOut();
     }
 }

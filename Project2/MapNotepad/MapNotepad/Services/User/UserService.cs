@@ -29,15 +29,15 @@ namespace MapNotepad.Services.ProfileService
         #endregion
 
 
+        #region -- UserService implementation  --
+
         public async Task<AOResult<int>> AddUserAsync(UserModel user)
         {
             var result = new AOResult<int>();
 
             try
             {
-                var a = await _repositoryService.InsertAsync(user);
-
-                result.SetSuccess(a);
+                await _repositoryService.InsertAsync(user);
             }
             catch (Exception ex)
             {
@@ -47,40 +47,34 @@ namespace MapNotepad.Services.ProfileService
             return result;
         }
 
-     
-
-        #region -- UserService implementation  --
-
-
-
-        //public async Task<AOResult<UserModel>> GetCurrentUserAsync()
-        //{
-        //    var result = new AOResult<UserModel>();
-
-        //    try
-        //    {
-        //        var users = await _repositoryService.GetAllItemsAsync<UserModel>();
-
-        //        if (users != null)
-        //        {
-        //            result.SetSuccess(users.FirstOrDefault(u => u.Id == _settingsService.UserId));
-        //        }
-        //        else
-        //        {
-        //            result.SetFailure("Current User wasn't found");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        result.SetError($"{nameof(GetCurrentUserAsync)}: exception", "Error from UserService GetUsersAsync", ex);
-        //    }
-
-        //    return result;
-        //}
-
-        public async Task<AOResult<bool>> IsEmailAvailable(string email)
+        public async Task<AOResult<UserModel>> GetUserAsync(string email, string password)
         {
-            var result = new AOResult<bool>();
+            var result = new AOResult<UserModel>();
+
+            try
+            {
+                var users = await _repositoryService.GetAllItemsAsync<UserModel>();
+
+                if(users != null)
+                {
+                    result.SetSuccess(users.FirstOrDefault(u => u.Email == email && u.Password == password));
+                }
+                else 
+                {
+                    result.SetFailure();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                result.SetError($"{nameof(GetUserAsync)}: exception", "Error from UserService GetUserAsync", ex);
+            }
+            return result;
+        }
+
+        public async Task<AOResult> CheckEmailExists(string email)
+        {
+            var result = new AOResult();
 
             try
             {
@@ -88,16 +82,16 @@ namespace MapNotepad.Services.ProfileService
 
                 if (users.Any(x => x.Email == email))
                 {
-                    result.SetSuccess(false);
+                    result.SetSuccess();
                 }
                 else
                 {
-                    result.SetSuccess(true);
+                    result.SetFailure();
                 }
             }
             catch (Exception ex)
             {
-                result.SetError($"{nameof(IsEmailAvailable)}: exception", "Error from UserService IsEmailAvailable", ex);
+                result.SetError($"{nameof(CheckEmailExists)}: exception", "Error from UserService IsEmailAvailable", ex);
             }
 
             return result;

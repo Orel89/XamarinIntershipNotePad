@@ -93,7 +93,7 @@ namespace MapNotepad.ViewModel
             {
                 message = "The Password must contain 6 symbols, one digit and a capital letter";
 
-                if (PasswordValidation.IsPasswordMatched(Password))
+                if (Validator.IsPasswordMatched(Password))
                 {
                     var result = await _userService.AddUserAsync(new Model.UserModel()
                     {

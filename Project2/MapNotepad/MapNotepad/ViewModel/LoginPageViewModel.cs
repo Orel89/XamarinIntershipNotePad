@@ -1,5 +1,6 @@
 ﻿using Acr.UserDialogs;
 using MapNotepad.Helpers;
+using MapNotepad.Helpers.Validation;
 using MapNotepad.Services.Authentication;
 using MapNotepad.Services.ProfileService;
 using MapNotepad.Views;
@@ -16,18 +17,16 @@ namespace MapNotepad.ViewModel
 {
     public class LoginPageViewModel : BaseViewModel
     {
-        IAuthenticationService _authentication;
-        IUserService _profileService;
-        public LoginPageViewModel(INavigationService navigationService,
-                                  IUserService profileService,
-                                  IAuthenticationService authentication)
-               : base(navigationService)
+        IAuthenticationService _authenticationService;
+        IUserService _userService;
+        public LoginPageViewModel(IUserService profileService,
+                                  IAuthenticationService authenticationService)
         {
-            _profileService = profileService;
-            _authentication = authentication;
+            _userService = profileService;
+            _authenticationService = authenticationService;
         }
 
-        #region ---commands---
+        #region -- Public property --
 
         private ICommand _loginButtonTapCommand;
         public ICommand LoginButtonTapCommand => _loginButtonTapCommand ?? (_loginButtonTapCommand = SingleExecutionCommand.FromFunc(OnLoginButtonAsync, () => false));
@@ -40,15 +39,6 @@ namespace MapNotepad.ViewModel
 
         private ICommand clearEntryEmailButtonTapCommand;
         public ICommand ClearEntryEmailButtonTapCommand => clearEntryEmailButtonTapCommand ?? (clearEntryEmailButtonTapCommand = new Command(OnClearEntryEmail));
-
-        #endregion
-
-        #region -- Public properties --
-
-        private Task OnClearLabelAsync()
-        {
-            throw new NotImplementedException();
-        }
 
         private string _email;
         public string Email
@@ -106,22 +96,31 @@ namespace MapNotepad.ViewModel
         }
         private async Task OnLoginButtonAsync()
         {
+            var message = "Wrong email";
 
-            ConfirmConfig confirnConfig = new ConfirmConfig()
+            if (Validator.IsEmailMatched(Email))
             {
-                OkText = "Ok",
-                CancelText = string.Empty
-            };
+                message = "Email not found";
 
-            confirnConfig.Message = await _authentication.AuthorizationAsync(Email, Password);
+                var IsEmailExists = await _userService.CheckEmailExists(Email);
 
-            if (confirnConfig.Message == "successfulAuthentication")
-            {
-                await NavigationService.NavigateAsync(nameof(MainProfilePage));
+                if (IsEmailExists.IsSuccess)
+                {
+                    message = "The password is incorrect";
+
+                    var user = _userService.GetUserAsync(Email, Password);
+
+                    if (user != null)
+                    {
+                        await NavigationService.NavigateAsync(nameof(MainProfilePage));
+                    }
+                }
             }
 
-            else { await UserDialogs.Instance.ConfirmAsync(confirnConfig); }
-
+            else
+            {
+                await UserDialogs.AlertAsync(message);
+            }
         }
 
         private void OnClearEntryPassword()
