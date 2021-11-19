@@ -13,43 +13,55 @@ namespace MapNotepad.Services.ProfileService
     {
         private readonly IRepositoryService _repositoryService;
 
-        private readonly ISettingsManager _settingsService;
+        private readonly ISettingsManager _settingsManager;
 
-        public UserService(ISettingsManager settingsService,
+        public UserService(ISettingsManager settingsManager,
                            IRepositoryService repositoryService)
         {
             _repositoryService = repositoryService;
-            _settingsService = settingsService;
+            _settingsManager = settingsManager;
         }
 
         #region -- Public Properties --
 
-        public int UserId { get => _settingsService.UserId; }
+        public int UserId 
+        { 
+            get => _settingsManager.UserId;
+        }
 
         #endregion
 
 
         #region -- UserService implementation  --
 
-        public async Task<AOResult<int>> AddUserAsync(UserModel user)
+        public async Task<AOResult<bool>> AddUserAsync(UserModel user)
         {
-            var result = new AOResult<int>();
+            var result = new AOResult<bool>();
 
             try
             {
-                await _repositoryService.InsertAsync(user);
+                int rowNumber = await _repositoryService.InsertAsync(user);
+
+                if (rowNumber > 0)
+                {
+                    result.SetSuccess();
+                }
+                else
+                {
+                    result.SetFailure();
+                }
             }
             catch (Exception ex)
             {
-                result.SetError("0", "Exeption from UserService AddUser", ex);
+                result.SetError($"{nameof(AddUserAsync)}: exception", "Exeption from UserService AddUserAsync", ex);
             }
 
             return result;
         }
 
-        public async Task<AOResult<UserModel>> GetUserAsync(string email, string password)
+        public async Task<AOResult<int>> CheckUserExists(string email, string password)
         {
-            var result = new AOResult<UserModel>();
+            var result = new AOResult<int>();
 
             try
             {
@@ -57,17 +69,23 @@ namespace MapNotepad.Services.ProfileService
 
                 if(users != null)
                 {
-                    result.SetSuccess(users.FirstOrDefault(u => u.Email == email && u.Password == password));
+                    var user = users.FirstOrDefault(u => u.Email == email && u.Password == password);
+
+                    if (user != null)
+                    {
+                        result.SetSuccess(user.Id);
+                    }
+                    else
+                    {
+                        result.SetFailure();
+                    }
                 }
-                else 
-                {
-                    result.SetFailure();
-                }
+              
             }
             catch (Exception ex)
             {
 
-                result.SetError($"{nameof(GetUserAsync)}: exception", "Error from UserService GetUserAsync", ex);
+                result.SetError($"{nameof(CheckUserExists)}: exception", "Error from UserService CheckUserExists", ex);
             }
             return result;
         }

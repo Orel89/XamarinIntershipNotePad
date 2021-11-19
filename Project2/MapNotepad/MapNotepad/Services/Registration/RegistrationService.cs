@@ -22,17 +22,22 @@ namespace MapNotepad.Services.Registration
 
         #region -- RegistrationService implementation --
 
-        public async Task<AOResult<int>> RegistrationAsync(UserModel user)
+        public async Task<AOResult<bool>> RegistrationAsync(UserModel user)
         {
-            var result = new AOResult<int>();
+            var result = new AOResult<bool>();
 
             try
             {
                 var userIdResponse = await _userService.AddUserAsync(user);
 
-                if (!userIdResponse.IsSuccess || userIdResponse.Result <= 0)
+                if (userIdResponse.IsSuccess)
                 {
-                    result.SetFailure("user id <= 0");
+                    result.SetSuccess();
+                }
+
+                else
+                {
+                    result.SetFailure("row number is <= 0");
                 }
              
             }
@@ -43,6 +48,7 @@ namespace MapNotepad.Services.Registration
             
             return result;
         }
+
 
         #endregion
     }

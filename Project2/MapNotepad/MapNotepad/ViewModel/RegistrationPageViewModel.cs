@@ -1,16 +1,11 @@
-﻿using Acr.UserDialogs;
-using MapNotepad.Helpers;
+﻿using MapNotepad.Helpers;
 using MapNotepad.Helpers.Validation;
 using MapNotepad.Services.Authentication;
 using MapNotepad.Services.ProfileService;
 using MapNotepad.Services.Registration;
 using MapNotepad.View;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -25,7 +20,6 @@ namespace MapNotepad.ViewModel
         {
             _userService = userService;
         }
-
 
         #region -- Public properties --
 
@@ -130,7 +124,7 @@ namespace MapNotepad.ViewModel
         
         private void OnClearEntryButtonTapCommand()
         {
-             Name = null;
+            Name = null;
         }
 
         private void OnClearEntryEmailButtonTapCommand()

@@ -39,11 +39,16 @@ namespace MapNotepad.Services.Authentication
 
             try
             {
-                var user = await _userService.GetUserAsync(email, password);
+                var user = await _userService.CheckUserExists(email, password);
 
-                if (user.IsSuccess && user.Result != null)
+                if (user.IsSuccess)
                 {
-                    _settingsManager.UserId = user.Result.Id;
+                    _settingsManager.UserId = user.Result;
+                    result.SetSuccess();
+                }
+                else
+                {
+                    result.SetFailure();
                 }
             }
             catch (Exception ex)

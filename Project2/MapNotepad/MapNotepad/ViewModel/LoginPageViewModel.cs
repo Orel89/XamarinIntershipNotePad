@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using MapNotepad.Helpers;
 using MapNotepad.Helpers.Validation;
+using MapNotepad.Model;
 using MapNotepad.Services.Authentication;
 using MapNotepad.Services.ProfileService;
 using MapNotepad.Views;
@@ -108,12 +109,20 @@ namespace MapNotepad.ViewModel
                 {
                     message = "The password is incorrect";
 
-                    var user = _userService.GetUserAsync(Email, Password);
+                    var user = await _authenticationService.AuthorizationAsync(Email, Password);
 
-                    if (user != null)
+                    if (user.IsSuccess)
                     {
                         await NavigationService.NavigateAsync(nameof(MainProfilePage));
                     }
+                    else
+                    {
+                        await UserDialogs.AlertAsync(message);
+                    }
+                }
+                else
+                {
+                    await UserDialogs.AlertAsync(message);
                 }
             }
 

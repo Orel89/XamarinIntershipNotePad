@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using MapNotepad.Helpers;
 using MapNotepad.Helpers.Validation;
+using MapNotepad.Model;
 using MapNotepad.Services.Authentication;
 using MapNotepad.Services.ProfileService;
 using MapNotepad.Services.Registration;
@@ -21,22 +22,15 @@ namespace MapNotepad.ViewModel
     {
 
         private readonly IRegistrationService _registrationService;
-
-        private readonly IUserService _userService;
-
         private string _name;
-
         private string _email;
 
-        public RegistrationPagePartTwoViewModel(IUserService userService,
-                                                IRegistrationService registrationService)
+        public RegistrationPagePartTwoViewModel(IRegistrationService registrationService)
         {
-            _userService = userService;
-
             _registrationService = registrationService;
         }
 
-        #region ---public properties---
+        #region -- Public properties --
 
         private string _password;
         public string Password
@@ -81,6 +75,7 @@ namespace MapNotepad.ViewModel
 
         private ICommand _hideEntryPasswordButtonTapCommand;
         public ICommand HideEntryPasswordButtonTapCommand => _hideEntryPasswordButtonTapCommand ?? (_hideEntryPasswordButtonTapCommand = new Command(HidePasswordEntryButtonTapCommand));
+
         #endregion
 
         #region -- Private helpers --
@@ -95,7 +90,7 @@ namespace MapNotepad.ViewModel
 
                 if (Validator.IsPasswordMatched(Password))
                 {
-                    var result = await _userService.AddUserAsync(new Model.UserModel()
+                    var result = await _registrationService.RegistrationAsync(new UserModel()
                     {
                         UserName = _name,
                         Email = _email,
@@ -103,7 +98,7 @@ namespace MapNotepad.ViewModel
                         CreationTime = DateTime.Now
                     });
 
-                    if (result.IsSuccess && result.Result > 0)
+                    if (result.IsSuccess)
                     {
                         message = "Successful registration";
                         await UserDialogs.AlertAsync(message);
@@ -139,7 +134,7 @@ namespace MapNotepad.ViewModel
 
         #endregion
 
-        #region ---ovverides---
+        #region -- Ovverides --
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
@@ -154,10 +149,8 @@ namespace MapNotepad.ViewModel
 
         public override void Initialize(INavigationParameters parameters)
         {
-            
             parameters.TryGetValue("Email", out _email);
             parameters.TryGetValue("Name", out _name);
-
         }
 
         #endregion

@@ -10,6 +10,6 @@ namespace MapNotepad.Services.Registration
 {
     public interface IRegistrationService
     {
-        Task<AOResult<int>> RegistrationAsync(UserModel user);
+        Task<AOResult<bool>> RegistrationAsync(UserModel user);
     }
 }
