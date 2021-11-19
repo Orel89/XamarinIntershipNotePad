@@ -17,7 +17,12 @@ namespace MapNotepad.ViewModel
     public class AddPinPageViewModel : BaseViewModel
     {
         private readonly IPinService _pinService;
+
+        private PinModel pinToDelete;
+
         private IUserService _userService;
+
+        private int _pinUserIdToDelete;
         public AddPinPageViewModel(IUserService userService,
                                    IPinService pinService)
         {
@@ -26,6 +31,13 @@ namespace MapNotepad.ViewModel
         }
 
         #region -- Public Properties --
+
+        private string _title = "Add pin";
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
 
         private string _label;
         public string Label
@@ -123,6 +135,26 @@ namespace MapNotepad.ViewModel
 
         #region -- Ovverides --
 
+        public async override void Initialize(INavigationParameters parameters)
+        {
+            parameters.TryGetValue("pinId", out _pinUserIdToDelete);
+
+            if (_pinUserIdToDelete > 0)
+            {
+                var pin = await _pinService.GetPinAsync(_pinUserIdToDelete);
+
+                if (pin.IsSuccess)
+                {
+                    pinToDelete = pin.Result;
+
+                    _label = pinToDelete.Label;
+                    _latitude = pinToDelete.Latitude;
+                    _longitude = pinToDelete.Longitude;
+                    _description = pinToDelete.Description;
+                }
+            }
+        }
+
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
             base.OnNavigatedFrom(parameters);
@@ -171,7 +203,6 @@ namespace MapNotepad.ViewModel
         private Task OnMapClickedCommandAsync(Position position)
         {
             Longitude = position.Longitude;
-
             Latitude = position.Latitude;
 
             var pins = new ObservableCollection<PinViewModel>();
@@ -204,29 +235,53 @@ namespace MapNotepad.ViewModel
 
         private async Task OnSaveCommandAsync()
         {
-            var result = await _pinService.AddPinAsync(new PinModel()
+            if (_pinUserIdToDelete == 0)
             {
-                UserId = _userService.UserId,
-                Label = Label,
-                Description = Description,
-                Latitude = Latitude,
-                Longitude = Longitude,
-                IsFavorite = false,
-                CreationTime = DateTime.Now
-            });
+                var result = await _pinService.AddPinAsync(new PinModel()
+                {
+                    UserId = _userService.UserId,
+                    Label = Label,
+                    Description = Description,
+                    Latitude = Latitude,
+                    Longitude = Longitude,
+                    IsFavorite = false,
+                    CreationTime = DateTime.Now
+                });
 
-            if (result.IsSuccess)
-            {
-                await NavigationService.GoBackAsync();
+                if (result.IsSuccess)
+                {
+                    await NavigationService.GoBackAsync();
+                }
+                else
+                {
+                    UserDialogs.Alert(new AlertConfig()
+                    {
+                        OkText = "Ok",
+                        Message = "Cannot save a pin"
+                    });
+                }
             }
             else
             {
-                UserDialogs.Alert(new AlertConfig()
+                pinToDelete.Label = Label;
+                pinToDelete.Description = Description;
+                pinToDelete.Latitude = Latitude;
+                pinToDelete.Longitude = Longitude;
+                var result = await _pinService.UpdatePinAsync(pinToDelete);
+                if (result.IsSuccess)
                 {
-                    OkText = "Ok",
-                    Message = "Cannot save a pin"
-                });
+                    await NavigationService.GoBackAsync();
+                }
+                else
+                {
+                    UserDialogs.Alert(new AlertConfig()
+                    {
+                        OkText = "Ok",
+                        Message = "Cannot save a pin"
+                    });
+                }
             }
+           
         }
 
         #endregion

@@ -51,6 +51,13 @@ namespace MapNotepad.Model.Pin
             set => SetProperty(ref _Latitude, value);
         }
 
+        private bool _IsFavorite;
+        public bool IsFavorite
+        {
+            get => _IsFavorite;
+            set => SetProperty(ref _IsFavorite, value);
+        }
+
         private DateTime _CreationTime;
         public DateTime CreationTime
         {

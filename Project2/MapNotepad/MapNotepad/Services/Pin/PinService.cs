@@ -58,6 +58,32 @@ namespace MapNotepad.Services.PinService
             return result;
         }
 
+        public async Task<AOResult<PinModel>> GetPinAsync(int pinId)
+        {
+            var result = new AOResult<PinModel>();
+
+            try
+            {
+                var pins = await _repositoryService.GetAllItemsAsync<PinModel>();
+
+                if (pins != null)
+                {
+                    result.SetSuccess(pins.Where(p => p.Id == pinId).FirstOrDefault());
+                }
+                else
+                {
+                    result.SetFailure();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                result.SetError($"{nameof(GetPinAsync)}: exeption", "Something went wrong", ex);
+            }
+
+            return result;
+        }
+
         public async Task<AOResult<IEnumerable<PinModel>>> GetPinsAsync()
         {
             var result = new AOResult<IEnumerable<PinModel>>();
@@ -80,6 +106,27 @@ namespace MapNotepad.Services.PinService
                 result.SetError($"{nameof(GetPinsAsync)}: exception", "Something went wrong", ex);
             }
 
+            return result;
+        }
+
+        public async Task<AOResult<int>> UpdatePinAsync(PinModel pin)
+        {
+            var result = new AOResult<int>();
+
+            try
+            {
+                //var pins = await _repositoryService.GetAllItemsAsync<PinModel>();
+                //var totalPinsNumber = pins.Count();
+
+                var id = await _repositoryService.UpdateAsync(pin);
+
+                result.SetSuccess(id);
+            }
+            catch (Exception ex)
+            {
+                result.SetError("0", "Exeption PinService UpdatePin", ex);
+
+            }
             return result;
         }
     }

@@ -9,7 +9,7 @@
         
         <StackLayout>
             
-            <controls:CustomToolBar Title="Add pin"
+            <controls:CustomToolBar Title="{Binding Title}"
                                     BackButtonTapCommand="{Binding GoBackCommand}"
                                     RightButtonCommand="{Binding SaveButtonCommand}"
                                     IsEnableRightButton="{Binding IsEnableSaveButton}"

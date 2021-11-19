@@ -11,6 +11,8 @@ namespace MapNotepad.Services.PinService
     {
         Task<AOResult<int>> AddPinAsync(PinModel pin);
         Task<AOResult<int>> DeletePinAsync(PinModel pin);
+        Task<AOResult<PinModel>> GetPinAsync(int pinId);
+        Task<AOResult<int>> UpdatePinAsync(PinModel pin);
         Task<AOResult<IEnumerable<PinModel>>> GetPinsAsync();
     }
 }

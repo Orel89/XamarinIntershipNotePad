@@ -14,7 +14,8 @@
     </TabbedPage.Behaviors>
     
     <controls:CustomTabbedPage.Children>
-        <local:MapPage Title="Map" IconImageSource="ic_map.png"/>
+        <local:MapPage Title="Map" 
+                       IconImageSource="ic_map.png"/>
         <local:PinListPage Title="Pins" IconImageSource="ic_pin.png"/>
     </controls:CustomTabbedPage.Children>
 </controls:CustomTabbedPage>
