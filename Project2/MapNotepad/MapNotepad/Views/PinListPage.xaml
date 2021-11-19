@@ -1,43 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<view:BaseContentPage xmlns:view="clr-namespace:MapNotepad.Views"
+<view:BaseContentPage xmlns:view="clr-namespace:MapNotepad.Views" 
+                      x:Class="MapNotepad.Views.PinListPage"
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      x:Class="MapNotepad.Views.PinListPage">
+                      xmlns:context="clr-namespace:ContextMenu.Views;assembly=ContextMenu"
+                      xmlns:converters="clr-namespace:MapNotepad.Converters"
+                      Title="Pins">
 
+    <view:BaseContentPage.Resources>
+        <ResourceDictionary>
+            <converters:MenuFitWidthConverter x:Key="MenuFitWidthConverter"/>
+            <converters:IsMutedToBackgroundColorConverter x:Key="IsMutedToBackgroundColorConverter"/>
+            <converters:IsMutedToTextConverter x:Key="IsMutedToTextConverter"/>
+            <converters:IsMutedToOpacityConverter x:Key="IsMutedToOpacityConverter"/>
+        </ResourceDictionary>
+    </view:BaseContentPage.Resources>
+    
     <view:BaseContentPage.Content>
-        <Grid>
+        <Grid BackgroundColor="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+             </Grid.RowDefinitions>
 
             <Grid>
-                <ListView HasUnevenRows="True"
-                      ItemsSource="{Binding ObservPinCollection}">
-                    <ListView.ItemTemplate>
+                <CollectionView x:Name="CollectionView"
+                                ItemsSource="{Binding ObservPinCollection}">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <Label Text="{Binding Label}"/>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
+                            <context:SideContextMenuView IsAutoCloseEnabled="True">
+                                <context:SideContextMenuView.View>
+                                    <Frame HeightRequest="75"
+                                           WidthRequest="{Binding Source={x:Reference CollectionView}, Path=Width, Converter={StaticResource MenuFitWidthConverter}, ConverterParameter='40'}">
+                                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                            <Frame>
+                                                <ImageButton BackgroundColor="Transparent"
+                                                             Scale="1.2"
+                                                             Source="ic_like_blue.png"/>
+                                            </Frame>
+                                            <StackLayout Orientation="Vertical">
+                                                <Label Style="{DynamicResource Label}" Text="{Binding Label}"/>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Style="{DynamicResource Label}" Text="{Binding Latitude}"/>
+                                                    <Label Style="{DynamicResource Label}" Text="{Binding Longitude}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </context:SideContextMenuView.View>
+                                <context:SideContextMenuView.ContextTemplate>
+                                    <DataTemplate>
+                                        <StackLayout Orientation="Horizontal" Spacing="0">
+                                            <Frame BackgroundColor="{DynamicResource Error}"
+                                                   HeightRequest="75"
+                                                   WidthRequest="56">
+                                                <ImageButton Command="{Binding DeleteCommand}"
+                                                                CommandParameter="{Binding .}"
+                                                                Style="{DynamicResource DeleteButton}"/>
+                                            </Frame>
+                                            <Frame BackgroundColor="{DynamicResource Primary}"
+                                                   HeightRequest="75"
+                                                   WidthRequest="56">
+                                                <ImageButton Command="{Binding EditCommand}"
+                                                             CommandParameter="{Binding .}"
+                                                             Style="{DynamicResource EditButton}"/>
 
-            <Frame BackgroundColor="Blue"
-               HorizontalOptions="End"
-               VerticalOptions="End"
-               CornerRadius="90"
-               HasShadow="True">
-                <ImageButton Margin='0'
-                             CornerRadius="65"
-                             HorizontalOptions="Center"
-                             VerticalOptions="Center"
-                             Source="ic_plus.png"
-                             IsEnabled="True"
-                             Command="{Binding AddButtonCommand}"/>
-            </Frame>
+                                            </Frame>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </context:SideContextMenuView.ContextTemplate>
+                            </context:SideContextMenuView>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
         </Grid>
     </view:BaseContentPage.Content>
 </view:BaseContentPage>

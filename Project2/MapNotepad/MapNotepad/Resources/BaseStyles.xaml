@@ -56,6 +56,14 @@
         <Setter Property="BorderWidth" Value="1" />
     </Style>
 
-
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{DynamicResource DarkGray}" />
+        <Setter Property="FontFamily" Value="Montserrat-Medium" />
+    </Style>
+    <Style x:Key="ErrorMessage" TargetType="Label">
+        <Setter Property="TextColor" Value="{DynamicResource Error}" />
+        <Setter Property="FontFamily" Value="Montserrat-SemiBold" />
+        <Setter Property="FontSize" Value="13" />
+    </Style>
 
 </ResourceDictionary>

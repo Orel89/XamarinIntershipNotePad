@@ -1,17 +1,11 @@
-﻿using Acr.UserDialogs;
-using MapNotepad.Helpers;
+﻿using MapNotepad.Helpers;
 using MapNotepad.Helpers.Validation;
 using MapNotepad.Model;
-using MapNotepad.Services.Authentication;
-using MapNotepad.Services.ProfileService;
 using MapNotepad.Services.Registration;
 using MapNotepad.View;
-using Prism.Common;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -20,7 +14,6 @@ namespace MapNotepad.ViewModel
 {
     public class RegistrationPagePartTwoViewModel : BaseViewModel
     {
-
         private readonly IRegistrationService _registrationService;
         private string _name;
         private string _email;

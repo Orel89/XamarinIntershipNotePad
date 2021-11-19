@@ -3,10 +3,7 @@ using MapNotepad.Model.Pin;
 using MapNotepad.Services.PinService;
 using MapNotepad.Views;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -20,7 +17,7 @@ namespace MapNotepad.ViewModel
             _pinService = pinService;
         }
 
-        #region --- Public Properties ---
+        #region -- Public Properties --
 
         private ICommand _addButtonCommand;
         public ICommand AddButtonCommand => _addButtonCommand ?? (_addButtonCommand = SingleExecutionCommand.FromFunc(OnAddButtonPinAsync));
@@ -44,7 +41,7 @@ namespace MapNotepad.ViewModel
 
         #endregion
 
-        #region --- Private Helpers ---
+        #region -- Private helpers --
 
         private async Task OnAddButtonPinAsync()
         {

@@ -74,6 +74,7 @@ namespace MapNotepad.ViewModel
                 {
                     pin.TapCommand = PinClickedCommand;
                     pin.EditCommand = PinEditCommand;
+                    pin.DeleteCommand = PinDeleteCommand;
                 }
             }
         }
@@ -132,9 +133,14 @@ namespace MapNotepad.ViewModel
         private async Task OnPinEditAsync(object pin)
         {
             var pinId = (pin as PinViewModel).Id;
+            var pinDescription = (pin as PinViewModel).Description;
+            var pinLongitude = (pin as PinViewModel).Longitude;
+            //var pinLongitude = (pin as PinViewModel).Longitude;
 
             var parameter = new NavigationParameters();
 
+            parameter.Add("id", pinId);
+            parameter.Add("", pinId);
             parameter.Add("id", pinId);
 
             await NavigationService.NavigateAsync(nameof(AddPinPage));

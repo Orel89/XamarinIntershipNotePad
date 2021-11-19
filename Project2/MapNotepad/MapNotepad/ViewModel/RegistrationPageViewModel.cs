@@ -1,8 +1,6 @@
 ﻿using MapNotepad.Helpers;
 using MapNotepad.Helpers.Validation;
-using MapNotepad.Services.Authentication;
 using MapNotepad.Services.ProfileService;
-using MapNotepad.Services.Registration;
 using MapNotepad.View;
 using Prism.Navigation;
 using System.ComponentModel;

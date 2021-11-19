@@ -5,11 +5,7 @@ using MapNotepad.Model;
 using MapNotepad.Services.Authentication;
 using MapNotepad.Services.ProfileService;
 using MapNotepad.Views;
-using Prism.Navigation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -71,7 +67,7 @@ namespace MapNotepad.ViewModel
 
         #endregion
 
-        #region --- overrides ---
+        #region -- Overrides --
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
@@ -89,7 +85,7 @@ namespace MapNotepad.ViewModel
 
         #endregion
 
-        #region ---execution commands---
+        #region --Private helpers --
 
         private async Task OnButtonTapGoToBackPage()
         {

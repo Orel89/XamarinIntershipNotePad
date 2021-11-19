@@ -21,7 +21,7 @@ namespace MapNotepad.ViewModel
             _userService = userService;
         }
 
-        #region ---public properties---
+        #region -- Public properties --
 
         private string image = "customLogo.png";
         public string ImageUrl
@@ -29,9 +29,6 @@ namespace MapNotepad.ViewModel
             get => image;
             set => SetProperty(ref image, value);
         }
-        #endregion 
-
-        #region ---commands---
 
         private ICommand _createAccountButtonTapCommand;
         public ICommand CreateAccountButtonTapCommand => _createAccountButtonTapCommand ?? (_createAccountButtonTapCommand = SingleExecutionCommand.FromFunc(GoToRegistrationPage));
@@ -41,7 +38,7 @@ namespace MapNotepad.ViewModel
 
         #endregion
 
-        #region --- navigation ---
+        #region -- Private helpers --
 
         private async Task GoToLoginPage()
         {
@@ -54,9 +51,5 @@ namespace MapNotepad.ViewModel
 
         #endregion
 
-        #region --- Ovverides ---
-
-
-        #endregion
     }
 }

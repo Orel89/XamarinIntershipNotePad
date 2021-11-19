@@ -5,10 +5,8 @@ using MapNotepad.Services.PinService;
 using MapNotepad.Services.ProfileService;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -27,7 +25,7 @@ namespace MapNotepad.ViewModel
             _userService = userService;
         }
 
-        #region --- Public Properties ---
+        #region -- Public Properties --
 
         private string _label;
         public string Label
@@ -123,7 +121,7 @@ namespace MapNotepad.ViewModel
 
         #endregion
 
-        #region --- ovverides ---
+        #region -- Ovverides --
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -168,7 +166,7 @@ namespace MapNotepad.ViewModel
 
         #endregion
 
-        #region --- Private helpers ---
+        #region -- Private helpers --
 
         private Task OnMapClickedCommandAsync(Position position)
         {
