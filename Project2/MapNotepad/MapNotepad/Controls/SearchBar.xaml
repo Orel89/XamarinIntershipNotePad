@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    x:Class="MapNotepad.Controls.SearchBar"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MapNotepad.Controls;assembly=MapNotepad"
+    BackgroundColor="White"
+    ColumnDefinitions="0.15*,0.7*,0.15*"
+    RowDefinitions="0.03*,0.97*">
+
+    <Label 
+        Grid.Row="0"
+        Grid.ColumnSpan="3"
+        Background="transparent"
+        BackgroundColor="Transparent" />
+
+    <ImageButton 
+        Grid.Row="1"
+        Grid.Column="0"
+        BackgroundColor="White"
+        BorderColor="White"
+        Scale="1"
+        Padding="0, 3, 0, 0"
+        Source="ic_settings.png" />
+
+    <local:NoBorderEntry 
+        Grid.Row="1"
+        Grid.Column="1"
+        FontSize="Small"
+        BackgroundColor="#F1F3FD"
+        Placeholder="Search"
+        Margin="-4, 0, -4, -10"
+        Text="{Binding SearchEntry, Mode=TwoWay}" />
+
+    <ImageButton
+        Grid.Row="1"
+        Grid.Column="2"
+        BackgroundColor="White"
+        BorderColor="White"
+        BorderWidth="0"
+        Scale="1"
+        Padding="0, 3, 0, 0"
+        Source="ic_exid.png" />
+
+</Grid>

@@ -4,7 +4,8 @@
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:context="clr-namespace:ContextMenu.Views;assembly=ContextMenu"
-                      xmlns:converters="clr-namespace:MapNotepad.Converters"
+                      xmlns:converters="clr-namespace:MapNotepad.Converters" 
+                      xmlns:local="clr-namespace:MapNotepad.Controls;assembly=MapNotepad"
                       Title="Pins">
 
     <view:BaseContentPage.Resources>
@@ -22,8 +23,10 @@
                 <RowDefinition Height="*"/>
              </Grid.RowDefinitions>
 
-            <Grid>
+            <Grid RowDefinitions="0.07*, 0.93*">
+                <local:SearchBar Grid.Row="0"/>
                 <CollectionView x:Name="CollectionView"
+                                Grid.Row="1"
                                 ItemsSource="{Binding ObservPinCollection}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
