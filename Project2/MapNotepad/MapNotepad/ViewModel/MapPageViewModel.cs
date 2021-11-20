@@ -94,14 +94,28 @@ namespace MapNotepad.ViewModel
         {
             base.OnPropertyChanged(args);
 
+            var userObservPinList = Pins;
             if (args.PropertyName == nameof(SearchEntry))
             {
-                CurrentPin = null;
+                //CurrentPin = null;
+                var pinsModelList = Pins.AsEnumerable().Select(x => x.ToPinModel());
 
-
-
-
-            }
+                var foundPinlist = _searchService.Search(SearchEntry, pinsModelList);
+                if (foundPinlist.Count > 0 && DisplayFoundPinList)
+                {
+                    Pins.Clear();
+                    var pinViewModelList = foundPinlist.AsEnumerable().Select(x => x.ToPinViewModel());
+                    foreach (var pin in pinViewModelList)
+                    {
+                        pin.TapCommand = PinClickedCommand;
+                    }
+                    Pins = (ObservableCollection<PinViewModel>)pinViewModelList;
+                }
+                else
+                {
+                    Pins = userObservPinList;
+                }
+            } 
         }
 
         #endregion

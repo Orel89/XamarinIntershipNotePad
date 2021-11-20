@@ -18,7 +18,7 @@ namespace MapNotepad.Services.Repository
         {
             _database = new Lazy<SQLiteAsyncConnection>(() =>
            {
-               var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MapNotepad.db3");
+               var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MapNotepad.db4");
                var database = new SQLiteAsyncConnection(path);
                database.CreateTableAsync<UserModel>().Wait();
                database.CreateTableAsync<PinModel>().Wait();
