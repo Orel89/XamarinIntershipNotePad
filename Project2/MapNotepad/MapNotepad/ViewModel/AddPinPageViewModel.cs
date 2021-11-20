@@ -34,15 +34,15 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _label, value);
         }
 
-        private double _longitude;
-        public double Longitude
+        private string _longitude;
+        public string Longitude
         {
             get => _longitude;
             set => SetProperty(ref _longitude, value);
         }
 
-        private double _latitude;
-        public double Latitude
+        private string _latitude;
+        public string Latitude
         {
             get => _latitude;
             set => SetProperty(ref _latitude, value);
@@ -136,32 +136,7 @@ namespace MapNotepad.ViewModel
         {
             base.OnPropertyChanged(args);
 
-            IsEnableSaveButton = !string.IsNullOrWhiteSpace(Label) && Latitude >= -90 && Latitude <=90 && Longitude >= -180 && Longitude <= 180;
-
-            switch(args.PropertyName)
-            {
-                case nameof(Latitude):
-                    if (Latitude < -90 && Latitude > 90)
-                    {
-                        BorderColorLatitude = Color.Red;
-                    }
-                    else
-                    {
-                        BorderColorLatitude = Color.Green;
-                    }
-                    break;
-
-                case nameof(Longitude):
-                    if (Latitude < -180 && Latitude > 180)
-                    {
-                        BorderColorLongitude = Color.Red;
-                    }
-                    else
-                    {
-                        BorderColorLongitude = Color.Green;
-                    }
-                    break;
-            }
+            IsEnableSaveButton = !string.IsNullOrWhiteSpace(Label) && double.Parse(Latitude) >= -90 && double.Parse(Latitude) <= 90 && double.Parse(Longitude) >= -180 && double.Parse(Longitude) <= 180;
         }
 
         #endregion
@@ -170,19 +145,19 @@ namespace MapNotepad.ViewModel
 
         private Task OnMapClickedCommandAsync(Position position)
         {
-            Longitude = position.Longitude;
-
-            Latitude = position.Latitude;
-
             var pins = new ObservableCollection<PinViewModel>();
             pins.Add(new PinViewModel()
             {
-               Label = Label ?? "No label",
-               Latitude = Latitude,
-               Longitude = Longitude
+                Label = Label ?? "No label",
+                Latitude = position.Latitude,
+                Longitude = position.Longitude
             });
 
             Pins = new ObservableCollection<PinViewModel>(pins);
+
+            Longitude = position.Longitude.ToString();
+
+            Latitude = position.Latitude.ToString();
 
             return Task.CompletedTask;
         }
@@ -209,9 +184,8 @@ namespace MapNotepad.ViewModel
                 UserId = _userService.UserId,
                 Label = Label,
                 Description = Description,
-                Latitude = Latitude,
-                Longitude = Longitude,
-                IsFavorite = false,
+                Latitude = double.Parse(Latitude),
+                Longitude = double.Parse(Longitude),
                 CreationTime = DateTime.Now
             });
 

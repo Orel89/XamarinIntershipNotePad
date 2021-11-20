@@ -20,7 +20,7 @@ namespace MapNotepad.ViewModel
         #region -- Public Properties --
 
         private ICommand _addButtonCommand;
-        public ICommand AddButtonCommand => _addButtonCommand ?? (_addButtonCommand = SingleExecutionCommand.FromFunc(OnAddButtonPinAsync));
+        public ICommand AddButtonTapCommand => _addButtonCommand ?? (_addButtonCommand = SingleExecutionCommand.FromFunc(OnAddButtonPinAsync));
 
 
         private ObservableCollection<PinModel> _observPinCollection;

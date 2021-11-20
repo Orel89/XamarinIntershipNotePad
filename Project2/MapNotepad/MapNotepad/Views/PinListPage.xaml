@@ -74,6 +74,26 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </Grid>
+
+            <Frame
+                Margin="20"
+                BackgroundColor="#596EFB"
+                CornerRadius="90"
+                HasShadow="True"
+                HorizontalOptions="End"
+                Scale="1"
+                VerticalOptions="End">
+                <ImageButton
+                    BackgroundColor="#596EFB"
+                    BorderColor="#596EFB"
+                    BorderWidth="6"
+                    Command="{Binding AddButtonTapCommand}"
+                    CornerRadius="90"
+                    HorizontalOptions="Center"
+                    Scale="1"
+                    Source="ic_plus.png"
+                    VerticalOptions="Center" />
+            </Frame>
         </Grid>
     </view:BaseContentPage.Content>
 </view:BaseContentPage>
