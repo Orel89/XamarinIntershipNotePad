@@ -3,11 +3,13 @@ using MapNotepad.Extensions;
 using MapNotepad.Helpers;
 using MapNotepad.Model.Pin;
 using MapNotepad.Services.PinService;
+using MapNotepad.Services.SearchService;
 using MapNotepad.Views;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,14 +21,44 @@ namespace MapNotepad.ViewModel
 {
     class MapPageViewModel : BaseViewModel
     {
-        private IPinService _pinService;
+        private readonly IPinService _pinService;
+        private readonly ISearchService _searchService;
 
-        public MapPageViewModel(IPinService pinService)
+        public MapPageViewModel(IPinService pinService,
+                                ISearchService searchService)
         {
             _pinService = pinService;
+            _searchService = searchService;
         }
 
         #region -- Public properties --
+
+        private PinModel _currentPin;
+
+        public PinModel CurrentPin
+        {
+            get => _currentPin;
+            set
+            {
+                SetProperty(ref _currentPin, value);
+                RaisePropertyChanged(nameof(DisplayCurrentPinDescript));
+            }
+        }
+
+        public bool DisplayCurrentPinDescript => CurrentPin != null;
+
+        public bool DisplayFoundPinList => !string.IsNullOrEmpty(SearchEntry); //&& Pins != null;
+
+        private string _searchEntry;
+        public string SearchEntry
+        {
+            get => _searchEntry;
+            set
+            {
+                SetProperty(ref _searchEntry, value);
+                RaisePropertyChanged(nameof(DisplayFoundPinList));
+            }
+        }
 
         private ObservableCollection<PinViewModel> _Pins;
         public ObservableCollection<PinViewModel> Pins
@@ -58,6 +90,20 @@ namespace MapNotepad.ViewModel
             await InitPins();
         }
 
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            if (args.PropertyName == nameof(SearchEntry))
+            {
+                CurrentPin = null;
+
+
+
+
+            }
+        }
+
         #endregion
 
         #region -- Private helpers --
@@ -73,8 +119,8 @@ namespace MapNotepad.ViewModel
                 foreach (var pin in Pins)
                 {
                     pin.TapCommand = PinClickedCommand;
-                    pin.EditCommand = PinEditCommand;
-                    pin.DeleteCommand = PinDeleteCommand;
+                    //pin.EditCommand = PinEditCommand;
+                    //pin.DeleteCommand = PinDeleteCommand;
                 }
             }
         }

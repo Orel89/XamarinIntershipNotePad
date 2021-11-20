@@ -4,6 +4,7 @@ using MapNotepad.Services.PinService;
 using MapNotepad.Services.ProfileService;
 using MapNotepad.Services.Registration;
 using MapNotepad.Services.Repository;
+using MapNotepad.Services.SearchService;
 using MapNotepad.Services.Services;
 using MapNotepad.View;
 using MapNotepad.ViewModel;
@@ -33,6 +34,7 @@ namespace MapNotepad
             containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationService>());
             containerRegistry.RegisterInstance<IRegistrationService>(Container.Resolve<RegistrationService>());
             containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
+            containerRegistry.RegisterInstance<ISearchService>(Container.Resolve<SearchService>());
 
             // Navigation
             containerRegistry.RegisterForNavigation<StartPage, StartPageViewModel>();
