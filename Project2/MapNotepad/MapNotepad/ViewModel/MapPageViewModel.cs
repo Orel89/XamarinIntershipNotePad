@@ -33,6 +33,13 @@ namespace MapNotepad.ViewModel
 
         #region -- Public properties --
 
+        private PinModel _pin;
+        public PinModel Pin
+        {
+            get => _pin;
+            set => SetProperty(ref _pin, value);
+        }
+
         private PinModel _currentPin;
 
         public PinModel CurrentPin
@@ -41,13 +48,13 @@ namespace MapNotepad.ViewModel
             set
             {
                 SetProperty(ref _currentPin, value);
-                RaisePropertyChanged(nameof(DisplayCurrentPinDescript));
+                //RaisePropertyChanged(nameof(DisplayCurrentPinDescript));
             }
         }
 
         public bool DisplayCurrentPinDescript => CurrentPin != null;
 
-        public bool DisplayFoundPinList => !string.IsNullOrEmpty(SearchEntry); //&& Pins != null;
+        public bool DisplayFoundPinList => !String.IsNullOrWhiteSpace(SearchEntry) && SeachPinList != null;
 
         private string _searchEntry;
         public string SearchEntry
@@ -58,6 +65,13 @@ namespace MapNotepad.ViewModel
                 SetProperty(ref _searchEntry, value);
                 RaisePropertyChanged(nameof(DisplayFoundPinList));
             }
+        }
+
+        private ObservableCollection<PinViewModel> _seachPinList;
+        public ObservableCollection<PinViewModel> SeachPinList
+        {
+            get => _seachPinList;
+            set => SetProperty(ref _seachPinList, value);
         }
 
         private ObservableCollection<PinViewModel> _Pins;
@@ -79,6 +93,16 @@ namespace MapNotepad.ViewModel
         private ICommand _MapClickedCommand;
         public ICommand MapClickedCommand => _MapClickedCommand ?? (_MapClickedCommand = SingleExecutionCommand.FromFunc<Position>(OnMapClickedCommandAsync));
 
+        private ICommand _testCommand;
+        public ICommand TestCommand => _testCommand ?? (_testCommand = new Command(OnTestCommandAsync));
+
+        private void OnTestCommand(PinViewModel arg)
+        {
+            throw new NotImplementedException();
+        }
+
+        //DeleteEintragCommand
+
         #endregion
 
         #region -- Overrides --
@@ -94,33 +118,52 @@ namespace MapNotepad.ViewModel
         {
             base.OnPropertyChanged(args);
 
-            var userObservPinList = Pins;
-            if (args.PropertyName == nameof(SearchEntry))
+            if (args.PropertyName == nameof(SearchEntry) && !String.IsNullOrWhiteSpace(SearchEntry))
             {
                 //CurrentPin = null;
                 var pinsModelList = Pins.AsEnumerable().Select(x => x.ToPinModel());
 
                 var foundPinlist = _searchService.Search(SearchEntry, pinsModelList);
-                if (foundPinlist.Count > 0 && DisplayFoundPinList)
+
+                if (foundPinlist.Count > 0)
                 {
-                    Pins.Clear();
-                    var pinViewModelList = foundPinlist.AsEnumerable().Select(x => x.ToPinViewModel());
-                    foreach (var pin in pinViewModelList)
+                    SeachPinList = new ObservableCollection<PinViewModel>(foundPinlist.AsEnumerable().Select(x => x.ToPinViewModel()));
+                    foreach (var pin in SeachPinList)
                     {
-                        pin.TapCommand = PinClickedCommand;
+                        pin.MoveToPinLocation = SingleExecutionCommand.FromFunc(GoToPinLocation);
                     }
-                    Pins = (ObservableCollection<PinViewModel>)pinViewModelList;
                 }
                 else
                 {
-                    Pins = userObservPinList;
+                    SeachPinList = null;
                 }
-            } 
+            }
+            else if (args.PropertyName == nameof(SearchEntry) && String.IsNullOrWhiteSpace(SearchEntry))
+            {
+                SeachPinList = null;
+            }
         }
 
         #endregion
 
         #region -- Private helpers --
+
+        private Task GoToPinLocation(object obj)
+        {
+            if (obj.GetType() == typeof(PinModel))
+            {
+                Pin = obj as PinModel;
+            }
+            else if (obj.GetType() == typeof(PinViewModel))
+            {
+                Pin = Extensions.PinExtension.ToPinModel(obj as PinViewModel);
+            }
+            //IsFocus = IsFocus == false;
+            //NavigationParameter = null;
+            //IsFocus = IsFocus == false;
+
+            return Task.CompletedTask;
+        }
 
         private async Task InitPins()
         {

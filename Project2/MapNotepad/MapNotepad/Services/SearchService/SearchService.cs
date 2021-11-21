@@ -34,7 +34,7 @@ namespace MapNotepad.Services.SearchService
             }
             else
             {  // NOTE: переписать на String.Contain
-                var searchResult = list.Where(x => x.Label == search_query);
+                var searchResult = list.Where(x => x.Label.ToLower() == search_query.ToLower());
                 foreach (PinModel pinModel in searchResult)
                 {
                     outValue.Add(pinModel);
