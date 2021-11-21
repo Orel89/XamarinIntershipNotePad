@@ -33,13 +33,6 @@ namespace MapNotepad.ViewModel
 
         #region -- Public properties --
 
-        private PinModel _pin;
-        public PinModel Pin
-        {
-            get => _pin;
-            set => SetProperty(ref _pin, value);
-        }
-
         private PinModel _currentPin;
 
         public PinModel CurrentPin
@@ -93,9 +86,6 @@ namespace MapNotepad.ViewModel
         private ICommand _MapClickedCommand;
         public ICommand MapClickedCommand => _MapClickedCommand ?? (_MapClickedCommand = SingleExecutionCommand.FromFunc<Position>(OnMapClickedCommandAsync));
 
-        private ICommand _testCommand;
-        public ICommand TestCommand => _testCommand ?? (_testCommand = new Command(OnTestCommandAsync));
-
         private void OnTestCommand(PinViewModel arg)
         {
             throw new NotImplementedException();
@@ -130,7 +120,7 @@ namespace MapNotepad.ViewModel
                     SeachPinList = new ObservableCollection<PinViewModel>(foundPinlist.AsEnumerable().Select(x => x.ToPinViewModel()));
                     foreach (var pin in SeachPinList)
                     {
-                        pin.MoveToPinLocation = SingleExecutionCommand.FromFunc(GoToPinLocation);
+                        pin.TapCommand = PinClickedCommand;
                     }
                 }
                 else
@@ -147,23 +137,6 @@ namespace MapNotepad.ViewModel
         #endregion
 
         #region -- Private helpers --
-
-        private Task GoToPinLocation(object obj)
-        {
-            if (obj.GetType() == typeof(PinModel))
-            {
-                Pin = obj as PinModel;
-            }
-            else if (obj.GetType() == typeof(PinViewModel))
-            {
-                Pin = Extensions.PinExtension.ToPinModel(obj as PinViewModel);
-            }
-            //IsFocus = IsFocus == false;
-            //NavigationParameter = null;
-            //IsFocus = IsFocus == false;
-
-            return Task.CompletedTask;
-        }
 
         private async Task InitPins()
         {

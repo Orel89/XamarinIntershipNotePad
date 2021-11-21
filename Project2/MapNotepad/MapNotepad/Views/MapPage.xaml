@@ -32,38 +32,21 @@
 
                     </controls:CustomMap.Behaviors>
                 </controls:CustomMap>
-                <ListView x:Name="searchPinList"
-                          Grid.Row="0"
+                <ListView Grid.Row="0"
                           BackgroundColor="Transparent"
                           IsVisible="{Binding DisplayFoundPinList}"
-                          ItemsSource="{Binding SeachPinList}"
-                          ItemTapped="OnItemTapped">
+                          ItemsSource="{Binding SeachPinList}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.View>
-                                    <StackLayout BackgroundColor="White" Orientation="Horizontal">
-                                        <ImageButton
-                                                Margin="10,10,0,10"
-                                                BackgroundColor="Transparent"
-                                                Command="{Binding MoveToPinLocationCommand}"
-                                                CommandParameter="{Binding .}"
-                                                Scale="1"
-                                                Source="ic_pin_gray.png" />
-
-                                        <Label FontFamily="Montserrat-Regular"
-                                               FontSize="12"
-                                               LineBreakMode="TailTruncation"
-                                               MaxLines="1"
-                                               Text="{Binding Label}"
-                                               TextColor="{DynamicResource Black}"/>
-
-                                        <Label FontFamily="Montserrat-Regular"
-                                               FontSize="12"
-                                               LineBreakMode="TailTruncation"
-                                               MaxLines="1"
-                                               Text="{Binding Address}"
-                                               TextColor="{DynamicResource DarkGray}"/>
+                                    <StackLayout>
+                                        <StackLayout>
+                                            <Label
+                                            Style="{DynamicResource Label}"
+                                            Text="{Binding Label}"
+                                            TextColor="Black" />
+                                        </StackLayout>
                                     </StackLayout>
                                 </ViewCell.View>
                             </ViewCell>

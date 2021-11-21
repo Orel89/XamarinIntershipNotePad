@@ -76,12 +76,5 @@ namespace MapNotepad.Model.Pin
             get => _TapCommand;
             set => SetProperty(ref _EditCommand, value);
         }
-
-        private ICommand _moveToPinLocationCommand;
-        public ICommand MoveToPinLocationCommand
-        {
-            get => _moveToPinLocationCommand;
-            set => SetProperty(ref _moveToPinLocationCommand, value);
-        }
     }
 }
