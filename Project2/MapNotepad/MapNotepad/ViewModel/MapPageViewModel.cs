@@ -7,11 +7,9 @@ using MapNotepad.Services.SearchService;
 using MapNotepad.Views;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -86,13 +84,6 @@ namespace MapNotepad.ViewModel
         private ICommand _MapClickedCommand;
         public ICommand MapClickedCommand => _MapClickedCommand ?? (_MapClickedCommand = SingleExecutionCommand.FromFunc<Position>(OnMapClickedCommandAsync));
 
-        private void OnTestCommand(PinViewModel arg)
-        {
-            throw new NotImplementedException();
-        }
-
-        //DeleteEintragCommand
-
         #endregion
 
         #region -- Overrides --
@@ -111,7 +102,7 @@ namespace MapNotepad.ViewModel
             if (args.PropertyName == nameof(SearchEntry) && !String.IsNullOrWhiteSpace(SearchEntry))
             {
                 //CurrentPin = null;
-                var pinsModelList = Pins.AsEnumerable().Select(x => x.ToPinModel());
+                var pinsModelList = Pins.Select(x => x.ToPinModel());
 
                 var foundPinlist = _searchService.Search(SearchEntry, pinsModelList);
 
@@ -121,6 +112,7 @@ namespace MapNotepad.ViewModel
                     foreach (var pin in SeachPinList)
                     {
                         pin.TapCommand = PinClickedCommand;
+                        pin.MoveToPinLocationCommand = SingleExecutionCommand.FromFunc<PinViewModel>(GoToPinLocation);
                     }
                 }
                 else
@@ -134,9 +126,17 @@ namespace MapNotepad.ViewModel
             }
         }
 
+
         #endregion
 
         #region -- Private helpers --
+
+        private Task GoToPinLocation(PinViewModel pin)
+        {
+            LocatePin(new Position(pin.Latitude, pin.Longitude));
+
+            return Task.CompletedTask;
+        }
 
         private async Task InitPins()
         {
@@ -189,7 +189,7 @@ namespace MapNotepad.ViewModel
             }
             var pinId = (pin as PinViewModel).Id;
 
-            
+
         }
 
         private Task OnPinClickedCommandAsync(Position arg)
@@ -221,6 +221,11 @@ namespace MapNotepad.ViewModel
 
             await NavigationService.NavigateAsync(nameof(AddPinPage));
 
+        }
+
+        private void LocatePin(Position position)
+        {
+            MessagingCenter.Send(this, "MovePin", position);
         }
 
         #endregion
