@@ -1,6 +1,8 @@
-﻿using MapNotepad.Extensions;
+﻿using Acr.UserDialogs;
+using MapNotepad.Extensions;
 using MapNotepad.Helpers;
 using MapNotepad.Model.Pin;
+using MapNotepad.Services.Authentication;
 using MapNotepad.Services.PinService;
 using MapNotepad.Views;
 using Prism.Navigation;
@@ -17,16 +19,36 @@ namespace MapNotepad.ViewModel
     public class PinListViewModel : BaseViewModel
     {
         private readonly IPinService _pinService;
-        public PinListViewModel(IPinService pinService)
+        private readonly IAuthenticationService _authenticationService;
+        public PinListViewModel(IPinService pinService,
+                                IAuthenticationService authenticationService)
         {
             _pinService = pinService;
+            _authenticationService = authenticationService;
         }
 
         #region -- Public Properties --
 
+        private bool _isFavorite;
+
+        public bool IsFavorite
+        {
+            get => _isFavorite;
+            set => SetProperty(ref _isFavorite, value);
+        }
+
+
         private ICommand _addButtonCommand;
         public ICommand AddButtonTapCommand => _addButtonCommand ?? (_addButtonCommand = SingleExecutionCommand.FromFunc(OnAddButtonPinAsync));
 
+        private ICommand _logOutCommand;
+        public ICommand LogOutCommand => _logOutCommand ?? (_logOutCommand = SingleExecutionCommand.FromFunc(OnLogOutCommand));
+
+        private ICommand _editCommand;
+        public ICommand EditCommand => _editCommand ?? (_editCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnEditCommandAsync));
+
+        private ICommand _deleteCommand;
+        public ICommand DeleteCommand => _deleteCommand ?? (_deleteCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnDeleteCommandAsync));
 
         private ObservableCollection<PinViewModel> _observPinCollection;
         public ObservableCollection<PinViewModel> ObservPinCollection
@@ -47,6 +69,47 @@ namespace MapNotepad.ViewModel
         #endregion
 
         #region -- Private helpers --
+        private async Task OnDeleteCommandAsync(PinViewModel pin)
+        {
+            if (pin != null)
+            {
+                var confirmConfig = new ConfirmConfig()
+                {
+                    Message = "Do you want to delete a pin?",
+                    OkText = "Delete",
+                    CancelText = "Cancel"
+                };
+
+                var confirm = await UserDialogs.ConfirmAsync(confirmConfig);
+
+                if (confirm)
+                {
+
+                    var result = await _pinService.DeletePinAsync(pin.ToPinModel());
+
+                    if (result.IsSuccess)
+                    {
+                        ObservPinCollection.Remove(pin);
+                    }
+                    else
+                    {
+                        confirmConfig.Message = result.Message;
+
+                        await UserDialogs.ConfirmAsync(confirmConfig);
+                    }
+                }
+            }
+        }
+        private Task OnLogOutCommand()
+        {
+            _authenticationService.LogOut();
+            return Task.CompletedTask;
+        }
+
+        private Task OnEditCommandAsync(PinViewModel pin)
+        {
+            throw new NotImplementedException();
+        }
 
         private async Task OnAddButtonPinAsync()
         {
@@ -65,6 +128,8 @@ namespace MapNotepad.ViewModel
             foreach (var pin in ObservPinCollection)
             {
                 pin.MoveToPinLocationCommand = SingleExecutionCommand.FromFunc<PinViewModel>(GoToPinLocation);
+                pin.DeleteCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnDeleteCommandAsync);
+                pin.EditCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnEditCommandAsync);
             }
         }
 

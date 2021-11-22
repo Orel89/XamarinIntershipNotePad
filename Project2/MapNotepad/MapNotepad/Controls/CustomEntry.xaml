@@ -13,7 +13,6 @@
                  Padding="5,4,5,0">
 
             <controls:NoBorderEntry Text="{Binding Text, Source={x:Reference customEntry}}"
-                                    ReturnType="{Binding Numeric, Source={x:Reference customEntry}}"
                                     TextColor="{Binding TextColor, Source={x:Reference customEntry}}"
                                     Placeholder="{Binding Placeholder, Source={x:Reference customEntry}}"
                                     Keyboard="{Binding Keyboard, Source={x:Reference customEntry}}"

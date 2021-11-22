@@ -24,10 +24,13 @@
              </Grid.RowDefinitions>
 
             <Grid RowDefinitions="0.07*, 0.93*">
-                <local:SearchBar Grid.Row="0"/>
+                <local:SearchBar Grid.Row="0"
+                                 RightButtonCommand="{Binding LogOutCommand}"
+                                 LeftButtonCommand="{Binding GoToSettingsPageCommand}"/>
                 <CollectionView x:Name="CollectionView"
                                 Grid.Row="1"
-                                ItemsSource="{Binding ObservPinCollection}">
+                                ItemsSource="{Binding ObservPinCollection}"
+                                SelectedItem="{Binding SelectedItem}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <context:SideContextMenuView IsAutoCloseEnabled="True">
@@ -35,12 +38,11 @@
                                     <Frame HeightRequest="75"
                                            WidthRequest="{Binding Source={x:Reference CollectionView}, Path=Width, Converter={StaticResource MenuFitWidthConverter}, ConverterParameter='40'}">
                                         <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                                            <Frame>
-                                                <ImageButton BackgroundColor="Transparent"
-                                                             Scale="1.2"
-                                                             Source="ic_like_blue.png"/>
-                                            </Frame>
+                                            
                                             <StackLayout Orientation="Vertical">
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding MoveToPinLocationCommand}" CommandParameter="{Binding .}"/>
+                                                </StackLayout.GestureRecognizers>
                                                 <Label Style="{DynamicResource Label}" Text="{Binding Label}"/>
                                                 <StackLayout Orientation="Horizontal">
                                                     <Label Style="{DynamicResource Label}" Text="{Binding Latitude}"/>
@@ -68,6 +70,7 @@
                                                              Style="{DynamicResource EditButton}"/>
 
                                             </Frame>
+                                            
                                         </StackLayout>
                                     </DataTemplate>
                                 </context:SideContextMenuView.ContextTemplate>
