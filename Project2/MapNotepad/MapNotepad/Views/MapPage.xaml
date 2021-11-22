@@ -16,7 +16,8 @@
                              Text="{Binding SearchEntry}"/>
 
             <Grid Grid.Row="1">
-                <controls:CustomMap PinsSource="{Binding Pins}" 
+                <controls:CustomMap x:Name="map"
+                                    PinsSource="{Binding Pins}" 
                                     Grid.Row="0"
                                     Grid.RowSpan="3">
 
@@ -33,6 +34,7 @@
                     </controls:CustomMap.Behaviors>
                 </controls:CustomMap>
                 <ListView Grid.Row="0"
+                          Grid.RowSpan="2"
                           BackgroundColor="Transparent"
                           IsVisible="{Binding DisplayFoundPinList}"
                           ItemsSource="{Binding SeachPinList}">
@@ -40,13 +42,24 @@
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.View>
-                                    <StackLayout>
-                                        <StackLayout>
-                                            <Label
-                                            Style="{DynamicResource Label}"
-                                            Text="{Binding Label}"
-                                            TextColor="Black" />
+                                    <StackLayout BackgroundColor="White" Orientation="Horizontal">
+                                        <ImageButton BackgroundColor="White"
+                                                     Scale="1"
+                                                     Margin="10, 10, 0, 10"
+                                                     Command="{Binding MoveToPinLocationCommand}"
+                                                     CommandParameter="{Binding .}"
+                                                     Source="ic_pin_gray.png"/>
+
+                                        <StackLayout Margin="5" Spacing="0">
+                                            <Label FontFamily="Montserrat-Regular"
+                                                   FontSize="12"
+                                                   MaxLines="1"
+                                                   Text="{Binding Label}"
+                                                   TextColor="{DynamicResource Black}"
+                                                   LineBreakMode="TailTruncation"/>
+
                                         </StackLayout>
+
                                     </StackLayout>
                                 </ViewCell.View>
                             </ViewCell>
@@ -55,7 +68,7 @@
                 </ListView>
                 <StackLayout Grid.Row="2"
                              BackgroundColor="White"
-                             IsVisible="{Binding DisplayCurrentPinDescript}"
+                             IsVisible="False"
                              Spacing="0">
                     
                     <Label Margin="20, 16, 0, 0"
