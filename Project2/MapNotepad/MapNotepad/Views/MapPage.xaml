@@ -64,25 +64,25 @@
                                 </ViewCell.View>
                             </ViewCell>
                         </DataTemplate>
-                    </ListView.ItemTemplate> 
+                    </ListView.ItemTemplate>
                 </ListView>
                 <StackLayout Grid.Row="2"
                              BackgroundColor="White"
                              IsVisible="False"
                              Spacing="0">
-                    
+
                     <Label Margin="20, 16, 0, 0"
                            FontAttributes="Bold"
                            FontSize="Large"
                            Text="{Binding CurrentPin.Label}"/>
-                    
+
                     <StackLayout Margin="20, 6, 0, 16"
                                  Orientation="Horizontal"
                                  Spacing="6">
-                        
+
                         <Label FontSize="Medium" Text="{Binding CurrentPin.Latitude}"/>
                         <Label FontSize="Medium" Text="{Binding Currentin.Longitude}"/>
-                        
+
                     </StackLayout>
 
                     <BoxView Margin="16, 8"
@@ -97,5 +97,5 @@
             </Grid>
         </Grid>
     </ContentPage.Content>
-    
+
 </ContentPage>

@@ -30,7 +30,7 @@
         BackgroundColor="#F1F3FD"
         Placeholder="Search"
         Margin="-4, 0, -4, -10"
-        Text="{Binding SearchRequest, Source={x:Reference customEntry}}"/>
+        Text="{Binding SearchEntry, Mode=TwoWay}" />
 
     <ImageButton
         Grid.Row="1"
