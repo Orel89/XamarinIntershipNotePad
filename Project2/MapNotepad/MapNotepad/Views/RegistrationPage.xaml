@@ -60,6 +60,7 @@
                                       Message="Email is not valid"
                                       IsVisibleButton ="{Binding IsVisibleEmailEntryLeftButton}"
                                       ButtonCommand="{Binding ClearEntryEmailButtonTapCommand}">
+                    
 
                     <controls:CustomEntry.Behaviors>
 

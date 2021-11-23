@@ -29,7 +29,9 @@
                                       PlaceholderColor="#858E9E" 
                                       Text="{Binding Email}"
                                       TextColor="Black"
+                                      Message="wrong email"
                                       ImageSource="ic_clear.png"
+                                      IsMessageVisible="{Binding IsMessageEmailVisible}"
                                       IsVisibleButton ="{Binding IsVisibleEntryEmailLeftButton}"
                                       ButtonCommand="{Binding ClearEntryEmailButtonTapCommand}">
 
@@ -45,11 +47,25 @@
                                       PlaceholderColor="#858E9E"
                                       Text="{Binding Password}"
                                       TextColor="Black"
-                                      ImageSource="ic_clear.png"    
+                                      Message="the password is incorrect"
+                                      IsMessageVisible="{Binding IsMessagePasswordVisible}"
+                                      IsPassword="{Binding IsPassword}"
                                       IsVisibleButton ="{Binding IsVisibleEntryPasswordLeftButton}"
-                                      ButtonCommand="{Binding ClearEntryPasswordButtonTapCommand}">
+                                      ButtonCommand="{Binding HideEntryPasswordCommand}">
 
+                    <controls:CustomEntry.Triggers>
+                        <DataTrigger Binding="{Binding IsPassword}"
+                                     TargetType="controls:CustomEntry"
+                                     Value="True">
+                            <Setter Property="ImageSource" Value="ic_eye_off.png"/>
+                        </DataTrigger>
 
+                        <DataTrigger Binding="{Binding IsPassword}"
+                                     TargetType="controls:CustomEntry"
+                                     Value="False">
+                            <Setter Property="ImageSource" Value="ic_eye.png"/>
+                        </DataTrigger>
+                    </controls:CustomEntry.Triggers>
 
                 </controls:CustomEntry>
 

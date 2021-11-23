@@ -37,6 +37,10 @@ namespace MapNotepad.ViewModel
         private ICommand clearEntryEmailButtonTapCommand;
         public ICommand ClearEntryEmailButtonTapCommand => clearEntryEmailButtonTapCommand ?? (clearEntryEmailButtonTapCommand = new Command(OnClearEntryEmail));
 
+        private ICommand _hideEntryPasswordCommand;
+        public ICommand HideEntryPasswordCommand => _hideEntryPasswordCommand ?? (_hideEntryPasswordCommand = new Command(OnHidePasswordEntryCommand));
+
+     
         private string _email;
         public string Email
         {
@@ -65,11 +69,25 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref isVisibleEntryEmailLeftButton, value);
         }
 
+        private bool _IsMessageEmailVisible;
+        public bool IsMessageEmailVisible
+        {
+            get => _IsMessageEmailVisible;
+            set => SetProperty(ref _IsMessageEmailVisible, value);
+        }
+
+        private bool _isPassword = true;
+        public bool IsPassword
+        {
+            get => _isPassword;
+            set => SetProperty(ref _isPassword, value);
+        }
+
         #endregion
 
         #region -- Overrides --
 
-        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        protected async override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             base.OnPropertyChanged(args);
             switch (args.PropertyName)
@@ -79,13 +97,28 @@ namespace MapNotepad.ViewModel
                     break;
                 case nameof(Email):
                     IsVisibleEntryEmailLeftButton = !string.IsNullOrWhiteSpace(Email);
+                    await CheckEmailExists();
                     break;
+            }
+        }
+
+        private async Task CheckEmailExists()
+        {
+            var response = await _userService.CheckEmailExists(Email);
+
+            if (response.IsSuccess)
+            {
+                IsMessageEmailVisible = false;
+            }
+            else
+            {
+                IsMessageEmailVisible = true;
             }
         }
 
         #endregion
 
-        #region --Private helpers --
+        #region -- Private helpers --
 
         private async Task OnButtonTapGoToBackPage()
         {
@@ -128,6 +161,10 @@ namespace MapNotepad.ViewModel
             }
         }
 
+        private void OnHidePasswordEntryCommand()
+        {
+            IsPassword = !IsPassword;
+        }
         private void OnClearEntryPassword()
         {
             Password = null;

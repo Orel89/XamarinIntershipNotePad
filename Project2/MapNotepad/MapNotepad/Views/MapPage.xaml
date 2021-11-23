@@ -24,12 +24,12 @@
                     <controls:CustomMap.Behaviors>
 
                         <prism:EventToCommandBehavior Command="{Binding PinClickedCommand}"
-                                                  EventName="PinClicked"
-                                                  EventArgsParameterPath="Pin.Position"/>
+                                                      EventName="PinClicked"
+                                                      EventArgsParameterPath="Pin.Position"/>
 
                         <prism:EventToCommandBehavior Command="{Binding MapClickedCommand}" 
-                                                  EventName="MapClicked"
-                                                  EventArgsParameterPath="Point"/>
+                                                      EventName="MapClicked"
+                                                      EventArgsParameterPath="Point"/>
 
                     </controls:CustomMap.Behaviors>
                 </controls:CustomMap>
