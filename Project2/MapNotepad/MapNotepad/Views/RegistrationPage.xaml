@@ -7,7 +7,8 @@
                       xmlns:controls="clr-namespace:MapNotepad.Controls" 
                       xmlns:behaviours="clr-namespace:MapNotepad.Behaviours" 
                       xmlns:converter="clr-namespace:MapNotepad.Converters" 
-                      BackgroundColor="White">
+                      BackgroundColor="White"
+                      x:Name="page">
 
     <view:BaseContentPage.Resources>
         <converter:MultiTriggerConverter x:Key="dataHasBeenEntered"/>
@@ -27,14 +28,21 @@
                        Margin="8,15,0,0"/>
 
                 <controls:CustomEntry x:Name="name"
-                                      BorderColor="#D7DDE8"
+                                      BorderColor="{Binding EntryNameColor}"
                                       Placeholder="Enter your name"
                                       PlaceholderColor="#858E9E" 
                                       Text="{Binding Name}"
                                       TextColor="Black"
+                                      Message="no name"
                                       ImageSource="ic_clear.png"
                                       IsVisibleButton ="{Binding IsVisibleNameEntryLeftButton}"
                                       ButtonCommand="{Binding ClearEntryNameButtonTapCommand}">
+                    
+                    <controls:CustomEntry.Behaviors>
+
+                        <behaviours:CustomEntryValidationBehaviour/>
+
+                    </controls:CustomEntry.Behaviors>
 
                 </controls:CustomEntry>
 
@@ -43,7 +51,7 @@
                        Margin="8,35,0,0"/>
 
                 <controls:CustomEntry x:Name="email"
-                                      BorderColor="#D7DDE8"
+                                      BorderColor="{Binding EntryEmailColor}"
                                       Placeholder="Enter email"
                                       PlaceholderColor="#858E9E"
                                       Text="{Binding Email}"
@@ -60,7 +68,7 @@
                     </controls:CustomEntry.Behaviors>
 
                 </controls:CustomEntry>
-
+                
                 <Button HorizontalOptions="Fill"
                         BackgroundColor="#596EFB" 
                         Text="Create account" 

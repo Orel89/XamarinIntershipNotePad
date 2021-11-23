@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary
     x:Class="MapNotepad.Resources.BaseStyles"
-    xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:controls ="clr-namespace:MapNotepad.Controls"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:converters1="clr-namespace:MapNotepad.Converters">
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <!--  System  -->
     <Color x:Key="White">#FEFEFD</Color>
     <Color x:Key="LightGray">#D7DDE8</Color>

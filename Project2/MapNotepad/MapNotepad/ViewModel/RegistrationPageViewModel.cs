@@ -49,6 +49,19 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref isVisibleEmailEntryLeftButton, value);
         }
 
+        private Color _entryNameColor = Color.Red;
+        public Color EntryNameColor
+        {
+            get => _entryNameColor;
+            set => SetProperty(ref _entryNameColor, value);
+        }
+
+        private Color _entryEmailColor = Color.Red;
+        public Color EntryEmailColor
+        {
+            get => _entryEmailColor;
+            set => SetProperty(ref _entryEmailColor, value);
+        }
         private ICommand _toNextPageButtonTapCommand;
         public ICommand ToNextPageButtonTapCommand => _toNextPageButtonTapCommand ?? (_toNextPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapNextPageAsync, () => false));
 
@@ -72,9 +85,11 @@ namespace MapNotepad.ViewModel
             {
                 case nameof(Name):
                     IsVisibleNameEntryLeftButton = !string.IsNullOrWhiteSpace(Name);
+                    EntryNameColor = Color.FromHex("#D7DDE8");
                     break;
                 case nameof(Email):
                     IsVisibleEmailEntryLeftButton = !string.IsNullOrWhiteSpace(Email);
+                    EntryEmailColor = Color.FromHex("#D7DDE8");
                     break;
             }
         }

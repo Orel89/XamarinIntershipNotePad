@@ -2,8 +2,10 @@
 <view:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:view="clr-namespace:MapNotepad.Views" 
-                      xmlns:controls="clr-namespace:MapNotepad.Controls"
-                      x:Class="MapNotepad.View.RegistrationPagePartTwo">
+                      xmlns:controls="clr-namespace:MapNotepad.Controls" 
+                      xmlns:behaviours="clr-namespace:MapNotepad.Behaviours"
+                      x:Class="MapNotepad.View.RegistrationPagePartTwo"
+                      xmlns:local="clr-namespace:MapNotepad">
     <view:BaseContentPage.Content>
         <StackLayout>
 
@@ -16,15 +18,38 @@
                        TextColor="#3D4E61" 
                        Margin="8,15,0,0"/>
 
-                <controls:CustomEntry BorderColor="#D7DDE8"
+                <controls:CustomEntry x:Name="IsPassword"
+                                      BorderColor="#D7DDE8"
                                       Placeholder="Create password"
-                                      PlaceholderColor="#858E9E" 
+                                      PlaceholderColor="#858E9E"
+                                      Message="password is not strong enough"
                                       Text="{Binding Password}"
                                       IsPassword="{Binding IsPassword}"
                                       IsVisibleButton="{Binding IsVisiblePasswordEntryLeftButton}"
                                       ButtonCommand="{Binding HideEntryPasswordButtonTapCommand}"
-                                      TextColor="Black"
-                                      ImageSource="{Binding ImageButton}"/>
+                                      TextColor="Black">
+
+                    <controls:CustomEntry.Triggers>
+                        <DataTrigger Binding="{Binding IsPassword}"
+                                     TargetType="controls:CustomEntry"
+                                     Value="True">
+                                     <Setter Property="ImageSource" Value="ic_eye_off.png"/>
+                         </DataTrigger>
+
+                        <DataTrigger Binding="{Binding IsPassword}"
+                                     TargetType="controls:CustomEntry"
+                                     Value="False">
+                            <Setter Property="ImageSource" Value="ic_eye.png"/>
+                        </DataTrigger>
+                    </controls:CustomEntry.Triggers>
+                    
+                    <controls:CustomEntry.Behaviors>
+
+                        <behaviours:CustomEntryValidationBehaviour Regex="{x:Static local:Constants.Password_REGEX}"/>
+
+                    </controls:CustomEntry.Behaviors>
+
+                </controls:CustomEntry>
 
                 <Label Text="Confirm Password" 
                        TextColor="#3D4E61" 
@@ -34,9 +59,30 @@
                                       Placeholder="Repeat password"
                                       PlaceholderColor="#858E9E"
                                       Text="{Binding ConfirmPassword}"
+                                      IsPassword="{Binding IsConfirmPassword}"
+                                      IsVisibleButton="{Binding IsVisibleConfirmPasswordEntryLeftButton}"
+                                      ButtonCommand="{Binding HideEntryConfirmPasswordButtonTapCommand}"
                                       TextColor="Black"
                                       Message="Password mismatch"
-                                      ImageSource="ic_eye.png"/>
+                                      ImageSource="{Binding ImageButtonConfirmPassword }">
+                    
+                    <controls:CustomEntry.Triggers>
+
+                        <DataTrigger Binding="{Binding IsConfirmPassword}"
+                                     TargetType="controls:CustomEntry"
+                                     Value="True">
+                            <Setter Property="ImageSource" Value="ic_eye_off.png"/>
+                        </DataTrigger>
+                        
+                        <DataTrigger Binding="{Binding IsConfirmPassword}"
+                                     TargetType="controls:CustomEntry"
+                                     Value="False">
+                            <Setter Property="ImageSource" Value="ic_eye.png"/>
+                        </DataTrigger>
+
+                    </controls:CustomEntry.Triggers>
+
+                </controls:CustomEntry>
 
                 <Button x:Name="next"
                         HorizontalOptions="Fill"

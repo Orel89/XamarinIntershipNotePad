@@ -10,25 +10,14 @@ using Xamarin.Forms.Xaml;
 
 namespace MapNotepad.Controls
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CustomEntry : Frame
+    public partial class CustomEntry : ContentView
     {
-
-        #region ---public properties---
-
-        public static readonly BindableProperty LabelProperty =
-        BindableProperty.Create("Label", typeof(string), typeof(CustomEntry), string.Empty);
-        public string Label
+        public CustomEntry()
         {
-            set
-            {
-                SetValue(LabelProperty, value);
-            }
-            get
-            {
-                return (string)GetValue(LabelProperty);
-            }
+            InitializeComponent();
         }
+
+        #region -- Public properties --
 
         public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(
           propertyName: nameof(Placeholder),
@@ -95,6 +84,20 @@ namespace MapNotepad.Controls
             get => (Color)GetValue(TextColorProperty);
         }
 
+        public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(
+           propertyName: nameof(BorderColor),
+           returnType: typeof(Color),
+           declaringType: typeof(CustomEntry),
+           //POSTAVIT' DEFAULT VALUE
+           defaultValue: Color.Silver,
+           defaultBindingMode: BindingMode.TwoWay);
+
+        public Color BorderColor
+        {
+            set => SetValue(BorderColorProperty, value);
+            get => (Color)GetValue(BorderColorProperty);
+        }
+
         public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(
           propertyName: nameof(Keyboard),
           returnType: typeof(Keyboard),
@@ -134,6 +137,18 @@ namespace MapNotepad.Controls
             get => (bool)GetValue(IsVisibleButtonProperty);
         }
 
+        public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(
+            propertyName: nameof(IsPassword),
+            returnType: typeof(bool),
+            declaringType: typeof(CustomEntry),
+            defaultBindingMode: BindingMode.TwoWay);
+
+        public bool IsPassword
+        {
+            set => SetValue(IsPasswordProperty, value);
+            get => (bool)GetValue(IsPasswordProperty);
+        }
+
         public static readonly BindableProperty IsMessageVisibleProperty = BindableProperty.Create(
             propertyName: nameof(IsMessageVisible),
             returnType: typeof(bool),
@@ -145,18 +160,6 @@ namespace MapNotepad.Controls
         {
             set => SetValue(IsMessageVisibleProperty, value);
             get => (bool)GetValue(IsMessageVisibleProperty);
-        }
-
-        public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(
-            propertyName: nameof(IsPassword),
-            returnType: typeof(bool),
-            declaringType: typeof(CustomEntry),
-            defaultBindingMode: BindingMode.TwoWay);
-
-        public bool IsPassword
-        {
-            set => SetValue(IsPasswordProperty, value);
-            get => (bool)GetValue(IsPasswordProperty);
         }
 
         public static readonly BindableProperty MessageProperty = BindableProperty.Create(
@@ -172,10 +175,5 @@ namespace MapNotepad.Controls
         }
 
         #endregion
-
-        public CustomEntry()
-        {
-            InitializeComponent();
-        }
     }
 }
