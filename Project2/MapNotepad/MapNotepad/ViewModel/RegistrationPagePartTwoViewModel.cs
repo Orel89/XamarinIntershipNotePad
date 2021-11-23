@@ -79,8 +79,16 @@ namespace MapNotepad.ViewModel
         public bool IsConfirmPassword
         {
             get => _isConfirmPassword;
-            set => SetProperty(ref _isConfirmPassword, value);
+            set => SetProperty(ref _isConfirmPassword, value); //IsMessageVisible
         }
+
+        private bool _IsMessageVisible;
+        public bool IsMessageVisible
+        {
+            get => _IsMessageVisible;
+            set => SetProperty(ref _IsMessageVisible, value);
+        }
+
 
         private ICommand _createAccountButtonTapCommand;
         public ICommand CreateAccountButtonTapCommand => _createAccountButtonTapCommand ?? (_createAccountButtonTapCommand = SingleExecutionCommand.FromFunc(ExecuteCreateAccountButtonTapCommand));
@@ -156,10 +164,11 @@ namespace MapNotepad.ViewModel
             switch (args.PropertyName)
             {
                 case nameof(Password):
-                    IsVisiblePasswordEntryLeftButton = !string.IsNullOrWhiteSpace(Password);
+                    IsVisiblePasswordEntryLeftButton = !string.IsNullOrWhiteSpace(nameof(Password));
                     break;
                 case nameof(ConfirmPassword):
-                    IsVisibleConfirmPasswordEntryLeftButton = !string.IsNullOrWhiteSpace(ConfirmPassword);
+                    IsVisibleConfirmPasswordEntryLeftButton = !string.IsNullOrWhiteSpace(nameof(ConfirmPassword));
+                    IsMessageVisible = Password != ConfirmPassword;
                     break;
             }
         }

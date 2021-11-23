@@ -64,6 +64,7 @@
                                       ButtonCommand="{Binding HideEntryConfirmPasswordButtonTapCommand}"
                                       TextColor="Black"
                                       Message="Password mismatch"
+                                      IsMessageVisible="{Binding IsMessageVisible}"
                                       ImageSource="{Binding ImageButtonConfirmPassword }">
                     
                     <controls:CustomEntry.Triggers>
