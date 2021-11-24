@@ -29,13 +29,7 @@ namespace MapNotepad.Model.Pin
             get => _Label;
             set => SetProperty(ref _Label, value);
         }
-
-        private string _Description;
-        public string Description
-        {
-            get => _Description;
-            set => SetProperty(ref _Description, value);
-        }
+;
 
         private double _Longitude;
         public double Longitude
@@ -58,12 +52,13 @@ namespace MapNotepad.Model.Pin
             set => SetProperty(ref _CreationTime, value);
         }
 
-        private ICommand _DeleteCommand;
-        public ICommand DeleteCommand
+        private bool _IsFavorite;
+        public bool IsFavorite
         {
-            get => _DeleteCommand;
-            set => SetProperty(ref _DeleteCommand, value);
+            get => _IsFavorite;
+            set => SetProperty(ref _IsFavorite, value);
         }
+
         private ICommand _TapCommand;
         public ICommand TapCommand
         {
@@ -82,6 +77,20 @@ namespace MapNotepad.Model.Pin
         {
             get => _moveToPinLocationCommand;
             set => SetProperty(ref _moveToPinLocationCommand, value);
+        }
+
+        private ICommand _IsFavoriteSwitchCommand;
+        public ICommand IsFavoriteSwitchCommand
+        {
+            get => _IsFavoriteSwitchCommand;
+            set => SetProperty(ref _IsFavoriteSwitchCommand, value);
+        }
+
+        private ICommand _deleteCommand;
+        public ICommand DeleteCommand
+        {
+            get => _deleteCommand;
+            set => SetProperty(ref _deleteCommand, value);
         }
     }
 }

@@ -130,6 +130,26 @@ namespace MapNotepad.ViewModel
                 pin.MoveToPinLocationCommand = SingleExecutionCommand.FromFunc<PinViewModel>(GoToPinLocation);
                 pin.DeleteCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnDeleteCommandAsync);
                 pin.EditCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnEditCommandAsync);
+                pin.IsFavoriteSwitchCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnSwitchStatusCommandAsync);
+            }
+        }
+
+        private async Task OnSwitchStatusCommandAsync(PinViewModel pin)
+        {
+            IsFavorite = !IsFavorite;
+
+            var selectedPin = ObservPinCollection.TakeWhile(x =>x.Id == pin.Id).FirstOrDefault();
+
+            if (selectedPin != null)
+            {
+                selectedPin.IsFavorite = IsFavorite;
+
+                var response = await _pinService.UpdatePinAsync(pin.ToPinModel());
+
+                if (!response.IsSuccess)
+                {
+                    selectedPin.IsFavorite = !IsFavorite;
+                }
             }
         }
 

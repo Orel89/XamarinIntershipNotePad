@@ -35,71 +35,100 @@
                         <DataTemplate>
                             <context:SideContextMenuView IsAutoCloseEnabled="True">
                                 <context:SideContextMenuView.View>
-                                    <Frame HeightRequest="75"
+                                    <Frame HeightRequest="49"
+                                           CornerRadius="8"
                                            WidthRequest="{Binding Source={x:Reference CollectionView}, Path=Width, Converter={StaticResource MenuFitWidthConverter}, ConverterParameter='40'}">
                                         <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                                            
+
+                                            <Frame BackgroundColor="#F1F3FD" CornerRadius="8">
+                                                <local:LikeButton
+                                                    x:Name="likeButton"
+                                                    Scale="3"
+                                                    BackgroundColor="Transparent"
+                                                    Command="{Binding IsFavoriteSwitchCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    IsFavorite="{Binding IsFavorite}">
+                                                    <ImageButton.Triggers>
+                                                        <DataTrigger Binding="{Binding Source={x:Reference likeButton}, Path=IsFavorite}"
+                                                                     TargetType="ImageButton"
+                                                                     Value="True">
+                                                            <Setter Property="Source" Value="ic_like_blue.png"/>
+                                                        </DataTrigger>
+
+                                                        <DataTrigger Binding="{Binding Source={x:Reference likeButton}, Path=IsFavorite}"
+                                                                     TargetType="ImageButton"
+                                                                     Value="False">
+                                                            <Setter Property="Source" Value="ic_like_gray.png"/>
+                                                        </DataTrigger>
+                                                    </ImageButton.Triggers>
+                                                </local:LikeButton>
+
+                                            </Frame>
                                             <StackLayout Orientation="Vertical">
                                                 <StackLayout.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding MoveToPinLocationCommand}" CommandParameter="{Binding .}"/>
                                                 </StackLayout.GestureRecognizers>
-                                                <Label Style="{DynamicResource Label}" Text="{Binding Label}"/>
+
+                                                <Label Margin="12, 0, 0, 0" Text="{Binding Label}"/>
+
                                                 <StackLayout Orientation="Horizontal">
-                                                    <Label Style="{DynamicResource Label}" Text="{Binding Latitude}"/>
-                                                    <Label Style="{DynamicResource Label}" Text="{Binding Longitude}"/>
+                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Latitude}"/>
+                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Longitude}"/>
                                                 </StackLayout>
                                             </StackLayout>
+
+                                            <ImageButton BackgroundColor="Transparent"
+                                                         HorizontalOptions="EndAndExpand"
+                                                         Source="ic_left_gray.png"/>
                                         </StackLayout>
                                     </Frame>
                                 </context:SideContextMenuView.View>
                                 <context:SideContextMenuView.ContextTemplate>
                                     <DataTemplate>
                                         <StackLayout Orientation="Horizontal" Spacing="0">
-                                            <Frame BackgroundColor="{DynamicResource Error}"
+                                            <Frame BackgroundColor="Red"
                                                    HeightRequest="75"
                                                    WidthRequest="56">
                                                 <ImageButton Command="{Binding DeleteCommand}"
-                                                                CommandParameter="{Binding .}"
-                                                                Style="{DynamicResource DeleteButton}"/>
+                                                             CommandParameter="{Binding .}"
+                                                             Source="ic_delete.png"
+                                                             BackgroundColor="Transparent"
+                                                             WidthRequest="24"
+                                                             HeightRequest="24"/>
                                             </Frame>
-                                            <Frame BackgroundColor="{DynamicResource Primary}"
+
+                                            <Frame BackgroundColor="#596EFB"
                                                    HeightRequest="75"
                                                    WidthRequest="56">
                                                 <ImageButton Command="{Binding EditCommand}"
                                                              CommandParameter="{Binding .}"
-                                                             Style="{DynamicResource EditButton}"/>
-
+                                                             Source="ic_edit.png"
+                                                             BackgroundColor="Transparent"
+                                                             WidthRequest="24"
+                                                             HeightRequest="24"/>
                                             </Frame>
-                                            
+
                                         </StackLayout>
                                     </DataTemplate>
                                 </context:SideContextMenuView.ContextTemplate>
                             </context:SideContextMenuView>
-
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </Grid>
 
-            <Frame
-                Margin="20"
-                BackgroundColor="#596EFB"
-                CornerRadius="90"
-                HasShadow="True"
-                HorizontalOptions="End"
-                Scale="1"
-                VerticalOptions="End">
-                <ImageButton
-                    BackgroundColor="#596EFB"
-                    BorderColor="#596EFB"
-                    BorderWidth="6"
-                    Command="{Binding AddButtonTapCommand}"
-                    CornerRadius="90"
-                    HorizontalOptions="Center"
-                    Scale="1"
-                    Source="ic_plus.png"
-                    VerticalOptions="Center" />
-            </Frame>
+            <ImageButton Source="ic_plus.png"
+                         Padding="12"
+                         Margin="0, 0, 18, 18"
+                         BackgroundColor="#596EFB"
+                         BorderWidth="6"
+                         HeightRequest="55"
+                         CornerRadius="90"
+                         HorizontalOptions="End"
+                         WidthRequest="55"
+                         VerticalOptions="End"
+                         Command="{Binding AddButtonTapCommand}">
+            </ImageButton>
         </Grid>
     </view:BaseContentPage.Content>
 </view:BaseContentPage>

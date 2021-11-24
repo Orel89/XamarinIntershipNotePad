@@ -77,9 +77,32 @@ namespace MapNotepad.Services.PinService
             }
             catch (Exception ex)
             {
-                result.SetError($"{nameof(GetPinsAsync)}: exception", "Something went wrong", ex);
+                result.SetError($"{nameof(GetPinsAsync)}: exception", "Exception from PinService GetPinMethod", ex);
             }
 
+            return result;
+        }
+
+        public async Task<AOResult> UpdatePinAsync(PinModel pin)
+        {
+            var result = new AOResult();
+
+            try
+            {
+                var response = await _repositoryService.UpdateAsync(pin);
+                if (response > 0)
+                {
+                    result.SetSuccess();
+                }
+                else
+                {
+                    result.SetFailure();
+                }
+            }
+            catch (Exception ex)
+            {
+                result.SetError($"{nameof(UpdatePinAsync)}: exception", "Exception from PinService UpdatePin", ex);
+            }
             return result;
         }
     }
