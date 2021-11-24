@@ -16,11 +16,15 @@ namespace MapNotepad.Views
         public MapPage()
         {
             InitializeComponent();
-            MessagingCenter.Subscribe<MapPageViewModel, Position>(this, "MovePin", (s, a) =>
+            MessagingCenter.Subscribe<MapPageViewModel, Position>(this, "MoveFromFoundPinInSearchBarToMainPage", (s, a) =>
             {
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(a, Distance.FromKilometers(1)));
             });
-            //gfg
+
+            MessagingCenter.Subscribe<PinListViewModel, Position>(this, "MoveFromFoundPinInPinPageToMainPage", (s, a) =>
+            {
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(a, Distance.FromKilometers(1)));
+            });
         }
     }
 }

@@ -43,7 +43,7 @@
                                             <Frame BackgroundColor="#F1F3FD" CornerRadius="8">
                                                 <local:LikeButton
                                                     x:Name="likeButton"
-                                                    Scale="3"
+                                                    Scale="1"
                                                     BackgroundColor="Transparent"
                                                     Command="{Binding IsFavoriteSwitchCommand}"
                                                     CommandParameter="{Binding .}"
@@ -69,11 +69,11 @@
                                                     <TapGestureRecognizer Command="{Binding MoveToPinLocationCommand}" CommandParameter="{Binding .}"/>
                                                 </StackLayout.GestureRecognizers>
 
-                                                <Label Margin="12, 0, 0, 0" Text="{Binding Label}"/>
+                                                <Label Margin="12, 10, 0, 0" Text="{Binding Label}"/>
 
                                                 <StackLayout Orientation="Horizontal">
-                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Latitude}" />
-                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Longitude}"/>
+                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Latitude}" MaxLines="3"/>
+                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Longitude}" MaxLines="11"/>
                                                 </StackLayout>
                                             </StackLayout>
 
@@ -86,6 +86,7 @@
                                 <context:SideContextMenuView.ContextTemplate>
                                     <DataTemplate>
                                         <StackLayout Orientation="Horizontal" Spacing="0">
+                                            
                                             <Frame BackgroundColor="Red"
                                                    HeightRequest="75"
                                                    WidthRequest="56">
@@ -107,7 +108,6 @@
                                                              WidthRequest="24"
                                                              HeightRequest="24"/>
                                             </Frame>
-
                                         </StackLayout>
                                     </DataTemplate>
                                 </context:SideContextMenuView.ContextTemplate>

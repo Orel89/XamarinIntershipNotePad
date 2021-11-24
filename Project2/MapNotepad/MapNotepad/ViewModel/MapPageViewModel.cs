@@ -225,7 +225,7 @@ namespace MapNotepad.ViewModel
 
         private void LocatePin(Position position)
         {
-            MessagingCenter.Send(this, "MovePin", position);
+            MessagingCenter.Send(this, "MoveFromFoundPinInSearchBarToMainPage", position);
         }
 
         #endregion

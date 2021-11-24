@@ -7,6 +7,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -32,6 +33,20 @@ namespace MapNotepad.ViewModel
         {
             get => _label;
             set => SetProperty(ref _label, value);
+        }
+
+        private string _pageTitle = "Add pin";
+        public string PageTitle
+        {
+            get => _pageTitle;
+            set => SetProperty(ref _pageTitle, value);
+        }
+
+        private int _pinIdToEdit;
+        public int PinIdToEdit
+        {
+            get => _pinIdToEdit;
+            set => SetProperty(ref _pinIdToEdit, value);
         }
 
         private string _longitude;
@@ -123,6 +138,18 @@ namespace MapNotepad.ViewModel
 
         #region -- Ovverides --
 
+        public async override void InitializeAsync(INavigationParameters parameters)
+        {
+            parameters.TryGetValue("pinId", out _pinIdToEdit);
+
+            parameters.TryGetValue("pageTitle", out _pageTitle);
+
+            if (_pageTitle == "Edit pin" && _pinIdToEdit > 0)
+            {
+                await InitAsync();
+            }
+        }
+
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
             base.OnNavigatedFrom(parameters);
@@ -142,6 +169,26 @@ namespace MapNotepad.ViewModel
         #endregion
 
         #region -- Private helpers --
+
+        private async Task InitAsync()
+        {
+            
+            var userPins = await _pinService.GetPinsAsync();
+
+            if (userPins.IsSuccess)
+            {
+                var pin = userPins.Result.TakeWhile(x => x.Id == _pinIdToEdit).FirstOrDefault();
+
+                if (pin != null)
+                {
+                    Label = pin.Label;
+                    Description = pin.Description;
+                    Longitude = pin.Longitude.ToString();
+                    Latitude = pin.Latitude.ToString();
+                }
+            }
+     
+        }
 
         private Task OnMapClickedCommandAsync(Position position)
         {

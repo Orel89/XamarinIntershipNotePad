@@ -6,6 +6,7 @@ using MapNotepad.Services.Authentication;
 using MapNotepad.Services.PinService;
 using MapNotepad.Views;
 using Prism.Navigation;
+using Prism.Navigation.TabbedPages;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -106,9 +107,15 @@ namespace MapNotepad.ViewModel
             return Task.CompletedTask;
         }
 
-        private Task OnEditCommandAsync(PinViewModel pin)
+        private async Task OnEditCommandAsync(PinViewModel pin)
         {
-            throw new NotImplementedException();
+            var navigationParameters = new NavigationParameters
+            {
+                {"pinId", pin.Id},
+                {"pageTitle", "Edit pin"}
+            };
+
+            await NavigationService.NavigateAsync(nameof(AddPinPage), navigationParameters);
         }
 
         private async Task OnAddButtonPinAsync()
@@ -156,16 +163,15 @@ namespace MapNotepad.ViewModel
         #endregion
 
         #region -- Private helpers --
-        private Task GoToPinLocation(PinViewModel pin)
+        private async Task GoToPinLocation(PinViewModel pin)
         {
-            LocatePin(new Position(pin.Latitude, pin.Longitude));
-
-            return Task.CompletedTask;
+             LocatePin(new Position(pin.Latitude, pin.Longitude));
         }
 
-        private void LocatePin(Position position)
+        private async Task LocatePin(Position position)
         {
-            MessagingCenter.Send(this, "MovePin", position);
+            MessagingCenter.Send(this, "MoveFromFoundPinInPinPageToMainPage", position);
+            await NavigationService.SelectTabAsync(nameof(MapPage));
         }
 
         #endregion

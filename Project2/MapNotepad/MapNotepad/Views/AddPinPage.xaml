@@ -8,8 +8,8 @@
     <view:BaseContentPage.Content>
         
         <StackLayout>
-            
-            <controls:CustomToolBar Title="Add pin"
+
+            <controls:CustomToolBar Title="{Binding PageTitle}"
                                     BackButtonTapCommand="{Binding GoBackCommand}"
                                     RightButtonCommand="{Binding SaveButtonCommand}"
                                     IsEnableRightButton="{Binding IsEnableSaveButton}"
