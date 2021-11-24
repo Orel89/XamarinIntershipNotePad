@@ -71,11 +71,11 @@ namespace MapNotepad.Model.Pin
             get => _TapCommand;
             set => SetProperty(ref _TapCommand, value);
         }
-        private ICommand _EditCommand;
+        private ICommand _editCommand;
         public ICommand EditCommand
         {
-            get => _TapCommand;
-            set => SetProperty(ref _EditCommand, value);
+            get => _editCommand;
+            set => SetProperty(ref _editCommand, value);
         }
 
         private ICommand _moveToPinLocationCommand;

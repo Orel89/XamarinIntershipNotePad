@@ -37,6 +37,7 @@ namespace MapNotepad
             containerRegistry.RegisterInstance<ISearchService>(Container.Resolve<SearchService>());
 
             // Navigation
+            containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<StartPage, StartPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RegistrationPage, RegistrationPageViewModel>();
@@ -53,15 +54,15 @@ namespace MapNotepad
 
             var authenticationService = Container.Resolve<IUserService>();
 
-            //if (authenticationService.UserId != 0)
-            //{
-            //    await NavigationService.NavigateAsync($"/{nameof(MainProfilePage)}");
-            //}
-            //else
-            //{
-            //    await NavigationService.NavigateAsync($"/{nameof(StartPage)}");
-            //}
-            await NavigationService.NavigateAsync($"/{nameof(StartPage)}");
+            if (authenticationService.UserId != 0)
+            {
+                await NavigationService.NavigateAsync($"/{nameof(MainProfilePage)}");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync($"/{nameof(StartPage)}");
+            }
+
         }
         protected override void OnStart()
         {

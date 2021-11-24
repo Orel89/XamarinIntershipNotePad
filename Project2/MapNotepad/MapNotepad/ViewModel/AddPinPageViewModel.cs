@@ -19,6 +19,8 @@ namespace MapNotepad.ViewModel
     {
         private readonly IPinService _pinService;
         private IUserService _userService;
+        private double _latitudeDoubleCheck;
+        private double _longitudeeDoubleCheck;
         public AddPinPageViewModel(IUserService userService,
                                    IPinService pinService)
         {
@@ -43,20 +45,16 @@ namespace MapNotepad.ViewModel
         }
 
         private int _pinIdToEdit;
-        public int PinIdToEdit
-        {
-            get => _pinIdToEdit;
-            set => SetProperty(ref _pinIdToEdit, value);
-        }
+  
 
-        private string _longitude;
+        private string _longitude = String.Empty;
         public string Longitude
         {
             get => _longitude;
             set => SetProperty(ref _longitude, value);
         }
 
-        private string _latitude;
+        private string _latitude = String.Empty;
         public string Latitude
         {
             get => _latitude;
@@ -68,13 +66,6 @@ namespace MapNotepad.ViewModel
         {
             get => _description;
             set => SetProperty(ref _description, value);
-        }
-
-        private bool _IsEnableSaveButton;
-        public bool IsEnableSaveButton
-        {
-            get => _IsEnableSaveButton;
-            set => SetProperty(ref _IsEnableSaveButton, value);
         }
 
         private bool _isVisibleEntryLabelLeftButton;
@@ -138,8 +129,19 @@ namespace MapNotepad.ViewModel
 
         #region -- Ovverides --
 
-        public async override void InitializeAsync(INavigationParameters parameters)
+        public override void InitializeAsync(INavigationParameters parameters)
         {
+            base.InitializeAsync(parameters);
+        }
+
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public async override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
             parameters.TryGetValue("pinId", out _pinIdToEdit);
 
             parameters.TryGetValue("pageTitle", out _pageTitle);
@@ -148,22 +150,13 @@ namespace MapNotepad.ViewModel
             {
                 await InitAsync();
             }
-        }
 
-        public override void OnNavigatedFrom(INavigationParameters parameters)
-        {
-            base.OnNavigatedFrom(parameters);
-        }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
         }
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             base.OnPropertyChanged(args);
-
-            IsEnableSaveButton = !string.IsNullOrWhiteSpace(Label) && double.Parse(Latitude) >= -90 && double.Parse(Latitude) <= 90 && double.Parse(Longitude) >= -180 && double.Parse(Longitude) <= 180;
+            //IsEnableSaveButton = !string.IsNullOrWhiteSpace(Label) && double.Parse(Latitude) >= -90 && double.Parse(Latitude) <= 90 && double.Parse(Longitude) >= -180 && double.Parse(Longitude) <= 180;
         }
 
         #endregion
@@ -172,12 +165,11 @@ namespace MapNotepad.ViewModel
 
         private async Task InitAsync()
         {
-            
             var userPins = await _pinService.GetPinsAsync();
 
             if (userPins.IsSuccess)
             {
-                var pin = userPins.Result.TakeWhile(x => x.Id == _pinIdToEdit).FirstOrDefault();
+                var pin = userPins.Result.Where(x => x.Id == _pinIdToEdit).FirstOrDefault();
 
                 if (pin != null)
                 {
@@ -187,7 +179,6 @@ namespace MapNotepad.ViewModel
                     Latitude = pin.Latitude.ToString();
                 }
             }
-     
         }
 
         private Task OnMapClickedCommandAsync(Position position)
@@ -226,27 +217,62 @@ namespace MapNotepad.ViewModel
 
         private async Task OnSaveCommandAsync()
         {
-            var result = await _pinService.AddPinAsync(new PinModel()
+            if (!string.IsNullOrWhiteSpace(Label) && double.TryParse(Latitude, out double _latitudeDoubleCheck) && double.TryParse(Longitude, out double _longitudeeDoubleCheck))
             {
-                UserId = _userService.UserId,
-                Label = Label,
-                Description = Description,
-                Latitude = double.Parse(Latitude),
-                Longitude = double.Parse(Longitude),
-                CreationTime = DateTime.Now
-            });
-
-            if (result.IsSuccess)
-            {
-                await NavigationService.GoBackAsync();
-            }
-            else
-            {
-                UserDialogs.Alert(new AlertConfig()
+                if (_latitudeDoubleCheck >= -90 && _latitudeDoubleCheck <= 90 && _longitudeeDoubleCheck >= -180 && _longitudeeDoubleCheck <= 180)
                 {
-                    OkText = "Ok",
-                    Message = "Cannot save a pin"
-                });
+                    if (_pinIdToEdit == 0)
+                    {
+                        var result = await _pinService.AddPinAsync(new PinModel()
+                        {
+                            UserId = _userService.UserId,
+                            Label = Label,
+                            Description = Description,
+                            Latitude = double.Parse(Latitude),
+                            Longitude = double.Parse(Longitude),
+                            IsFavorite = true,
+                            CreationTime = DateTime.Now
+                        });
+
+                        if (result.IsSuccess)
+                        {
+                            await NavigationService.GoBackAsync();
+                        }
+                        else
+                        {
+                            UserDialogs.Alert(new AlertConfig()
+                            {
+                                OkText = "Ok",
+                                Message = "Cannot save a pin"
+                            });
+                        }
+                    }
+                    else
+                    {
+                        var result = await _pinService.UpdatePinAsync(new PinModel()
+                        {
+                            Id = _pinIdToEdit,
+                            UserId = _userService.UserId,
+                            Label = Label,
+                            Description = Description,
+                            Latitude = double.Parse(Latitude),
+                            Longitude = double.Parse(Longitude)
+                        });
+
+                        if (result.IsSuccess)
+                        {
+                            await NavigationService.GoBackAsync();
+                        }
+                        else
+                        {
+                            UserDialogs.Alert(new AlertConfig()
+                            {
+                                OkText = "Ok",
+                                Message = "Cannot save a pin"
+                            });
+                        }
+                    }
+                }
             }
         }
 

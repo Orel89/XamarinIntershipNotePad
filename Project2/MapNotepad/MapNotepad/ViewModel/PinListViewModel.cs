@@ -143,20 +143,19 @@ namespace MapNotepad.ViewModel
 
         private async Task OnSwitchStatusCommandAsync(PinViewModel pin)
         {
-            IsFavorite = !IsFavorite;
+            pin.IsFavorite = !pin.IsFavorite;
 
-            var selectedPin = ObservPinCollection.FirstOrDefault(x =>x.Id == pin.Id);
+            var response = await _pinService.UpdatePinAsync(pin.ToPinModel());
 
-            if (selectedPin != null)
+            if (response.IsSuccess)
             {
-                selectedPin.IsFavorite = IsFavorite;
+                var idx = ObservPinCollection.IndexOf(pin);
 
-                var response = await _pinService.UpdatePinAsync(pin.ToPinModel());
-
-                if (!response.IsSuccess)
-                {
-                    selectedPin.IsFavorite = !IsFavorite;
-                }
+                ObservPinCollection[idx] = pin;
+            }
+            else
+            {
+                pin.IsFavorite = !pin.IsFavorite;
             }
         }
 
@@ -165,7 +164,7 @@ namespace MapNotepad.ViewModel
         #region -- Private helpers --
         private async Task GoToPinLocation(PinViewModel pin)
         {
-             LocatePin(new Position(pin.Latitude, pin.Longitude));
+            LocatePin(new Position(pin.Latitude, pin.Longitude));
         }
 
         private async Task LocatePin(Position position)
