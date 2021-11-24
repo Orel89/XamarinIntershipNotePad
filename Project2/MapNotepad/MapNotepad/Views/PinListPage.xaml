@@ -72,7 +72,7 @@
                                                 <Label Margin="12, 0, 0, 0" Text="{Binding Label}"/>
 
                                                 <StackLayout Orientation="Horizontal">
-                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Latitude}"/>
+                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Latitude}" />
                                                     <Label Margin="12, 0, 0, 0" Text="{Binding Longitude}"/>
                                                 </StackLayout>
                                             </StackLayout>
