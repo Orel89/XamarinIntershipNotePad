@@ -43,7 +43,8 @@
                                             <Frame BackgroundColor="#F1F3FD" CornerRadius="8">
                                                 <local:LikeButton
                                                     x:Name="likeButton"
-                                                    Scale="1"
+                                                    
+                                                    Aspect="AspectFit"
                                                     BackgroundColor="Transparent"
                                                     Command="{Binding IsFavoriteSwitchCommand}"
                                                     CommandParameter="{Binding .}"

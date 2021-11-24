@@ -3,7 +3,8 @@
                       xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
                       xmlns:controls="clr-namespace:MapNotepad.Controls" 
-                      xmlns:prism="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+                      xmlns:prism="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
+                      xmlns:behaviours="clr-namespace:MapNotepad.Behaviours"
                       x:Class="MapNotepad.Views.AddPinPage">
     <view:BaseContentPage.Content>
         
@@ -27,10 +28,18 @@
                                   PlaceholderColor="#858E9E" 
                                   Text="{Binding Label}"
                                   TextColor="Black"
+                                  Message="no name"
                                   ImageSource="ic_clear.png"
                                   Margin="16, 0, 16, 0"
                                   IsVisibleButton ="{Binding IsVisibleEntryLabelLeftButton}"
-                                  ButtonCommand="{Binding ClearEntryLabelButtonCommand}"/>
+                                  ButtonCommand="{Binding ClearEntryLabelButtonCommand}">
+                
+                <controls:CustomEntry.Behaviors>
+
+                    <behaviours:CustomEntryValidationBehaviour/>
+
+                </controls:CustomEntry.Behaviors>
+            </controls:CustomEntry>
             
             <Label Text="Description"
                    TextColor="#3D4E61" 

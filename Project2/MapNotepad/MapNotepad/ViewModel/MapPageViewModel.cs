@@ -1,5 +1,4 @@
-﻿using Acr.UserDialogs;
-using MapNotepad.Extensions;
+﻿using MapNotepad.Extensions;
 using MapNotepad.Helpers;
 using MapNotepad.Model.Pin;
 using MapNotepad.Services.PinService;
@@ -75,11 +74,6 @@ namespace MapNotepad.ViewModel
         private ICommand _PinClickedCommand;
         public ICommand PinClickedCommand => _PinClickedCommand ?? (_PinClickedCommand = SingleExecutionCommand.FromFunc<Position>(OnPinClickedCommandAsync));
 
-        private ICommand _PinEditCommand;
-        public ICommand PinEditCommand => _PinEditCommand ?? (_PinEditCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnPinEditAsync));
-
-        private ICommand _PinDeleteCommand;
-        public ICommand PinDeleteCommand => _PinDeleteCommand ?? (_PinDeleteCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnPinDeleteAsync));
 
         private ICommand _MapClickedCommand;
         public ICommand MapClickedCommand => _MapClickedCommand ?? (_MapClickedCommand = SingleExecutionCommand.FromFunc<Position>(OnMapClickedCommandAsync));
@@ -144,52 +138,13 @@ namespace MapNotepad.ViewModel
 
             if (getPinsResult.IsSuccess)
             {
-                Pins = new ObservableCollection<PinViewModel>(getPinsResult.Result.Select(x => x.ToPinViewModel()));
+                Pins = new ObservableCollection<PinViewModel>(getPinsResult.Result.Select(x => x.ToPinViewModel())); //(getPinsResult.Result.Select(x => x.ToPinViewModel()).Where(x => x.IsFavorite == true));
 
                 foreach (var pin in Pins)
                 {
                     pin.TapCommand = PinClickedCommand;
-                    //pin.EditCommand = PinEditCommand;
-                    //pin.DeleteCommand = PinDeleteCommand;
                 }
             }
-        }
-
-        private async Task OnPinDeleteAsync(PinViewModel pin)
-        {
-            if (pin != null)
-            {
-                var confirmConfig = new ConfirmConfig()
-                {
-                    Message = "Do you want to delete a pin?",
-                    OkText = "Delete",
-                    CancelText = "Cancel"
-                };
-
-                var confirm = await UserDialogs.ConfirmAsync(confirmConfig);
-
-                if (confirm)
-                {
-
-                    var result = await _pinService.DeletePinAsync(pin.ToPinModel());
-
-                    if (result.IsSuccess)
-                    {
-                        Pins.Remove(pin);
-
-                        await NavigationService.NavigateAsync(nameof(PinListPage));
-                    }
-                    else
-                    {
-                        confirmConfig.Message = result.Message;
-
-                        await UserDialogs.ConfirmAsync(confirmConfig);
-                    }
-                }
-            }
-            var pinId = (pin as PinViewModel).Id;
-
-
         }
 
         private Task OnPinClickedCommandAsync(Position arg)
@@ -204,23 +159,6 @@ namespace MapNotepad.ViewModel
             var a = arg;
 
             return Task.CompletedTask;
-        }
-
-        private async Task OnPinEditAsync(object pin)
-        {
-            var pinId = (pin as PinViewModel).Id;
-            var pinDescription = (pin as PinViewModel).Description;
-            var pinLongitude = (pin as PinViewModel).Longitude;
-            //var pinLongitude = (pin as PinViewModel).Longitude;
-
-            var parameter = new NavigationParameters();
-
-            parameter.Add("id", pinId);
-            parameter.Add("", pinId);
-            parameter.Add("id", pinId);
-
-            await NavigationService.NavigateAsync(nameof(AddPinPage));
-
         }
 
         private void LocatePin(Position position)

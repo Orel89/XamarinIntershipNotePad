@@ -145,7 +145,7 @@ namespace MapNotepad.ViewModel
         {
             IsFavorite = !IsFavorite;
 
-            var selectedPin = ObservPinCollection.TakeWhile(x =>x.Id == pin.Id).FirstOrDefault();
+            var selectedPin = ObservPinCollection.FirstOrDefault(x =>x.Id == pin.Id);
 
             if (selectedPin != null)
             {
