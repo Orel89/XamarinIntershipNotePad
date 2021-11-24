@@ -29,7 +29,13 @@ namespace MapNotepad.Model.Pin
             get => _Label;
             set => SetProperty(ref _Label, value);
         }
-;
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
+        }
 
         private double _Longitude;
         public double Longitude
