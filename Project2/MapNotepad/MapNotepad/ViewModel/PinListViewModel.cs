@@ -4,11 +4,13 @@ using MapNotepad.Helpers;
 using MapNotepad.Model.Pin;
 using MapNotepad.Services.Authentication;
 using MapNotepad.Services.PinService;
+using MapNotepad.Services.SearchService;
 using MapNotepad.Views;
 using Prism.Navigation;
 using Prism.Navigation.TabbedPages;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -21,11 +23,14 @@ namespace MapNotepad.ViewModel
     {
         private readonly IPinService _pinService;
         private readonly IAuthenticationService _authenticationService;
+        private readonly ISearchService _searchService;
         public PinListViewModel(IPinService pinService,
-                                IAuthenticationService authenticationService)
+                                IAuthenticationService authenticationService,
+                                ISearchService searchService)
         {
             _pinService = pinService;
             _authenticationService = authenticationService;
+            _searchService = searchService;
         }
 
         #region -- Public Properties --
@@ -38,12 +43,24 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _isFavorite, value);
         }
 
+        public bool ShowCurrentPinList => !String.IsNullOrWhiteSpace(SearchEntry) && SeachPinList != null;
+
+        private string _searchEntry;
+        public string SearchEntry
+        {
+            get => _searchEntry;
+            set
+            {
+                SetProperty(ref _searchEntry, value);
+                RaisePropertyChanged(nameof(DisplayFoundPinList));
+            }
+        }
 
         private ICommand _addButtonCommand;
         public ICommand AddButtonTapCommand => _addButtonCommand ?? (_addButtonCommand = SingleExecutionCommand.FromFunc(OnAddButtonPinAsync));
 
         private ICommand _logOutCommand;
-        public ICommand LogOutCommand => _logOutCommand ?? (_logOutCommand = SingleExecutionCommand.FromFunc(OnLogOutCommand));
+        public ICommand LogOutCommand => _logOutCommand ?? (_logOutCommand = SingleExecutionCommand.FromFunc(OnLogOutCommandAsync));
 
         private ICommand _editCommand;
         public ICommand EditCommand => _editCommand ?? (_editCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnEditCommandAsync));
@@ -58,6 +75,15 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _observPinCollection, value);
         }
 
+        private ObservableCollection<PinViewModel> _seachPinList;
+        public ObservableCollection<PinViewModel> SeachPinList
+        {
+            get => _seachPinList;
+            set => SetProperty(ref _seachPinList, value);
+        }
+
+        public bool DisplayFoundPinList => !String.IsNullOrWhiteSpace(SearchEntry) && SeachPinList != null;
+
         #endregion
 
         #region -- Overrides --
@@ -65,6 +91,43 @@ namespace MapNotepad.ViewModel
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             await InitAsync();
+        }
+
+        #endregion
+
+        #region -- Overrides --
+
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            if (args.PropertyName == nameof(SearchEntry) && !String.IsNullOrWhiteSpace(SearchEntry))
+            {
+                //CurrentPin = null;
+                var pinsModelList = ObservPinCollection.Select(x => x.ToPinModel());
+
+                var foundPinlist = _searchService.Search(SearchEntry, pinsModelList);
+
+                if (foundPinlist.Count > 0)
+                {
+                    SeachPinList = new ObservableCollection<PinViewModel>(foundPinlist.Select(x => x.ToPinViewModel()));
+                    foreach (var pin in SeachPinList)
+                    {
+                        pin.MoveToPinLocationCommand = SingleExecutionCommand.FromFunc<PinViewModel>(GoToPinLocation);
+                        pin.DeleteCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnDeleteCommandAsync);
+                        pin.EditCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnEditCommandAsync);
+                        pin.IsFavoriteSwitchCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnSwitchStatusCommandAsync);
+                    }
+                }
+                else
+                {
+                    SeachPinList = null;
+                }
+            }
+            else if (args.PropertyName == nameof(SearchEntry) && String.IsNullOrWhiteSpace(SearchEntry))
+            {
+                SeachPinList = null;
+            }
         }
 
         #endregion
@@ -101,10 +164,21 @@ namespace MapNotepad.ViewModel
                 }
             }
         }
-        private Task OnLogOutCommand()
+        private async Task OnLogOutCommandAsync()
         {
-            _authenticationService.LogOut();
-            return Task.CompletedTask;
+            var confirmConfig = new ConfirmConfig()
+            {
+                Message = "Do you want to logout?",
+                OkText = "Ok",
+                CancelText = "Cancel"
+            };
+
+            var confirm = await UserDialogs.ConfirmAsync(confirmConfig);
+
+            if (confirm)
+            {
+                _authenticationService.LogOut();
+            }
         }
 
         private async Task OnEditCommandAsync(PinViewModel pin)

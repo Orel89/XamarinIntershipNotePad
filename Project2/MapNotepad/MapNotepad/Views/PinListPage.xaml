@@ -25,7 +25,9 @@
 
             <Grid RowDefinitions="0.07*, 0.93*">
                 <local:SearchBar Grid.Row="0"
+                                 Text="{Binding SearchEntry}"
                                  RightButtonCommand="{Binding LogOutCommand}"
+                                 RightImageSource="ic_exid.png"
                                  LeftButtonCommand="{Binding GoToSettingsPageCommand}"/>
                 <CollectionView x:Name="CollectionView"
                                 Grid.Row="1"
@@ -33,7 +35,7 @@
                                 SelectedItem="{Binding SelectedItem}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <context:SideContextMenuView IsAutoCloseEnabled="True">
+                            <context:SideContextMenuView IsAutoCloseEnabled="true">
                                 <context:SideContextMenuView.View>
                                     <Frame HeightRequest="49"
                                            CornerRadius="8"
@@ -43,8 +45,7 @@
                                             <Frame BackgroundColor="#F1F3FD" CornerRadius="8">
                                                 <local:LikeButton
                                                     x:Name="likeButton"
-                                                    
-                                                    Aspect="AspectFit"
+                                                    Scale="3"
                                                     BackgroundColor="Transparent"
                                                     Command="{Binding IsFavoriteSwitchCommand}"
                                                     CommandParameter="{Binding .}"
@@ -70,16 +71,18 @@
                                                     <TapGestureRecognizer Command="{Binding MoveToPinLocationCommand}" CommandParameter="{Binding .}"/>
                                                 </StackLayout.GestureRecognizers>
 
-                                                <Label Margin="12, 10, 0, 0" Text="{Binding Label}"/>
+                                                <Label Margin="12, 0, 0, 0" Text="{Binding Label}" TextColor="#858E9E"/>
 
                                                 <StackLayout Orientation="Horizontal">
-                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Latitude}" MaxLines="3"/>
-                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Longitude}" MaxLines="11"/>
+                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Latitude}"  TextColor="#858E9E"/>
+                                                    <Label Margin="12, 0, 0, 0" Text="{Binding Longitude}" TextColor="#858E9E"/>
                                                 </StackLayout>
                                             </StackLayout>
 
                                             <ImageButton BackgroundColor="Transparent"
                                                          HorizontalOptions="EndAndExpand"
+                                                         Command="{Binding  MoveToPinLocationCommand}"
+                                                         CommandParameter="{Binding .}"
                                                          Source="ic_left_gray.png"/>
                                         </StackLayout>
                                     </Frame>
@@ -87,10 +90,8 @@
                                 <context:SideContextMenuView.ContextTemplate>
                                     <DataTemplate>
                                         <StackLayout Orientation="Horizontal" Spacing="0">
-                                            
-                                            <Frame BackgroundColor="Red"
-                                                   HeightRequest="75"
-                                                   WidthRequest="56">
+
+                                            <Frame BackgroundColor="Red">
                                                 <ImageButton Command="{Binding DeleteCommand}"
                                                              CommandParameter="{Binding .}"
                                                              Source="ic_delete.png"
@@ -99,9 +100,7 @@
                                                              HeightRequest="24"/>
                                             </Frame>
 
-                                            <Frame BackgroundColor="#596EFB"
-                                                   HeightRequest="75"
-                                                   WidthRequest="56">
+                                            <Frame BackgroundColor="#596EFB">
                                                 <ImageButton Command="{Binding EditCommand}"
                                                              CommandParameter="{Binding .}"
                                                              Source="ic_edit.png"
