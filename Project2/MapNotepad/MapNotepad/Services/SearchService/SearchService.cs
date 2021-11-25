@@ -16,7 +16,7 @@ namespace MapNotepad.Services.SearchService
             _pinService = pinService;
         }
 
-        #region -- SearchService inplementation --
+        #region -- SearchService implementation --
 
         public List<PinModel> Search(string search_query, IEnumerable<PinModel> list)
         {
@@ -33,9 +33,10 @@ namespace MapNotepad.Services.SearchService
                 }
             }
             else
-            {  // NOTE: переписать на String.Contain
-                var searchResult = list.Where(x => x.Label == search_query);
-                foreach (PinModel pinModel in searchResult)
+            {
+                var searchResultLabel = list.Where(x => x.Label.ToLower().Contains(search_query.ToLower()));
+                
+                foreach (PinModel pinModel in searchResultLabel)
                 {
                     outValue.Add(pinModel);
                 }
@@ -48,7 +49,7 @@ namespace MapNotepad.Services.SearchService
                         {
                             foreach (string keyword in keywords)
                             {
-                                if (keyword == search_query)
+                                if (keyword.ToLower() == search_query.ToLower())
                                 {
                                     outValue.Add(pinModel);
                                     break;
@@ -64,10 +65,10 @@ namespace MapNotepad.Services.SearchService
         }
         #endregion
 
-        #region -- Private Helpers --
+        #region -- Private helpers --
         private IEnumerable<PinModel> DoubleSearch(double coordinate, IEnumerable<PinModel> list)
         {
-            double delta = 0.1; // NOTE: точность может быть измененена или изменяться во времени.
+            double delta = 0.1; 
 
             return list.Where(x => Math.Abs(x.Latitude - coordinate) <= delta || Math.Abs(x.Longitude - coordinate) <= delta);
         }

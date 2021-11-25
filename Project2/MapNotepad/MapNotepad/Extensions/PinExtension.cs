@@ -14,6 +14,7 @@ namespace MapNotepad.Extensions
             Label = pin.Label,
             Latitude = pin.Latitude,
             Longitude = pin.Longitude,
+            IsFavorite = pin.IsFavorite,
             Description = pin.Description,
             CreationTime = pin.CreationTime,
         };
@@ -25,6 +26,7 @@ namespace MapNotepad.Extensions
             Label = pin.Label,
             Latitude = pin.Latitude,
             Longitude = pin.Longitude,
+            IsFavorite = pin.IsFavorite,
             Description = pin.Description,
             CreationTime = pin.CreationTime,
         };

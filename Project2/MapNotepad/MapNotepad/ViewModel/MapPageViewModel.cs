@@ -138,7 +138,7 @@ namespace MapNotepad.ViewModel
 
             if (getPinsResult.IsSuccess)
             {
-                Pins = new ObservableCollection<PinViewModel>(getPinsResult.Result.Select(x => x.ToPinViewModel())); //(getPinsResult.Result.Select(x => x.ToPinViewModel()).Where(x => x.IsFavorite == true));
+                Pins = new ObservableCollection<PinViewModel>(getPinsResult.Result.Select(x => x.ToPinViewModel()).Where( x =>x.IsFavorite == true)); //(getPinsResult.Result.Select(x => x.ToPinViewModel()).Where(x => x.IsFavorite == true));
 
                 foreach (var pin in Pins)
                 {

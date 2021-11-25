@@ -5,6 +5,7 @@ using MapNotepad.Model.Pin;
 using MapNotepad.Services.Authentication;
 using MapNotepad.Services.PinService;
 using MapNotepad.Services.SearchService;
+using MapNotepad.View;
 using MapNotepad.Views;
 using Prism.Navigation;
 using Prism.Navigation.TabbedPages;
@@ -43,8 +44,6 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _isFavorite, value);
         }
 
-        public bool ShowCurrentPinList => !String.IsNullOrWhiteSpace(SearchEntry) && SeachPinList != null;
-
         private string _searchEntry;
         public string SearchEntry
         {
@@ -68,6 +67,12 @@ namespace MapNotepad.ViewModel
         private ICommand _deleteCommand;
         public ICommand DeleteCommand => _deleteCommand ?? (_deleteCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnDeleteCommandAsync));
 
+        private ObservableCollection<PinViewModel> _immutableObservPinCollection;
+        public ObservableCollection<PinViewModel> ImmutableObservPinCollection
+        {
+            get => _immutableObservPinCollection;
+            set => SetProperty(ref _immutableObservPinCollection, value);
+        }
         private ObservableCollection<PinViewModel> _observPinCollection;
         public ObservableCollection<PinViewModel> ObservPinCollection
         {
@@ -75,14 +80,7 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _observPinCollection, value);
         }
 
-        private ObservableCollection<PinViewModel> _seachPinList;
-        public ObservableCollection<PinViewModel> SeachPinList
-        {
-            get => _seachPinList;
-            set => SetProperty(ref _seachPinList, value);
-        }
-
-        public bool DisplayFoundPinList => !String.IsNullOrWhiteSpace(SearchEntry) && SeachPinList != null;
+        public bool DisplayFoundPinList => !String.IsNullOrWhiteSpace(SearchEntry) && ObservPinCollection != null;
 
         #endregion
 
@@ -110,8 +108,8 @@ namespace MapNotepad.ViewModel
 
                 if (foundPinlist.Count > 0)
                 {
-                    SeachPinList = new ObservableCollection<PinViewModel>(foundPinlist.Select(x => x.ToPinViewModel()));
-                    foreach (var pin in SeachPinList)
+                    ObservPinCollection = new ObservableCollection<PinViewModel>(foundPinlist.Select(x => x.ToPinViewModel()));
+                    foreach (var pin in ObservPinCollection)
                     {
                         pin.MoveToPinLocationCommand = SingleExecutionCommand.FromFunc<PinViewModel>(GoToPinLocation);
                         pin.DeleteCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnDeleteCommandAsync);
@@ -121,12 +119,12 @@ namespace MapNotepad.ViewModel
                 }
                 else
                 {
-                    SeachPinList = null;
+                    ObservPinCollection = ImmutableObservPinCollection;
                 }
             }
             else if (args.PropertyName == nameof(SearchEntry) && String.IsNullOrWhiteSpace(SearchEntry))
             {
-                SeachPinList = null;
+                ObservPinCollection = ImmutableObservPinCollection;
             }
         }
 
@@ -178,6 +176,8 @@ namespace MapNotepad.ViewModel
             if (confirm)
             {
                 _authenticationService.LogOut();
+
+                await NavigationService.NavigateAsync($"/{nameof(StartPage)}");
             }
         }
 
@@ -213,6 +213,8 @@ namespace MapNotepad.ViewModel
                 pin.EditCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnEditCommandAsync);
                 pin.IsFavoriteSwitchCommand = SingleExecutionCommand.FromFunc<PinViewModel>(OnSwitchStatusCommandAsync);
             }
+
+            ImmutableObservPinCollection = ObservPinCollection;
         }
 
         private async Task OnSwitchStatusCommandAsync(PinViewModel pin)
