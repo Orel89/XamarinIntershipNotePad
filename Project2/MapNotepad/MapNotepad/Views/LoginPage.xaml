@@ -9,15 +9,12 @@
     <view:BaseContentPage.Resources>
         <converter:MultiTriggerConverter x:Key="dataHasBeenEntered"/>
     </view:BaseContentPage.Resources>
-
     <view:BaseContentPage.Content>
-
         <StackLayout>
-
             <controls:CustomToolBar Title="Log in"
-                                    
                                     BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"
                                     ArrowLeftImage="leftArrow.png"/>
+            
             <StackLayout Padding="25,0,25,5">
 
                 <Label Text="Email" 
@@ -81,10 +78,11 @@
                     <Button.Triggers>
 
                         <MultiTrigger TargetType="Button">
-
                             <MultiTrigger.Conditions>
+
                                 <BindingCondition Binding="{Binding Source={x:Reference email}, Path=Text.Length, Converter={StaticResource dataHasBeenEntered}}"
                                                   Value="true" />
+
                                 <BindingCondition Binding="{Binding Source={x:Reference password},Path=Text.Length, Converter={StaticResource dataHasBeenEntered}}"
                                                   Value="true" />
                             </MultiTrigger.Conditions>
@@ -92,9 +90,7 @@
                             <Setter Property="IsEnabled" Value="true" />
 
                         </MultiTrigger>
-
                     </Button.Triggers>
-
                 </Button>
 
                 <StackLayout Orientation="Horizontal"
@@ -122,8 +118,6 @@
                              Margin="2,20,0,0"/>
 
             </StackLayout>
-
         </StackLayout>
-
     </view:BaseContentPage.Content>
 </view:BaseContentPage>

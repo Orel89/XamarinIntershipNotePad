@@ -5,12 +5,13 @@
                       xmlns:controls="clr-namespace:MapNotepad.Controls" 
                       xmlns:prism="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
                       xmlns:behaviours="clr-namespace:MapNotepad.Behaviours"
-                      x:Class="MapNotepad.Views.AddPinPage">
+                      x:Class="MapNotepad.Views.AddPinPage"
+                      xmlns:local="clr-namespace:MapNotepad">
     <view:BaseContentPage.Content>
 
         <StackLayout>
 
-            <controls:CustomToolBar Title="{Binding PageTitle}"
+            <controls:CustomToolBar Title="Add pin"
                                     BackButtonTapCommand="{Binding GoBackCommand}"
                                     RightButtonCommand="{Binding SaveButtonCommand}"
                                     IsEnableRightButton="{Binding IsEnableSaveButton}"
@@ -23,7 +24,7 @@
 
             <controls:CustomEntry x:Name="label"
                                   Keyboard="Text"
-                                  BorderColor="#D7DDE8"
+                                  BorderColor="{Binding EntryBorderLabelColor}"
                                   Placeholder="Enter the label"
                                   PlaceholderColor="#858E9E" 
                                   Text="{Binding Label}"
@@ -31,14 +32,9 @@
                                   Message="no name"
                                   ImageSource="ic_clear.png"
                                   Margin="16, 0, 16, 0"
-                                  IsVisibleButton ="{Binding IsVisibleEntryLabelLeftButton}"
-                                  ButtonCommand="{Binding ClearEntryLabelButtonCommand}">
+                                  IsVisibleButton ="{Binding IsVisibleLabelEntryLeftButton}"
+                                  ButtonCommand="{Binding ClearEntryLabelCommand}">
 
-                <controls:CustomEntry.Behaviors>
-
-                    <behaviours:CustomEntryValidationBehaviour/>
-
-                </controls:CustomEntry.Behaviors>
             </controls:CustomEntry>
 
             <Label Text="Description"
@@ -54,8 +50,8 @@
                                   TextColor="Black"
                                   ImageSource="ic_clear.png"
                                   Margin="16, 0, 16, 0"
-                                  IsVisibleButton ="{Binding IsVisibleEntryDescriptionLeftButton}"
-                                  ButtonCommand="{Binding ClearEntryDescriptionButtonCommand}"/>
+                                  IsVisibleButton ="{Binding IsVisibleDescriptionEntryLeftButton}"
+                                  ButtonCommand="{Binding ClearEntryDescriptionCommand}"/>
 
             <Label Text="Coordinates"
                    TextColor="#3D4E61" 
@@ -64,25 +60,35 @@
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
 
                 <controls:CustomEntry x:Name="Longitude"
-                                      BorderColor="#D7DDE8"
+                                      BorderColor="{Binding EntryBorderLongitudeColor}"
                                       HorizontalOptions="FillAndExpand"
                                       Placeholder="Longitude"
                                       PlaceholderColor="#858E9E"
                                       Keyboard="Numeric"
                                       Text="{Binding Longitude}"
+                                      ImageSource="ic_clear.png"
+                                      IsVisibleButton ="{Binding IsVisibleLongitudeEntryLeftButton}"
+                                      ButtonCommand="{Binding ClearEntryLongitudeCommand}"
                                       TextColor="Black"
-                                      Margin="16, 0, 0, 0"/>
+                                      Margin="16, 0, 0, 0">
+                   
+                </controls:CustomEntry>
+
 
                 <controls:CustomEntry x:Name="Latitude"
-                                      BorderColor="#D7DDE8"
+                                      BorderColor="{Binding EntryBorderLatitudeColor}"
                                       HorizontalOptions="FillAndExpand"
-                                      Placeholder="Longitude"
+                                      Placeholder="Latitude"
                                       Keyboard="Numeric"
                                       PlaceholderColor="#858E9E" 
                                       Text="{Binding Latitude}"
+                                      ImageSource="ic_clear.png"
+                                      IsVisibleButton ="{Binding IsVisibleLatitudeEntryLeftButton}"
+                                      ButtonCommand="{Binding ClearEntryLatitudeCommand}"
                                       TextColor="Black"
-                                      Margin="0, 0, 16, 0"/>
+                                      Margin="0, 0, 16, 0">
 
+                </controls:CustomEntry>
             </StackLayout>
 
             <controls:CustomMap PinsSource="{Binding Pins}">

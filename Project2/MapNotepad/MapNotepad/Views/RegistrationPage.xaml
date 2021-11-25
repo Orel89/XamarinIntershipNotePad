@@ -37,7 +37,7 @@
                                       ImageSource="ic_clear.png"
                                       IsVisibleButton ="{Binding IsVisibleNameEntryLeftButton}"
                                       ButtonCommand="{Binding ClearEntryNameButtonTapCommand}">
-                    
+
                     <controls:CustomEntry.Behaviors>
 
                         <behaviours:CustomEntryValidationBehaviour/>
@@ -51,7 +51,7 @@
                        Margin="8,35,0,0"/>
 
                 <controls:CustomEntry x:Name="email"
-                                      BorderColor="{Binding EntryEmailColor}"
+                                      BorderColor="#D7DDE8"
                                       Placeholder="Enter email"
                                       PlaceholderColor="#858E9E"
                                       Text="{Binding Email}"
@@ -60,7 +60,7 @@
                                       Message="Email is not valid"
                                       IsVisibleButton ="{Binding IsVisibleEmailEntryLeftButton}"
                                       ButtonCommand="{Binding ClearEntryEmailButtonTapCommand}">
-                    
+
 
                     <controls:CustomEntry.Behaviors>
 
@@ -69,7 +69,7 @@
                     </controls:CustomEntry.Behaviors>
 
                 </controls:CustomEntry>
-                
+
                 <Button HorizontalOptions="Fill"
                         BackgroundColor="#596EFB" 
                         Text="Create account" 
@@ -79,12 +79,12 @@
                         Command="{Binding ToNextPageButtonTapCommand}">
 
                     <Button.Triggers>
-
                         <MultiTrigger TargetType="Button">
-
                             <MultiTrigger.Conditions>
+
                                 <BindingCondition Binding="{Binding Source={x:Reference name}, Path=Text.Length, Converter={StaticResource dataHasBeenEntered}}"
                                                   Value="true" />
+
                                 <BindingCondition Binding="{Binding Source={x:Reference email},Path=Text.Length, Converter={StaticResource dataHasBeenEntered}}"
                                                   Value="true" />
                             </MultiTrigger.Conditions>
@@ -92,9 +92,7 @@
                             <Setter Property="IsEnabled" Value="true" />
 
                         </MultiTrigger>
-
                     </Button.Triggers>
-
                 </Button>
 
                 <StackLayout Orientation="Horizontal"
@@ -122,9 +120,6 @@
                              Margin="2,20,0,0"/>
 
             </StackLayout>
-
         </StackLayout>
-
     </view:BaseContentPage.Content>
-
 </view:BaseContentPage>

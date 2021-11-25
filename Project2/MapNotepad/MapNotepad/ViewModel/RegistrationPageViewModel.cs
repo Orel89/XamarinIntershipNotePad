@@ -49,7 +49,7 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref isVisibleEmailEntryLeftButton, value);
         }
 
-        private Color _entryNameColor = Color.Red;
+        private Color _entryNameColor = Color.FromHex("#D7DDE8");
         public Color EntryNameColor
         {
             get => _entryNameColor;
@@ -85,11 +85,17 @@ namespace MapNotepad.ViewModel
             {
                 case nameof(Name):
                     IsVisibleNameEntryLeftButton = !string.IsNullOrWhiteSpace(Name);
-                    EntryNameColor = Color.FromHex("#D7DDE8");
+                    if (IsVisibleNameEntryLeftButton)
+                    {
+                        EntryNameColor = Color.FromHex("#D7DDE8");
+                    }
+                    else
+                    {
+                        EntryNameColor = Color.Red;
+                    }
                     break;
                 case nameof(Email):
                     IsVisibleEmailEntryLeftButton = !string.IsNullOrWhiteSpace(Email);
-                    EntryEmailColor = Color.FromHex("#D7DDE8");
                     break;
             }
         }

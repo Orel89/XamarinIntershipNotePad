@@ -33,8 +33,8 @@
                         <DataTrigger Binding="{Binding IsPassword}"
                                      TargetType="controls:CustomEntry"
                                      Value="True">
-                                     <Setter Property="ImageSource" Value="ic_eye_off.png"/>
-                         </DataTrigger>
+                            <Setter Property="ImageSource" Value="ic_eye_off.png"/>
+                        </DataTrigger>
 
                         <DataTrigger Binding="{Binding IsPassword}"
                                      TargetType="controls:CustomEntry"
@@ -42,7 +42,7 @@
                             <Setter Property="ImageSource" Value="ic_eye.png"/>
                         </DataTrigger>
                     </controls:CustomEntry.Triggers>
-                    
+
                     <controls:CustomEntry.Behaviors>
 
                         <behaviours:CustomEntryValidationBehaviour Regex="{x:Static local:Constants.Password_REGEX}"/>
@@ -66,7 +66,7 @@
                                       Message="Password mismatch"
                                       IsMessageVisible="{Binding IsMessageVisible}"
                                       ImageSource="{Binding ImageButtonConfirmPassword }">
-                    
+
                     <controls:CustomEntry.Triggers>
 
                         <DataTrigger Binding="{Binding IsConfirmPassword}"
@@ -74,7 +74,7 @@
                                      Value="True">
                             <Setter Property="ImageSource" Value="ic_eye_off.png"/>
                         </DataTrigger>
-                        
+
                         <DataTrigger Binding="{Binding IsConfirmPassword}"
                                      TargetType="controls:CustomEntry"
                                      Value="False">
@@ -118,7 +118,6 @@
                              Margin="2,20,0,0"/>
 
             </StackLayout>
-
         </StackLayout>
     </view:BaseContentPage.Content>
 </view:BaseContentPage>

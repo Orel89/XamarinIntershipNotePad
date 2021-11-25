@@ -28,22 +28,14 @@ namespace MapNotepad.ViewModel
 
         #region -- Public Properties --
 
+        private int _pinIdToEdit;
+
         private string _label;
         public string Label
         {
             get => _label;
             set => SetProperty(ref _label, value);
         }
-
-        private string _pageTitle = "Add pin";
-        public string PageTitle
-        {
-            get => _pageTitle;
-            set => SetProperty(ref _pageTitle, value);
-        }
-
-        private int _pinIdToEdit;
-  
 
         private string _longitude = String.Empty;
         public string Longitude
@@ -80,32 +72,66 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _isVisibleEntryDescriptionLeftButton, value);
         }
 
-        private Color _borderColorLongitude;
-        public Color BorderColorLongitude
+        private Color _entryBorderLabelColor = Color.Red;
+        public Color EntryBorderLabelColor
         {
-            get => _borderColorLongitude;
-            set => SetProperty(ref _borderColorLongitude, value);
+            get => _entryBorderLabelColor;
+            set => SetProperty(ref _entryBorderLabelColor, value);
         }
 
-        private Color _borderColorLatitude;
-        public Color BorderColorLatitude
+        private Color _entryBorderLongitudeColor = Color.FromHex("#D7DDE8");
+        public Color EntryBorderLongitudeColor
         {
-            get => _borderColorLatitude;
-            set => SetProperty(ref _borderColorLatitude, value);
+            get => _entryBorderLongitudeColor;
+            set => SetProperty(ref _entryBorderLongitudeColor, value);
         }
 
-        private Color _borderColorLabel = Color.Gray;
-        public Color BorderColorLabel
+        private Color _entryBorderLatitudeColor = Color.FromHex("#D7DDE8");
+        public Color EntryBorderLatitudeColor
         {
-            get => _borderColorLabel;
-            set => SetProperty(ref _borderColorLabel, value);
+            get => _entryBorderLatitudeColor;
+            set => SetProperty(ref _entryBorderLatitudeColor, value);
         }
 
-        private ICommand clearEntryPasswordButtonTapCommand;
-        public ICommand ClearEntryPasswordButtonTapCommand => clearEntryPasswordButtonTapCommand ?? (clearEntryPasswordButtonTapCommand = new Command(OnClearEntryDescription));
+        private bool _IsVisibleLongitudeEntryLeftButton;
+        public bool IsVisibleLongitudeEntryLeftButton
+        {
+            get => _IsVisibleLongitudeEntryLeftButton;
+            set => SetProperty(ref _IsVisibleLongitudeEntryLeftButton, value);
+        }
 
-        private ICommand _clearEntryLabelButtonCommand;
-        public ICommand ClearEntryLabelButtonCommand => _clearEntryLabelButtonCommand ?? (_clearEntryLabelButtonCommand = new Command(OnClearLabelAsync));
+        private bool _IsVisibleLatitudeEntryLeftButton;
+        public bool IsVisibleLatitudeEntryLeftButton
+        {
+            get => _IsVisibleLatitudeEntryLeftButton;
+            set => SetProperty(ref _IsVisibleLatitudeEntryLeftButton, value);
+        }
+
+        private bool _IsVisibleLabelEntryLeftButton;
+        public bool IsVisibleLabelEntryLeftButton
+        {
+            get => _IsVisibleLabelEntryLeftButton;
+            set => SetProperty(ref _IsVisibleLabelEntryLeftButton, value);
+        }
+
+        private bool _IsVisibleDescriptionEntryLeftButton;
+        public bool IsVisibleDescriptionEntryLeftButton
+        {
+            get => _IsVisibleDescriptionEntryLeftButton;
+            set => SetProperty(ref _IsVisibleDescriptionEntryLeftButton, value);
+        }
+
+        private ICommand _clearEntryLatitudeCommand;
+        public ICommand ClearEntryLatitudeCommand => _clearEntryLatitudeCommand ?? (_clearEntryLatitudeCommand = SingleExecutionCommand.FromFunc(OnClearLatitudeCommandAsync));
+
+        private ICommand _clearEntryLongitudeCommand;
+        public ICommand ClearEntryLongitudeCommand => _clearEntryLongitudeCommand ?? (_clearEntryLongitudeCommand = SingleExecutionCommand.FromFunc(OnClearyLongitudeCommandAsync));
+
+        private ICommand _clearEntryLabelCommand;
+        public ICommand ClearEntryLabelCommand => _clearEntryLabelCommand ?? (_clearEntryLabelCommand = SingleExecutionCommand.FromFunc(OnClearLabelCommandAsync));
+
+        private ICommand _clearEntryDescriptionCommand;
+        public ICommand ClearEntryDescriptionCommand => _clearEntryDescriptionCommand ?? (_clearEntryDescriptionCommand = SingleExecutionCommand.FromFunc(OnClearDescriptionCommandAsync));
 
         private ICommand _goBackCommand;
         public ICommand GoBackCommand => _goBackCommand ?? (_goBackCommand = SingleExecutionCommand.FromFunc(OnGoBackCommandAsync));
@@ -127,6 +153,78 @@ namespace MapNotepad.ViewModel
 
         #region -- Ovverides --
 
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+            switch (args.PropertyName)
+            {
+                case nameof(Latitude):
+                    IsVisibleLatitudeEntryLeftButton = !string.IsNullOrWhiteSpace(Latitude);
+                    if (IsVisibleLatitudeEntryLeftButton)
+                    {
+                        if (double.TryParse(Latitude, out double _latitudeDoubleCheck))
+                        {
+                            if (_latitudeDoubleCheck >= -90 && _latitudeDoubleCheck <= 90)
+                            {
+                                EntryBorderLatitudeColor = Color.FromHex("#D7DDE8");
+                            }
+                            else
+                            {
+                                EntryBorderLatitudeColor = Color.Red;
+                            }
+                        }
+                        else
+                        {
+                            EntryBorderLatitudeColor = Color.Red;
+                        }
+                    }
+                    else
+                    {
+                        EntryBorderLatitudeColor = Color.Red;
+                    }
+                    break;
+                case nameof(Longitude):
+                    IsVisibleLongitudeEntryLeftButton = !string.IsNullOrWhiteSpace(Longitude);
+                    if (IsVisibleLongitudeEntryLeftButton)
+                    {
+                        if (double.TryParse(Longitude, out double _longitudeDoubleCheck))
+                        {
+                            if (_longitudeDoubleCheck >= -180 && _longitudeDoubleCheck <= 180)
+                            {
+                                EntryBorderLongitudeColor = Color.FromHex("#D7DDE8");
+                            }
+                            else
+                            {
+                                EntryBorderLongitudeColor = Color.Red;
+                            }
+                        }
+                        else
+                        {
+                            EntryBorderLongitudeColor = Color.Red;
+                        }
+                    }
+                    else
+                    {
+                        EntryBorderLongitudeColor = Color.Red;
+                    }
+                    break;
+                case nameof(Label):
+                    IsVisibleLabelEntryLeftButton = !string.IsNullOrWhiteSpace(Label);
+                    if (IsVisibleLabelEntryLeftButton)
+                    {
+                        EntryBorderLabelColor = Color.FromHex("#D7DDE8");
+                    }
+                    else
+                    {
+                        EntryBorderLabelColor = Color.Red;
+                    }
+                    break;
+                case nameof(Description):
+                    IsVisibleDescriptionEntryLeftButton = !string.IsNullOrWhiteSpace(Description);
+                    break;
+            }
+        }
+
         public override void InitializeAsync(INavigationParameters parameters)
         {
             base.InitializeAsync(parameters);
@@ -142,14 +240,7 @@ namespace MapNotepad.ViewModel
             base.OnNavigatedTo(parameters);
             parameters.TryGetValue("pinId", out _pinIdToEdit);
 
-            parameters.TryGetValue("pageTitle", out _pageTitle);
-
-            if (_pageTitle == "Edit pin" && _pinIdToEdit > 0)
-            {
-                await InitAsync();
-            }
-
-
+            if ( _pinIdToEdit > 0) { await InitAsync(); }
         }
 
         #endregion
@@ -193,19 +284,35 @@ namespace MapNotepad.ViewModel
             return Task.CompletedTask;
         }
 
-        private void OnClearEntryDescription()
+        private Task OnClearLatitudeCommandAsync()
+        {
+            Latitude = null;
+
+            return Task.CompletedTask;
+        }
+        private Task OnClearLabelCommandAsync()
+        {
+            Label = null;
+
+            return Task.CompletedTask;
+        }
+        private Task OnClearDescriptionCommandAsync()
         {
             Description = null;
+
+            return Task.CompletedTask;
+        }
+
+        private Task OnClearyLongitudeCommandAsync()
+        {
+            Longitude = null;
+
+            return Task.CompletedTask;
         }
 
         private async Task OnGoBackCommandAsync()
         {
             await NavigationService.GoBackAsync();
-        }
-
-        private void OnClearLabelAsync()
-        {
-            Label = null;
         }
 
         private async Task OnSaveCommandAsync()

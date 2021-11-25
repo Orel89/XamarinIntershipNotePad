@@ -60,23 +60,23 @@
                                                      CommandParameter="{Binding .}"
                                                      Source="ic_pin_gray.png"/>
 
-                                            <StackLayout Margin="5" Spacing="0">
-                                                <Label FontFamily="Montserrat-Regular"
+                                        <StackLayout Margin="5" Spacing="0">
+                                            <Label FontFamily="Montserrat-Regular"
                                                    FontSize="12"
                                                    MaxLines="1"
                                                    Text="{Binding Label}"
                                                    TextColor="{DynamicResource Black}"
                                                    LineBreakMode="TailTruncation"/>
 
-                                                <Label 
+                                            <Label 
                                                    FontSize="12"
                                                    LineBreakMode="TailTruncation"
                                                    MaxLines="1"
                                                    Text="{Binding Address}"
                                                    TextColor="DarkGray"/>
 
-                                            </StackLayout>
                                         </StackLayout>
+                                    </StackLayout>
                                 </ViewCell.View>
                             </ViewCell>
                         </DataTemplate>
@@ -113,5 +113,4 @@
             </Grid>
         </Grid>
     </ContentPage.Content>
-
 </ContentPage>
