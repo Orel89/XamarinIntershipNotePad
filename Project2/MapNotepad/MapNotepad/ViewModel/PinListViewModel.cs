@@ -36,11 +36,11 @@ namespace MapNotepad.ViewModel
 
         #region -- Public Properties --
 
-        private bool _isFocus;
-        public bool IsFocus
+        private bool _IsFocused;
+        public bool IsFocused
         {
-            get => _isFocus;
-            set => SetProperty(ref _isFocus, value);
+            get => _IsFocused;
+            set => SetProperty(ref _IsFocused, value);
         }
 
         private bool _isFavorite;
@@ -80,6 +80,7 @@ namespace MapNotepad.ViewModel
             get => _immutableObservPinCollection;
             set => SetProperty(ref _immutableObservPinCollection, value);
         }
+
         private ObservableCollection<PinViewModel> _observPinCollection;
         public ObservableCollection<PinViewModel> ObservPinCollection
         {
@@ -97,10 +98,6 @@ namespace MapNotepad.ViewModel
         {
             await InitAsync();
         }
-
-        #endregion
-
-        #region -- Overrides --
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
@@ -138,6 +135,18 @@ namespace MapNotepad.ViewModel
         #endregion
 
         #region -- Private helpers --
+
+        private async Task GoToPinLocation(PinViewModel pin)
+        {
+            LocatePin(new Position(pin.Latitude, pin.Longitude));
+        }
+
+        private async Task LocatePin(Position position)
+        {
+            MessagingCenter.Send(this, "MoveFromFoundPinInPinPageToMainPage", position);
+            await NavigationService.SelectTabAsync(nameof(MapPage));
+        }
+
         private async Task OnDeleteCommandAsync(PinViewModel pin)
         {
             if (pin != null)
@@ -243,20 +252,5 @@ namespace MapNotepad.ViewModel
         }
 
         #endregion
-
-        #region -- Private helpers --
-        private async Task GoToPinLocation(PinViewModel pin)
-        {
-            LocatePin(new Position(pin.Latitude, pin.Longitude));
-        }
-
-        private async Task LocatePin(Position position)
-        {
-            MessagingCenter.Send(this, "MoveFromFoundPinInPinPageToMainPage", position);
-            await NavigationService.SelectTabAsync(nameof(MapPage));
-        }
-
-        #endregion
-
     }
 }

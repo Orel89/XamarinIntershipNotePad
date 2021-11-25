@@ -26,14 +26,16 @@
             <Grid RowDefinitions="0.07*, 0.93*">
                 <local:SearchBar Grid.Row="0"
                                  TextColor="#858E9E"
-                                 
                                  EntryBackgroundColor="#F1F3FD"
                                  Text="{Binding SearchEntry}"
                                  RightButtonCommand="{Binding LogOutCommand}"
                                  RightImageSource="ic_exid.png"
                                  LeftImageSource="ic_settings"
+                                 GoBackImageSource="ic_settings"
                                  ClearImageSource="ic_clear"
-                                 LeftButtonCommand="{Binding GoToSettingsPageCommand}"/>
+                                 Placeholder="Search"
+                                 PlaceholderColor="#858E9E"/>
+
                 <CollectionView x:Name="CollectionView"
                                 Grid.Row="1"
                                 ItemsSource="{Binding ObservPinCollection}"

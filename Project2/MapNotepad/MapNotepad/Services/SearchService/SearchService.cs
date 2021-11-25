@@ -3,7 +3,6 @@ using MapNotepad.Services.PinService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace MapNotepad.Services.SearchService
 {

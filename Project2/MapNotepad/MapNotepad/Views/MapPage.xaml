@@ -4,7 +4,7 @@
              xmlns:controls="clr-namespace:MapNotepad.Controls" 
              xmlns:prism="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
              xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps" 
-             xmlns:local="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:local="clr-namespace:MapNotepad.Controls;assembly=MapNotepad"
              x:Class="MapNotepad.Views.MapPage">
 
     <ContentPage.Content>
@@ -13,10 +13,20 @@
               RowDefinitions="0.07*, 0.93*">
 
             <local:SearchBar Grid.Row="0"
-                             Text="{Binding SearchEntry}"/>
+                             Text="{Binding SearchEntry}"
+                             RightButtonCommand="{Binding LogOutCommand}"
+                             RightImageSource="ic_exid.png"
+                             ClearImageSource="ic_clear"
+                             GoBackImageSource="ic_left_blue"
+                             LeftImageSource="ic_settings"
+                             EntryBackgroundColor="#F1F3FD"
+                             Placeholder="Search"
+                             PlaceholderColor="#858E9E"/>
 
             <Grid Grid.Row="1">
                 <controls:CustomMap x:Name="map"
+                                    Margin="0, 17, 0, 0"
+                                    Padding="0, 30, 0 ,0"
                                     PinsSource="{Binding Pins}" 
                                     Grid.Row="0"
                                     Grid.RowSpan="3">
@@ -50,26 +60,23 @@
                                                      CommandParameter="{Binding .}"
                                                      Source="ic_pin_gray.png"/>
 
-                                        <StackLayout Margin="5" Spacing="0">
-                                            <Label FontFamily="Montserrat-Regular"
+                                            <StackLayout Margin="5" Spacing="0">
+                                                <Label FontFamily="Montserrat-Regular"
                                                    FontSize="12"
                                                    MaxLines="1"
                                                    Text="{Binding Label}"
                                                    TextColor="{DynamicResource Black}"
                                                    LineBreakMode="TailTruncation"/>
-                                            
-                                            <Label 
+
+                                                <Label 
                                                    FontSize="12"
                                                    LineBreakMode="TailTruncation"
                                                    MaxLines="1"
                                                    Text="{Binding Address}"
-                                                   TextColor="DarkGray">
-                                                
-                                            </Label>
+                                                   TextColor="DarkGray"/>
 
+                                            </StackLayout>
                                         </StackLayout>
-
-                                    </StackLayout>
                                 </ViewCell.View>
                             </ViewCell>
                         </DataTemplate>

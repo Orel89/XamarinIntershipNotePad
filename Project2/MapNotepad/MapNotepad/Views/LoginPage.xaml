@@ -15,6 +15,7 @@
         <StackLayout>
 
             <controls:CustomToolBar Title="Log in"
+                                    
                                     BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"
                                     ArrowLeftImage="leftArrow.png"/>
             <StackLayout Padding="25,0,25,5">

@@ -18,12 +18,12 @@ namespace MapNotepad.Views
             InitializeComponent();
             MessagingCenter.Subscribe<MapPageViewModel, Position>(this, "MoveFromFoundPinInSearchBarToMainPage", (s, a) =>
             {
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(a, Distance.FromKilometers(1)));
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(a, Distance.FromKilometers(0.2)));
             });
 
             MessagingCenter.Subscribe<PinListViewModel, Position>(this, "MoveFromFoundPinInPinPageToMainPage", (s, a) =>
             {
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(a, Distance.FromKilometers(1)));
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(a, Distance.FromKilometers(0.2)));
             });
         }
     }

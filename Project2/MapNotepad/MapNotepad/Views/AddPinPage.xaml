@@ -7,7 +7,7 @@
                       xmlns:behaviours="clr-namespace:MapNotepad.Behaviours"
                       x:Class="MapNotepad.Views.AddPinPage">
     <view:BaseContentPage.Content>
-        
+
         <StackLayout>
 
             <controls:CustomToolBar Title="{Binding PageTitle}"
@@ -33,14 +33,14 @@
                                   Margin="16, 0, 16, 0"
                                   IsVisibleButton ="{Binding IsVisibleEntryLabelLeftButton}"
                                   ButtonCommand="{Binding ClearEntryLabelButtonCommand}">
-                
+
                 <controls:CustomEntry.Behaviors>
 
                     <behaviours:CustomEntryValidationBehaviour/>
 
                 </controls:CustomEntry.Behaviors>
             </controls:CustomEntry>
-            
+
             <Label Text="Description"
                    TextColor="#3D4E61" 
                    Margin="16,15,0,0"/>
@@ -56,12 +56,22 @@
                                   Margin="16, 0, 16, 0"
                                   IsVisibleButton ="{Binding IsVisibleEntryDescriptionLeftButton}"
                                   ButtonCommand="{Binding ClearEntryDescriptionButtonCommand}"/>
-            
+
             <Label Text="Coordinates"
                    TextColor="#3D4E61" 
                    Margin="16,15,0,0"/>
-            
+
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+
+                <controls:CustomEntry x:Name="Longitude"
+                                      BorderColor="#D7DDE8"
+                                      HorizontalOptions="FillAndExpand"
+                                      Placeholder="Longitude"
+                                      PlaceholderColor="#858E9E"
+                                      Keyboard="Numeric"
+                                      Text="{Binding Longitude}"
+                                      TextColor="Black"
+                                      Margin="16, 0, 0, 0"/>
 
                 <controls:CustomEntry x:Name="Latitude"
                                       BorderColor="#D7DDE8"
@@ -71,33 +81,19 @@
                                       PlaceholderColor="#858E9E" 
                                       Text="{Binding Latitude}"
                                       TextColor="Black"
-                                      Margin="16, 0, 0, 0"/>
-                
-                <controls:CustomEntry x:Name="Longitude"
-                                      BorderColor="#D7DDE8"
-                                      HorizontalOptions="FillAndExpand"
-                                      Placeholder="Longitude"
-                                      PlaceholderColor="#858E9E"
-                                      Keyboard="Numeric"
-                                      Text="{Binding Longitude}"
-                                      TextColor="Black"
                                       Margin="0, 0, 16, 0"/>
 
             </StackLayout>
 
             <controls:CustomMap PinsSource="{Binding Pins}">
                 <controls:CustomMap.Behaviors>
-                    
+
                     <prism:EventToCommandBehavior Command="{Binding MapClickedCommand}" 
                                                   EventName="MapClicked"
                                                   EventArgsParameterPath="Point"/>
-
+                    
                 </controls:CustomMap.Behaviors>
-
             </controls:CustomMap>
-
         </StackLayout>
-        
     </view:BaseContentPage.Content>
-    
 </view:BaseContentPage>

@@ -33,6 +33,7 @@
         </ImageButton>
 
         <ImageButton
+            Margin="0, -6, 0, 0"
             x:Name="goBackButton"
             BackgroundColor="Transparent"
             Command="{Binding GoBackButtonCommand, Source={x:Reference searchBar}}"
@@ -59,6 +60,7 @@
             Orientation="Horizontal">
             <local:NoBorderEntry
                 x:Name="entry"
+                Margin="0, 0, 0, 0"
                 BackgroundColor="{Binding EntryBackgroundColor, Source={x:Reference searchBar}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference searchBar}}"
                 FontSize="12"

@@ -19,8 +19,6 @@ namespace MapNotepad.ViewModel
     {
         private readonly IPinService _pinService;
         private IUserService _userService;
-        private double _latitudeDoubleCheck;
-        private double _longitudeeDoubleCheck;
         public AddPinPageViewModel(IUserService userService,
                                    IPinService pinService)
         {
@@ -152,11 +150,6 @@ namespace MapNotepad.ViewModel
             }
 
 
-        }
-        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
-        {
-            base.OnPropertyChanged(args);
-            //IsEnableSaveButton = !string.IsNullOrWhiteSpace(Label) && double.Parse(Latitude) >= -90 && double.Parse(Latitude) <= 90 && double.Parse(Longitude) >= -180 && double.Parse(Longitude) <= 180;
         }
 
         #endregion

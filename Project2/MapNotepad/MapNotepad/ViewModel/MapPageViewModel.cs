@@ -1,8 +1,11 @@
-﻿using MapNotepad.Extensions;
+﻿using Acr.UserDialogs;
+using MapNotepad.Extensions;
 using MapNotepad.Helpers;
 using MapNotepad.Model.Pin;
+using MapNotepad.Services.Authentication;
 using MapNotepad.Services.PinService;
 using MapNotepad.Services.SearchService;
+using MapNotepad.View;
 using MapNotepad.Views;
 using Prism.Navigation;
 using System;
@@ -20,12 +23,15 @@ namespace MapNotepad.ViewModel
     {
         private readonly IPinService _pinService;
         private readonly ISearchService _searchService;
+        private readonly IAuthenticationService _authenticationService;
 
         public MapPageViewModel(IPinService pinService,
-                                ISearchService searchService)
+                                ISearchService searchService,
+                                IAuthenticationService authenticationService)
         {
             _pinService = pinService;
             _searchService = searchService;
+            _authenticationService = authenticationService;
         }
 
         #region -- Public properties --
@@ -38,7 +44,6 @@ namespace MapNotepad.ViewModel
             set
             {
                 SetProperty(ref _currentPin, value);
-                //RaisePropertyChanged(nameof(DisplayCurrentPinDescript));
             }
         }
 
@@ -78,6 +83,9 @@ namespace MapNotepad.ViewModel
         private ICommand _MapClickedCommand;
         public ICommand MapClickedCommand => _MapClickedCommand ?? (_MapClickedCommand = SingleExecutionCommand.FromFunc<Position>(OnMapClickedCommandAsync));
 
+        private ICommand _logOutCommand;
+        public ICommand LogOutCommand => _logOutCommand ?? (_logOutCommand = SingleExecutionCommand.FromFunc(OnLogOutCommandAsync));
+
         #endregion
 
         #region -- Overrides --
@@ -95,7 +103,6 @@ namespace MapNotepad.ViewModel
 
             if (args.PropertyName == nameof(SearchEntry) && !String.IsNullOrWhiteSpace(SearchEntry))
             {
-                //CurrentPin = null;
                 var pinsModelList = Pins.Select(x => x.ToPinModel());
 
                 var foundPinlist = _searchService.Search(SearchEntry, pinsModelList);
@@ -124,6 +131,25 @@ namespace MapNotepad.ViewModel
         #endregion
 
         #region -- Private helpers --
+
+        private async Task OnLogOutCommandAsync()
+        {
+            var confirmConfig = new ConfirmConfig()
+            {
+                Message = "Do you want to logout?",
+                OkText = "Ok",
+                CancelText = "Cancel"
+            };
+
+            var confirm = await UserDialogs.ConfirmAsync(confirmConfig);
+
+            if (confirm)
+            {
+                _authenticationService.LogOut();
+
+                await NavigationService.NavigateAsync($"/{nameof(StartPage)}");
+            }
+        }
 
         private Task GoToPinLocation(PinViewModel pin)
         {

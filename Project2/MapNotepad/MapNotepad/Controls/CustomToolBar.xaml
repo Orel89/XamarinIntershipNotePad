@@ -18,6 +18,7 @@
                    TextColor="{Binding TitleColor, Source={x:Reference customToolBar}}"
                    HorizontalOptions="Center"
                    FontSize="20"
+                   FontFamily="Montserrat-Medium"
                    Margin="0,23,0,0"
                    FontAttributes="Bold"/>
             <ImageButton Source="{Binding RightImage, Source={x:Reference customToolBar}}"
