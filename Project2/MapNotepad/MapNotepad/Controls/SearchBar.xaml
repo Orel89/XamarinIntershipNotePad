@@ -63,7 +63,7 @@
                 Margin="0, 0, 0, 0"
                 BackgroundColor="{Binding EntryBackgroundColor, Source={x:Reference searchBar}}"
                 FontFamily="{Binding FontFamily, Source={x:Reference searchBar}}"
-                FontSize="12"
+                FontSize="14"
                 HorizontalOptions="FillAndExpand"
                 Placeholder="{Binding Placeholder, Source={x:Reference searchBar}}"
                 PlaceholderColor="{Binding PlaceholderColor, Source={x:Reference searchBar}}"

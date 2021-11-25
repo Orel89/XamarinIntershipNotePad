@@ -21,6 +21,7 @@
                              LeftImageSource="ic_settings"
                              EntryBackgroundColor="#F1F3FD"
                              Placeholder="Search"
+                             TextColor="Black"
                              PlaceholderColor="#858E9E"/>
 
             <Grid Grid.Row="1">

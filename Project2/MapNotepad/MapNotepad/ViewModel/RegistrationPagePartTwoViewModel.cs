@@ -98,10 +98,10 @@ namespace MapNotepad.ViewModel
         public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapGoToBackPage));
 
         private ICommand _hideEntryPasswordButtonTapCommand;
-        public ICommand HideEntryPasswordButtonTapCommand => _hideEntryPasswordButtonTapCommand ?? (_hideEntryPasswordButtonTapCommand = new Command(OnHidePasswordEntryCommand));
+        public ICommand HideEntryPasswordButtonTapCommand => _hideEntryPasswordButtonTapCommand ?? (_hideEntryPasswordButtonTapCommand = SingleExecutionCommand.FromFunc(OnHidePasswordEntryCommand));
 
         private ICommand _hideEntryConfirmPasswordButtonTapCommand;
-        public ICommand HideEntryConfirmPasswordButtonTapCommand => _hideEntryConfirmPasswordButtonTapCommand ?? (_hideEntryConfirmPasswordButtonTapCommand = new Command(OnHideConfirmPasswordEntryCommand));
+        public ICommand HideEntryConfirmPasswordButtonTapCommand => _hideEntryConfirmPasswordButtonTapCommand ?? (_hideEntryConfirmPasswordButtonTapCommand = SingleExecutionCommand.FromFunc(OnHideConfirmPasswordEntryCommand));
         #endregion
 
         #region -- Private helpers --
@@ -145,14 +145,18 @@ namespace MapNotepad.ViewModel
 
         }
 
-        private void OnHidePasswordEntryCommand()
+        private Task OnHidePasswordEntryCommand()
         {
             IsPassword = !IsPassword;
+
+            return Task.CompletedTask;
         }
 
-        private void OnHideConfirmPasswordEntryCommand()
+        private Task OnHideConfirmPasswordEntryCommand()
         {
             IsConfirmPassword = !IsConfirmPassword;
+
+            return Task.CompletedTask;
         }
 
         private async Task OnButtonTapGoToBackPage()

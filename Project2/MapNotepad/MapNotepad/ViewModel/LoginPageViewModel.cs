@@ -33,13 +33,13 @@ namespace MapNotepad.ViewModel
         public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapGoToBackPage));
 
         private ICommand clearEntryPasswordButtonTapCommand;
-        public ICommand ClearEntryPasswordButtonTapCommand => clearEntryPasswordButtonTapCommand ?? (clearEntryPasswordButtonTapCommand = new Command(OnClearEntryPassword));
+        public ICommand ClearEntryPasswordButtonTapCommand => clearEntryPasswordButtonTapCommand ?? (clearEntryPasswordButtonTapCommand = SingleExecutionCommand.FromFunc(OnClearEntryPassword));
 
         private ICommand clearEntryEmailButtonTapCommand;
-        public ICommand ClearEntryEmailButtonTapCommand => clearEntryEmailButtonTapCommand ?? (clearEntryEmailButtonTapCommand = new Command(OnClearEntryEmail));
+        public ICommand ClearEntryEmailButtonTapCommand => clearEntryEmailButtonTapCommand ?? (clearEntryEmailButtonTapCommand = SingleExecutionCommand.FromFunc(OnClearEntryEmail));
 
         private ICommand _hideEntryPasswordCommand;
-        public ICommand HideEntryPasswordCommand => _hideEntryPasswordCommand ?? (_hideEntryPasswordCommand = new Command(OnHidePasswordEntryCommand));
+        public ICommand HideEntryPasswordCommand => _hideEntryPasswordCommand ?? (_hideEntryPasswordCommand = SingleExecutionCommand.FromFunc(OnHidePasswordEntryCommand));
 
      
         private string _email;
@@ -168,18 +168,24 @@ namespace MapNotepad.ViewModel
             }
         }
 
-        private void OnHidePasswordEntryCommand()
+        private Task OnHidePasswordEntryCommand()
         {
             IsPassword = !IsPassword;
+
+            return Task.CompletedTask;
         }
-        private void OnClearEntryPassword()
+        private Task OnClearEntryPassword()
         {
             Password = null;
+
+            return Task.CompletedTask;
         }
 
-        private void OnClearEntryEmail()
+        private Task OnClearEntryEmail()
         {
             Email = null;
+
+            return Task.CompletedTask;
         }
 
         #endregion

@@ -69,10 +69,10 @@ namespace MapNotepad.ViewModel
         public ICommand GoToBackPageButtonTapCommand => _goToBackPageButtonTapCommand ?? (_goToBackPageButtonTapCommand = SingleExecutionCommand.FromFunc(OnButtonTapGoToBackPage));
 
         private ICommand clearEntryNameButtonTapCommand;
-        public ICommand ClearEntryNameButtonTapCommand => clearEntryNameButtonTapCommand ?? (clearEntryNameButtonTapCommand = new Command(OnClearEntryButtonTapCommand));
+        public ICommand ClearEntryNameButtonTapCommand => clearEntryNameButtonTapCommand ?? (clearEntryNameButtonTapCommand = SingleExecutionCommand.FromFunc(OnClearEntryNameButtonTapCommand));
 
         private ICommand clearEntryEmailButtonTapCommand;
-        public ICommand ClearEntryEmailButtonTapCommand => clearEntryEmailButtonTapCommand ?? (clearEntryEmailButtonTapCommand = new Command(OnClearEntryEmailButtonTapCommand));
+        public ICommand ClearEntryEmailButtonTapCommand => clearEntryEmailButtonTapCommand ?? (clearEntryEmailButtonTapCommand = SingleExecutionCommand.FromFunc(OnClearEntryEmailButtonTapCommand));
 
         #endregion
 
@@ -141,14 +141,18 @@ namespace MapNotepad.ViewModel
           
         }
         
-        private void OnClearEntryButtonTapCommand()
+        private Task OnClearEntryNameButtonTapCommand()
         {
             Name = null;
+
+            return Task.CompletedTask;
         }
 
-        private void OnClearEntryEmailButtonTapCommand()
+        private Task OnClearEntryEmailButtonTapCommand()
         {
             Email = null;
+
+            return Task.CompletedTask;
         }
 
         #endregion
