@@ -5,6 +5,7 @@ using MapNotepad.Model;
 using MapNotepad.Services.Authentication;
 using MapNotepad.Services.ProfileService;
 using MapNotepad.Views;
+using Prism.Navigation;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -86,6 +87,12 @@ namespace MapNotepad.ViewModel
         #endregion
 
         #region -- Overrides --
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            var res = parameters.TryGetValue("_email", out string userEmail);
+            Email = userEmail;
+        }
 
         protected async override void OnPropertyChanged(PropertyChangedEventArgs args)
         {

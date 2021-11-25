@@ -31,6 +31,8 @@
                                  Text="{Binding SearchEntry}"
                                  RightButtonCommand="{Binding LogOutCommand}"
                                  RightImageSource="ic_exid.png"
+                                 LeftImageSource="ic_settings"
+                                 ClearImageSource="ic_clear"
                                  LeftButtonCommand="{Binding GoToSettingsPageCommand}"/>
                 <CollectionView x:Name="CollectionView"
                                 Grid.Row="1"

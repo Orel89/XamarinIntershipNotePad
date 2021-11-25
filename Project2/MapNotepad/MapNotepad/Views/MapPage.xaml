@@ -57,6 +57,15 @@
                                                    Text="{Binding Label}"
                                                    TextColor="{DynamicResource Black}"
                                                    LineBreakMode="TailTruncation"/>
+                                            
+                                            <Label 
+                                                   FontSize="12"
+                                                   LineBreakMode="TailTruncation"
+                                                   MaxLines="1"
+                                                   Text="{Binding Address}"
+                                                   TextColor="DarkGray">
+                                                
+                                            </Label>
 
                                         </StackLayout>
 

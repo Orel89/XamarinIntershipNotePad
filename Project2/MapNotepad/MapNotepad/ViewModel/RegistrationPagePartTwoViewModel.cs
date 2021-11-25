@@ -3,6 +3,7 @@ using MapNotepad.Helpers.Validation;
 using MapNotepad.Model;
 using MapNotepad.Services.Registration;
 using MapNotepad.View;
+using MapNotepad.Views;
 using Prism.Navigation;
 using System;
 using System.ComponentModel;
@@ -127,7 +128,12 @@ namespace MapNotepad.ViewModel
                     {
                         message = "Successful registration";
                         await UserDialogs.AlertAsync(message);
-                        await NavigationService.NavigateAsync(nameof(StartPage));
+                        var navigationParameters = new NavigationParameters
+                        {
+                            { nameof(_email), _email}
+                        };
+
+                        await NavigationService.NavigateAsync($"{nameof(StartPage)}/{nameof(LoginPage)}", navigationParameters);
                     }
                
                 }

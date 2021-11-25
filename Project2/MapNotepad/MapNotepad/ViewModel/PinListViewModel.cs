@@ -36,6 +36,13 @@ namespace MapNotepad.ViewModel
 
         #region -- Public Properties --
 
+        private bool _isFocus;
+        public bool IsFocus
+        {
+            get => _isFocus;
+            set => SetProperty(ref _isFocus, value);
+        }
+
         private bool _isFavorite;
 
         public bool IsFavorite

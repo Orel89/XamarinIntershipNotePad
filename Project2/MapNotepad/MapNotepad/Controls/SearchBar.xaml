@@ -15,6 +15,7 @@
         Spacing="0">
 
         <ImageButton
+            Margin="0, -6, 0, 0"
             BackgroundColor="Transparent"
             Command="{Binding LeftButtonCommand, Source={x:Reference searchBar}}"
             HeightRequest="30"
@@ -51,8 +52,8 @@
         </ImageButton>
 
         <StackLayout
-            Margin="12,0,12,0"
-            Padding="11,0,11,0"
+            Margin="12, 0, 12, 0"
+            Padding="11, 0, 11, 0"
             BackgroundColor="{Binding EntryBackgroundColor, Source={x:Reference searchBar}}"
             HorizontalOptions="FillAndExpand"
             Orientation="Horizontal">
@@ -87,6 +88,7 @@
         </StackLayout>
 
         <ImageButton
+             Margin="0, -8, 0, 0"
             BackgroundColor="Transparent"
             Command="{Binding RightButtonCommand, Source={x:Reference searchBar}}"
             HeightRequest="30"
