@@ -7,6 +7,5 @@ namespace MapNotepad.Controls
 {
     public class NoBorderEntry : Entry
     {
-        public bool HasUnderline { get; set; }
     }
 }

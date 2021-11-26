@@ -15,7 +15,7 @@ namespace MapNotepad.Helpers.Validation
             {
                 if (email.Length <= 129)
                 {
-                    if (Regex.IsMatch(email.Trim(), @"^[^@\s]{1,64}@[^@\s]+\.[^@\s]+"))
+                    if (Regex.IsMatch(email.Trim(), Constants.EMAIL_REGEX))
                     {
                         result = true;
                     }
@@ -32,7 +32,7 @@ namespace MapNotepad.Helpers.Validation
             {
                 if (password.Length >= 6)
                 {
-                    if (Regex.IsMatch(password.Trim(), @"[0-9]") && Regex.IsMatch(password.Trim(), @"[A-Z]"))
+                    if (Regex.IsMatch(password.Trim(), Constants.Password_REGEX))
                     {
                         result = true;
                     }

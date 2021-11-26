@@ -17,14 +17,14 @@
                              Padding="5,4,5,0">
 
                     <controls:NoBorderEntry Text="{Binding Text, Source={x:Reference customEntry}}"
+                                            HorizontalOptions="FillAndExpand"
                                             TextColor="{Binding TextColor, Source={x:Reference customEntry}}"
                                             Placeholder="{Binding Placeholder, Source={x:Reference customEntry}}"
                                             Keyboard="{Binding Keyboard, Source={x:Reference customEntry}}"
                                             IsPassword="{Binding IsPassword, Source={x:Reference customEntry}}"
                                             PlaceholderColor="{Binding PlaceholderColor, Source={x:Reference customEntry}}"/>
 
-                    <ImageButton Aspect="AspectFit"
-                                 HorizontalOptions="EndAndExpand"
+                    <ImageButton HorizontalOptions="End"
                                  BackgroundColor="Transparent"
                                  HeightRequest="18"
                                  WidthRequest="18"
