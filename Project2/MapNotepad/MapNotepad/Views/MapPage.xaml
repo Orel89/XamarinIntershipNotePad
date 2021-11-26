@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:BaseContentPage  xmlns:views="clr-namespace:MapNotepad.Views"
+                        xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:controls="clr-namespace:MapNotepad.Controls" 
              xmlns:prism="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
@@ -7,10 +8,8 @@
              xmlns:local="clr-namespace:MapNotepad.Controls;assembly=MapNotepad"
              x:Class="MapNotepad.Views.MapPage">
 
-    <ContentPage.Content>
-        <Grid HorizontalOptions="Fill"
-              VerticalOptions="Fill"
-              RowDefinitions="0.07*, 0.93*">
+    <views:BaseContentPage.Content>
+        <Grid RowDefinitions="0.07*, 0.93*">
 
             <local:SearchBar Grid.Row="0"
                              Text="{Binding SearchEntry}"
@@ -105,5 +104,5 @@
                 </StackLayout>
             </Grid>
         </Grid>
-    </ContentPage.Content>
-</ContentPage>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

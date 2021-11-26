@@ -7,7 +7,7 @@ namespace MapNotepad.Views
     {
         public BaseContentPage()
         {
-            object p = On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
+            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
         }
 
     }

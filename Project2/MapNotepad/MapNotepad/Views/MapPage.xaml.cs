@@ -11,7 +11,7 @@ using Xamarin.Forms.Xaml;
 
 namespace MapNotepad.Views
 {
-    public partial class MapPage : ContentPage
+    public partial class MapPage : BaseContentPage
     {
         public MapPage()
         {
