@@ -9,10 +9,10 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(NoBorderEntry), typeof(NoBorderEntryRendererIos))]
+[assembly: ExportRenderer(typeof(NoBorderEntry), typeof(NoBorderEntryRenderer))]
 namespace MapNotepad.iOS.Renderers
 {
-    public class NoBorderEntryRendererIos : EntryRenderer
+    public class NoBorderEntryRenderer : EntryRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {

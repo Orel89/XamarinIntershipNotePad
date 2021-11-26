@@ -8,7 +8,7 @@
     <StackLayout>
 
         <Frame HasShadow="False"
-               Padding="0"
+               Padding="12"
                BorderColor="{Binding BorderColor, Source={x:Reference customEntry}}">
 
             <StackLayout>
