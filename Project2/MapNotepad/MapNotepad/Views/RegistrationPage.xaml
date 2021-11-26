@@ -19,8 +19,7 @@
         <StackLayout>
 
             <controls:CustomToolBar Title="Create an account"
-                                    BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"
-                                    ArrowLeftImage="ic_left_blue"/>
+                                    BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"/>
             <StackLayout Padding="25,0,25,5">
 
                 <Label Text="Name" 

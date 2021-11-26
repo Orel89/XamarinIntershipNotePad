@@ -2,6 +2,7 @@
 <ResourceDictionary
     x:Class="MapNotepad.Resources.BaseStyles"
     xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:controls ="clr-namespace:MapNotepad.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <!--  System  -->
     <Color x:Key="White">#FEFEFD</Color>
@@ -63,5 +64,22 @@
         <Setter Property="FontFamily" Value="Montserrat-SemiBold" />
         <Setter Property="FontSize" Value="13" />
     </Style>
+    
+    <Style TargetType="controls:SearchBar">
+        <Setter Property="GoBackImageSource" Value="ic_left_blue" />
+        <Setter Property="LeftImageSource" Value="ic_settings" />
+        <Setter Property="EntryBackgroundColor" Value="{DynamicResource Variant}" />
+        <Setter Property="FontFamily" Value="Montserrat-SemiBold" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource Gray}" />
+        <Setter Property="Placeholder" Value="Search" />
+        <Setter Property="TextColor" Value="{DynamicResource Black}" />
+        <Setter Property="ClearImageSource" Value="ic_clear" />
+        <Setter Property="RightImageSource" Value="ic_exid" />
+        <Setter Property="LineColor" Value="{DynamicResource Gray}" />
+    </Style>
 
+    <Style TargetType="controls:CustomToolBar">
+
+        <Setter Property="ArrowLeftImage" Value="ic_left_blue" />
+    </Style>
 </ResourceDictionary>
