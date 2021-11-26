@@ -65,6 +65,7 @@
                                       Placeholder="Longitude"
                                       PlaceholderColor="#858E9E"
                                       Keyboard="Numeric"
+                                      
                                       Text="{Binding Longitude}"
                                       ImageSource="ic_clear"
                                       IsVisibleButton ="{Binding IsVisibleLongitudeEntryLeftButton}"

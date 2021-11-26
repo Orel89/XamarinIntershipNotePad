@@ -40,21 +40,6 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _confirmpassword, value);
         }
 
-        //private string _imageButtonPassword = "ic_eye_off.png";
-        //public string ImageButtonPassword
-        //{
-        //    get => _imageButtonPassword;
-        //    set => SetProperty(ref _imageButtonPassword, value);
-        //}
-
-        //private string _imageButtonConfirmPassword = "ic_eye_off.png";
-        //public string ImageButtonConfirmPassword
-        //{
-        //    get => _imageButtonConfirmPassword;
-        //    set => SetProperty(ref _imageButtonConfirmPassword, value);
-        //}
-
-
         private bool _isVisiblePasswordEntryLeftButton;
         public bool IsVisiblePasswordEntryLeftButton
         {

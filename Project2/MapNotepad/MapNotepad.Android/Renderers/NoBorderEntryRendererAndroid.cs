@@ -25,6 +25,7 @@ namespace MapNotepad.Droid.Renderers
             base.OnElementChanged(e);
 
             Control.Background = null;
+            Control.SetBackgroundColor(Android.Graphics.Color.Transparent);
         }
     }
 }
