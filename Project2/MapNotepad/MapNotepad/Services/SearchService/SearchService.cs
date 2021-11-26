@@ -19,7 +19,7 @@ namespace MapNotepad.Services.SearchService
 
         public List<PinModel> Search(string search_query, IEnumerable<PinModel> list)
         {
-            List<PinModel> outValue = new List<PinModel>();
+            List<PinModel> result = new List<PinModel>();
 
             var doubleResult = double.TryParse(search_query, out double doubleValue);
 
@@ -28,7 +28,7 @@ namespace MapNotepad.Services.SearchService
                 var searchResult = DoubleSearch(doubleValue, list);
                 foreach (PinModel pinModel in searchResult)
                 {
-                    outValue.Add(pinModel);
+                    result.Add(pinModel);
                 }
             }
             else
@@ -37,9 +37,9 @@ namespace MapNotepad.Services.SearchService
                 
                 foreach (PinModel pinModel in searchResultLabel)
                 {
-                    outValue.Add(pinModel);
+                    result.Add(pinModel);
                 }
-                if (outValue.Count == 0)
+                if (result.Count == 0)
                 {
                     foreach (var pinModel in list)
                     {
@@ -50,27 +50,28 @@ namespace MapNotepad.Services.SearchService
                             {
                                 if (keyword.ToLower() == search_query.ToLower())
                                 {
-                                    outValue.Add(pinModel);
+                                    result.Add(pinModel);
                                     break;
                                 }
 
                             }
                         }
-
                     }
                 }
             }
-            return outValue;
+            return result;
         }
+
         #endregion
 
         #region -- Private helpers --
         private IEnumerable<PinModel> DoubleSearch(double coordinate, IEnumerable<PinModel> list)
         {
-            double delta = 0.1; 
+            double accuracy = 0.4; 
 
-            return list.Where(x => Math.Abs(x.Latitude - coordinate) <= delta || Math.Abs(x.Longitude - coordinate) <= delta);
+            return list.Where(x => Math.Abs(x.Latitude - coordinate) <= accuracy || Math.Abs(x.Longitude - coordinate) <= accuracy);
         }
+
         #endregion
     }
 }
