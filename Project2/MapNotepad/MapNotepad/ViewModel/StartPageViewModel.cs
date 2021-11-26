@@ -18,13 +18,6 @@ namespace MapNotepad.ViewModel
 
         #region -- Public properties --
 
-        private string image = "customLogo.png";
-        public string ImageUrl
-        {
-            get => image;
-            set => SetProperty(ref image, value);
-        }
-
         private ICommand _createAccountButtonTapCommand;
         public ICommand CreateAccountButtonTapCommand => _createAccountButtonTapCommand ?? (_createAccountButtonTapCommand = SingleExecutionCommand.FromFunc(GoToRegistrationPage));
 

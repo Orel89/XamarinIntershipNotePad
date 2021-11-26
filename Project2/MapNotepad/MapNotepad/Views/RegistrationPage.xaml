@@ -20,7 +20,7 @@
 
             <controls:CustomToolBar Title="Create an account"
                                     BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"
-                                    ArrowLeftImage="leftArrow.png"/>
+                                    ArrowLeftImage="leftArrow"/>
             <StackLayout Padding="25,0,25,5">
 
                 <Label Text="Name" 
@@ -34,7 +34,7 @@
                                       Text="{Binding Name}"
                                       TextColor="Black"
                                       Message="no name"
-                                      ImageSource="ic_clear.png"
+                                      ImageSource="ic_clear"
                                       IsVisibleButton ="{Binding IsVisibleNameEntryLeftButton}"
                                       ButtonCommand="{Binding ClearEntryNameButtonTapCommand}">
 
@@ -56,7 +56,7 @@
                                       PlaceholderColor="#858E9E"
                                       Text="{Binding Email}"
                                       TextColor="Black"
-                                      ImageSource="ic_clear.png"
+                                      ImageSource="ic_clear"
                                       Message="Email is not valid"
                                       IsVisibleButton ="{Binding IsVisibleEmailEntryLeftButton}"
                                       ButtonCommand="{Binding ClearEntryEmailButtonTapCommand}">
@@ -112,7 +112,7 @@
 
                 </StackLayout>
 
-                <ImageButton Source="ic_google.png"
+                <ImageButton Source="ic_google"
                              HeightRequest="45"
                              BackgroundColor="White"
                              BorderColor="#D7DDE8"

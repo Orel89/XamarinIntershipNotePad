@@ -13,7 +13,7 @@
         <StackLayout>
             <controls:CustomToolBar Title="Log in"
                                     BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"
-                                    ArrowLeftImage="leftArrow.png"/>
+                                    ArrowLeftImage="leftArrow"/>
             
             <StackLayout Padding="25,0,25,5">
 
@@ -55,13 +55,13 @@
                         <DataTrigger Binding="{Binding IsPassword}"
                                      TargetType="controls:CustomEntry"
                                      Value="True">
-                            <Setter Property="ImageSource" Value="ic_eye_off.png"/>
+                            <Setter Property="ImageSource" Value="ic_eye_off"/>
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding IsPassword}"
                                      TargetType="controls:CustomEntry"
                                      Value="False">
-                            <Setter Property="ImageSource" Value="ic_eye.png"/>
+                            <Setter Property="ImageSource" Value="ic_eye"/>
                         </DataTrigger>
                     </controls:CustomEntry.Triggers>
 

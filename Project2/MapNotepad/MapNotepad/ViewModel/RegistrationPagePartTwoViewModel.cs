@@ -40,19 +40,19 @@ namespace MapNotepad.ViewModel
             set => SetProperty(ref _confirmpassword, value);
         }
 
-        private string _imageButtonPassword = "ic_eye_off.png";
-        public string ImageButtonPassword
-        {
-            get => _imageButtonPassword;
-            set => SetProperty(ref _imageButtonPassword, value);
-        }
+        //private string _imageButtonPassword = "ic_eye_off.png";
+        //public string ImageButtonPassword
+        //{
+        //    get => _imageButtonPassword;
+        //    set => SetProperty(ref _imageButtonPassword, value);
+        //}
 
-        private string _imageButtonConfirmPassword = "ic_eye_off.png";
-        public string ImageButtonConfirmPassword
-        {
-            get => _imageButtonConfirmPassword;
-            set => SetProperty(ref _imageButtonConfirmPassword, value);
-        }
+        //private string _imageButtonConfirmPassword = "ic_eye_off.png";
+        //public string ImageButtonConfirmPassword
+        //{
+        //    get => _imageButtonConfirmPassword;
+        //    set => SetProperty(ref _imageButtonConfirmPassword, value);
+        //}
 
 
         private bool _isVisiblePasswordEntryLeftButton;
@@ -80,7 +80,7 @@ namespace MapNotepad.ViewModel
         public bool IsConfirmPassword
         {
             get => _isConfirmPassword;
-            set => SetProperty(ref _isConfirmPassword, value); //IsMessageVisible
+            set => SetProperty(ref _isConfirmPassword, value); 
         }
 
         private bool _IsMessageVisible;
@@ -89,7 +89,6 @@ namespace MapNotepad.ViewModel
             get => _IsMessageVisible;
             set => SetProperty(ref _IsMessageVisible, value);
         }
-
 
         private ICommand _createAccountButtonTapCommand;
         public ICommand CreateAccountButtonTapCommand => _createAccountButtonTapCommand ?? (_createAccountButtonTapCommand = SingleExecutionCommand.FromFunc(ExecuteCreateAccountButtonTapCommand));

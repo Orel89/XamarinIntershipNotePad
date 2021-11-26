@@ -15,7 +15,7 @@
             <local:SearchBar Grid.Row="0"
                              Text="{Binding SearchEntry}"
                              RightButtonCommand="{Binding LogOutCommand}"
-                             RightImageSource="ic_exid.png"
+                             RightImageSource="ic_exid"
                              ClearImageSource="ic_clear"
                              GoBackImageSource="ic_left_blue"
                              LeftImageSource="ic_settings"
@@ -59,7 +59,7 @@
                                                      Margin="10, 10, 0, 10"
                                                      Command="{Binding MoveToPinLocationCommand}"
                                                      CommandParameter="{Binding .}"
-                                                     Source="ic_pin_gray.png"/>
+                                                     Source="ic_pin_gray"/>
 
                                         <StackLayout Margin="5" Spacing="0">
                                             <Label FontFamily="Montserrat-Regular"
