@@ -30,7 +30,7 @@
                                   Text="{Binding Label}"
                                   TextColor="Black"
                                   Message="no name"
-                                  ImageSource="ic_clear.png"
+                                  ImageSource="ic_clear"
                                   Margin="16, 0, 16, 0"
                                   IsVisibleButton ="{Binding IsVisibleLabelEntryLeftButton}"
                                   ButtonCommand="{Binding ClearEntryLabelCommand}">

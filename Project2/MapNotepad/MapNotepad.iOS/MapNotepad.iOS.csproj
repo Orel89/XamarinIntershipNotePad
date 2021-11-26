@@ -697,4 +697,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\pic_enter_page%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\myPinAdd.jpg" />
+  </ItemGroup>
 </Project>

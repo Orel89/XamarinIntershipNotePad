@@ -25,16 +25,8 @@
 
             <Grid RowDefinitions="0.07*, 0.93*">
                 <local:SearchBar Grid.Row="0"
-                                 EntryBackgroundColor="#F1F3FD"
                                  Text="{Binding SearchEntry}"
-                                 TextColor="Black"
-                                 RightButtonCommand="{Binding LogOutCommand}"
-                                 RightImageSource="ic_exid.png"
-                                 LeftImageSource="ic_settings"
-                                 GoBackImageSource="ic_settings"
-                                 ClearImageSource="ic_clear"
-                                 Placeholder="Search"
-                                 PlaceholderColor="#858E9E"/>
+                                 RightButtonCommand="{Binding LogOutCommand}"/>
 
                 <CollectionView x:Name="CollectionView"
                                 Grid.Row="1"
@@ -61,13 +53,13 @@
                                                         <DataTrigger Binding="{Binding Source={x:Reference likeButton}, Path=IsFavorite}"
                                                                      TargetType="ImageButton"
                                                                      Value="True">
-                                                            <Setter Property="Source" Value="ic_like_blue.png"/>
+                                                            <Setter Property="Source" Value="ic_like_blue"/>
                                                         </DataTrigger>
 
                                                         <DataTrigger Binding="{Binding Source={x:Reference likeButton}, Path=IsFavorite}"
                                                                      TargetType="ImageButton"
                                                                      Value="False">
-                                                            <Setter Property="Source" Value="ic_like_gray.png"/>
+                                                            <Setter Property="Source" Value="ic_like_gray"/>
                                                         </DataTrigger>
                                                     </ImageButton.Triggers>
                                                 </local:LikeButton>
@@ -90,7 +82,7 @@
                                                          HorizontalOptions="EndAndExpand"
                                                          Command="{Binding  MoveToPinLocationCommand}"
                                                          CommandParameter="{Binding .}"
-                                                         Source="ic_left_gray.png"/>
+                                                         Source="ic_left_gray"/>
                                         </StackLayout>
                                     </Frame>
                                 </context:SideContextMenuView.View>
@@ -101,7 +93,7 @@
                                             <Frame BackgroundColor="Red">
                                                 <ImageButton Command="{Binding DeleteCommand}"
                                                              CommandParameter="{Binding .}"
-                                                             Source="ic_delete.png"
+                                                             Source="ic_delete"
                                                              BackgroundColor="Transparent"
                                                              WidthRequest="24"
                                                              HeightRequest="24"/>
@@ -110,7 +102,7 @@
                                             <Frame BackgroundColor="#596EFB">
                                                 <ImageButton Command="{Binding EditCommand}"
                                                              CommandParameter="{Binding .}"
-                                                             Source="ic_edit.png"
+                                                             Source="ic_edit"
                                                              BackgroundColor="Transparent"
                                                              WidthRequest="24"
                                                              HeightRequest="24"/>
@@ -124,15 +116,14 @@
                 </CollectionView>
             </Grid>
 
-            <ImageButton Source="ic_plus.png"
+            <ImageButton Source="ic_plus"
                          Padding="12"
-                         Margin="0, 0, 18, 18"
-                         BackgroundColor="#596EFB"
-                         BorderWidth="6"
-                         HeightRequest="55"
+                         BackgroundColor="Blue"
+                         HeightRequest="60"
                          CornerRadius="90"
                          HorizontalOptions="End"
-                         WidthRequest="55"
+                         WidthRequest="60"
+                         Scale="2.5"
                          VerticalOptions="End"
                          Command="{Binding AddButtonTapCommand}">
             </ImageButton>

@@ -110,12 +110,7 @@
 
                 </StackLayout>
 
-                <ImageButton Source="ic_google.png"
-                             HeightRequest="45"
-                             BackgroundColor="White"
-                             BorderColor="#D7DDE8"
-                             BorderWidth="1"
-                             Margin="2,20,0,0"/>
+                <ImageButton Style="{DynamicResource GoogleButton}"/>
 
             </StackLayout>
         </StackLayout>

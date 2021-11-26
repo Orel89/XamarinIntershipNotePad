@@ -117,7 +117,7 @@ namespace MapNotepad.ViewModel
                             { nameof(_email), _email}
                         };
 
-                        await NavigationService.NavigateAsync($"{nameof(StartPage)}/{nameof(LoginPage)}", navigationParameters);
+                        await NavigationService.NavigateAsync($"/{nameof(StartPage)}/{nameof(LoginPage)}", navigationParameters);
                     }
                
                 }
