@@ -1,11 +1,6 @@
 ﻿using MapNotepad.Interfaces;
-using MapNotepad.Model.Pin;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
@@ -18,7 +13,6 @@ namespace MapNotepad.Controls
             UiSettings.MyLocationButtonEnabled = true;
             MyLocationEnabled = true;
             UiSettings.ZoomControlsEnabled = false;
-
         }
 
         #region --- Public Properties ---

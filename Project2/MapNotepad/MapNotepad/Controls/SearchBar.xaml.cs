@@ -219,6 +219,7 @@ namespace MapNotepad.Controls
 
             return Task.CompletedTask;
         }
+
         #endregion
     }
 }
