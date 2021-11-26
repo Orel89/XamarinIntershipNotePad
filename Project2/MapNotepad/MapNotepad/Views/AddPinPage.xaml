@@ -15,8 +15,8 @@
                                     BackButtonTapCommand="{Binding GoBackCommand}"
                                     RightButtonCommand="{Binding SaveButtonCommand}"
                                     IsEnableRightButton="{Binding IsEnableSaveButton}"
-                                    ArrowLeftImage="leftArrow.png"
-                                    RightImage="ic_save.png"/>
+                                    ArrowLeftImage="ic_left_blue"
+                                    RightImage="ic_save"/>
 
             <Label Text="Label"
                    TextColor="#3D4E61" 
@@ -48,7 +48,7 @@
                                   PlaceholderColor="#858E9E" 
                                   Text="{Binding Description}"
                                   TextColor="Black"
-                                  ImageSource="ic_clear.png"
+                                  ImageSource="ic_clear"
                                   Margin="16, 0, 16, 0"
                                   IsVisibleButton ="{Binding IsVisibleDescriptionEntryLeftButton}"
                                   ButtonCommand="{Binding ClearEntryDescriptionCommand}"/>

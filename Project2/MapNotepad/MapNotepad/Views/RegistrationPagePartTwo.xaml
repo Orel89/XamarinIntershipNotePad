@@ -11,7 +11,7 @@
 
             <controls:CustomToolBar Title="Create an account"
                                     BackButtonTapCommand="{Binding GoToBackPageButtonTapCommand}"
-                                    ArrowLeftImage="leftArrow"/>
+                                    ArrowLeftImage="ic_left_blue"/>
             <StackLayout Padding="25,0,25,5">
 
                 <Label Text="Password" 
