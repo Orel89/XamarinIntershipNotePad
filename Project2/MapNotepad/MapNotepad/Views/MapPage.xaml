@@ -26,8 +26,7 @@
 
             <Grid Grid.Row="1">
                 <controls:CustomMap x:Name="map"
-                                    Margin="0, 17, 0, 0"
-                                    Padding="0, 30, 0 ,0"
+                                    Margin="0, 5, 0, 0"
                                     PinsSource="{Binding Pins}" 
                                     Grid.Row="0"
                                     Grid.RowSpan="3">
@@ -61,20 +60,13 @@
                                                      CommandParameter="{Binding .}"
                                                      Source="ic_pin_gray"/>
 
-                                        <StackLayout Margin="5" Spacing="0">
+                                        <StackLayout Margin="5, 15,0,0" Spacing="0">
                                             <Label FontFamily="Montserrat-Regular"
                                                    FontSize="12"
                                                    MaxLines="1"
                                                    Text="{Binding Label}"
                                                    TextColor="{DynamicResource Black}"
                                                    LineBreakMode="TailTruncation"/>
-
-                                            <Label 
-                                                   FontSize="12"
-                                                   LineBreakMode="TailTruncation"
-                                                   MaxLines="1"
-                                                   Text="{Binding Address}"
-                                                   TextColor="DarkGray"/>
 
                                         </StackLayout>
                                     </StackLayout>

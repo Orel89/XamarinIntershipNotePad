@@ -35,20 +35,6 @@ namespace MapNotepad.ViewModel
         }
 
         #region -- Public properties --
-
-        private PinModel _currentPin;
-
-        public PinModel CurrentPin
-        {
-            get => _currentPin;
-            set
-            {
-                SetProperty(ref _currentPin, value);
-            }
-        }
-
-        public bool DisplayCurrentPinDescript => CurrentPin != null;
-
         public bool DisplayFoundPinList => !String.IsNullOrWhiteSpace(SearchEntry) && SeachPinList != null;
 
         private string _searchEntry;
