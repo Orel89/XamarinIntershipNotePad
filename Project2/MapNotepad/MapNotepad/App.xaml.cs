@@ -1,5 +1,6 @@
 ﻿using Acr.UserDialogs;
 using MapNotepad.Services.Authentication;
+using MapNotepad.Services.LocalizationService;
 using MapNotepad.Services.PinService;
 using MapNotepad.Services.ProfileService;
 using MapNotepad.Services.Registration;
@@ -9,6 +10,7 @@ using MapNotepad.Services.Services;
 using MapNotepad.View;
 using MapNotepad.ViewModel;
 using MapNotepad.Views;
+using Prism;
 using Prism.Ioc;
 using Prism.Unity;
 using System;
@@ -21,7 +23,15 @@ namespace MapNotepad
     {
         public static T Resolve<T>() => Current.Container.Resolve<T>();
 
-        public App(){}
+        public App()
+        {
+        }
+
+        public App(IPlatformInitializer platformInitializer)
+            : base(platformInitializer)
+        {
+        }
+
         #region ---Overrides---
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
@@ -31,6 +41,7 @@ namespace MapNotepad
             containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IUserService>(Container.Resolve<UserService>());
+            containerRegistry.RegisterInstance<ILocalizationService>(Container.Resolve<LocalizationService>());
             containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationService>());
             containerRegistry.RegisterInstance<IRegistrationService>(Container.Resolve<RegistrationService>());
             containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());

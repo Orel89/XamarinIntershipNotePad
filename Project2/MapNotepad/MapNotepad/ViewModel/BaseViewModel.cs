@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using MapNotepad.Services.LocalizationService;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
@@ -9,9 +10,11 @@ namespace MapNotepad.ViewModel
 {
     public class BaseViewModel : BindableBase, INavigatedAware, IInitialize
     {
+        protected ILocalizationService LocalizationService { get; }
         public BaseViewModel()
         {
             NavigationService = App.Resolve<INavigationService>();
+            LocalizationService = App.Resolve<ILocalizationService>();
             UserDialogs = App.Resolve<IUserDialogs>();
         }
         protected INavigationService NavigationService { get; }

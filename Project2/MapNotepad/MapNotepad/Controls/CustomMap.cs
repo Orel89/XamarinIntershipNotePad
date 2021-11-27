@@ -11,7 +11,6 @@ namespace MapNotepad.Controls
         public CustomMap()
         {
             UiSettings.MyLocationButtonEnabled = true;
-            MyLocationEnabled = true;
             UiSettings.ZoomControlsEnabled = false;
         }
 

@@ -27,6 +27,7 @@
                 <controls:CustomMap x:Name="map"
                                     Margin="0, 5, 0, 0"
                                     PinsSource="{Binding Pins}" 
+                                    MyLocationEnabled="{Binding IsLocationPermissionsGranted}"
                                     Grid.Row="0"
                                     Grid.RowSpan="3">
 
@@ -39,6 +40,9 @@
                         <prism:EventToCommandBehavior Command="{Binding MapClickedCommand}" 
                                                       EventName="MapClicked"
                                                       EventArgsParameterPath="Point"/>
+
+                        <prism:EventToCommandBehavior EventName="MyLocationButtonClicked"
+                                                      Command="{Binding MyLocationTapCommand}"/>
 
                     </controls:CustomMap.Behaviors>
                 </controls:CustomMap>

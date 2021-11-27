@@ -57,15 +57,14 @@
                    TextColor="#3D4E61" 
                    Margin="16,15,0,0"/>
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+            <StackLayout Orientation="Horizontal">
 
                 <controls:CustomEntry x:Name="Longitude"
                                       BorderColor="{Binding EntryBorderLongitudeColor}"
-                                      HorizontalOptions="FillAndExpand"
+                                      
                                       Placeholder="Longitude"
                                       PlaceholderColor="#858E9E"
                                       Keyboard="Numeric"
-                                      
                                       Text="{Binding Longitude}"
                                       ImageSource="ic_clear"
                                       IsVisibleButton ="{Binding IsVisibleLongitudeEntryLeftButton}"
@@ -78,7 +77,7 @@
 
                 <controls:CustomEntry x:Name="Latitude"
                                       BorderColor="{Binding EntryBorderLatitudeColor}"
-                                      HorizontalOptions="FillAndExpand"
+                                      
                                       Placeholder="Latitude"
                                       Keyboard="Numeric"
                                       PlaceholderColor="#858E9E" 
