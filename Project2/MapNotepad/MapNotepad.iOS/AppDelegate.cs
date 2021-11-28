@@ -24,6 +24,7 @@ namespace MapNotepad.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsGoogleMaps.Init("AIzaSyBSX1QC2Gm_BbE44-cTFYjVl2FSIH5uiu4");
+            ContextMenu.iOS.ContextMenuViewRenderer.Preserve();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
