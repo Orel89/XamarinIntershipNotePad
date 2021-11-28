@@ -47,7 +47,9 @@ namespace MapNotepad.ViewModel
         private ICommand _hideEntryPasswordCommand;
         public ICommand HideEntryPasswordCommand => _hideEntryPasswordCommand ?? (_hideEntryPasswordCommand = SingleExecutionCommand.FromFunc(OnHidePasswordEntryCommand));
 
-        public ICommand GoogleAuthCommand { get; set; }
+        private ICommand _googleAuthCommand;
+        public ICommand GoogleAuthCommand => _googleAuthCommand ?? (_googleAuthCommand = new Command(OnGoogleAuthCommand));
+        
 
         private string _email;
         public string Email
@@ -97,7 +99,6 @@ namespace MapNotepad.ViewModel
 
         public override void Initialize(INavigationParameters parameters)
         {
-            GoogleAuthCommand = new Command(OnGoogleAuthCommand);
             var res = parameters.TryGetValue("_email", out string userEmail);
             Email = userEmail;
         }
@@ -151,7 +152,7 @@ namespace MapNotepad.ViewModel
                     redirectUri = Constants.AndroidRedirectUrl;
                     break;
             }
-            var authenticator = new OAuth2Authenticator(
+            OAuth2Authenticator authenticator = new OAuth2Authenticator(
                 clientId,
                 null,
                 Constants.Scope,
