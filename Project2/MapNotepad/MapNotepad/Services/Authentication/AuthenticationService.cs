@@ -33,6 +33,14 @@ namespace MapNotepad.Services.Authentication
 
         #region -- AuthenticationService implementation --
 
+        public void RegisterWithGoogleAccount(string username, string email)
+        {
+            int.TryParse(email, out int _userId);
+            _settingsManager.UserId = _userId;
+            _settingsManager.UserName = username;
+            Helpers.Global.UserId = null;
+        }
+
         public async Task<AOResult<bool>> AuthorizationAsync(string email, string password)
         {
             var result = new AOResult<bool>();

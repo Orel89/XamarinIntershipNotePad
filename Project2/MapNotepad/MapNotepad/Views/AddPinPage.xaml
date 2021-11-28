@@ -9,20 +9,21 @@
                       xmlns:local="clr-namespace:MapNotepad">
     <view:BaseContentPage.Content>
 
-        <StackLayout>
-
-            <controls:CustomToolBar Title="Add pin"
+        <StackLayout VerticalOptions="Fill">
+            <StackLayout Spacing="0">
+                
+                <controls:CustomToolBar Title="Add pin"
                                     BackButtonTapCommand="{Binding GoBackCommand}"
                                     RightButtonCommand="{Binding SaveButtonCommand}"
                                     IsEnableRightButton="{Binding IsEnableSaveButton}"
                                     ArrowLeftImage="ic_left_blue"
                                     RightImage="ic_save"/>
 
-            <Label Text="Label"
+                <Label Text="Label"
                    TextColor="#3D4E61" 
-                   Margin="16,15,0,0"/>
+                   Padding="16,15,0,0"/>
 
-            <controls:CustomEntry x:Name="label"
+                <controls:CustomEntry x:Name="label"
                                   Keyboard="Text"
                                   BorderColor="{Binding EntryBorderLabelColor}"
                                   Placeholder="Enter the label"
@@ -31,17 +32,17 @@
                                   TextColor="Black"
                                   Message="no name"
                                   ImageSource="ic_clear"
-                                  Margin="16, 0, 16, 0"
+                                  Padding="16, 0, 16, 0"
                                   IsVisibleButton ="{Binding IsVisibleLabelEntryLeftButton}"
                                   ButtonCommand="{Binding ClearEntryLabelCommand}">
 
-            </controls:CustomEntry>
+                </controls:CustomEntry>
 
-            <Label Text="Description"
+                <Label Text="Description"
                    TextColor="#3D4E61" 
-                   Margin="16,15,0,0"/>
+                   Padding="16,15,0,0"/>
 
-            <controls:CustomEntry x:Name="description"
+                <controls:CustomEntry x:Name="description"
                                   Keyboard="Text"
                                   BorderColor="#D7DDE8"
                                   Placeholder="Enter a description"
@@ -49,36 +50,38 @@
                                   Text="{Binding Description}"
                                   TextColor="Black"
                                   ImageSource="ic_clear"
-                                  Margin="16, 0, 16, 0"
+                                  Padding="16, 0, 16, 0"
                                   IsVisibleButton ="{Binding IsVisibleDescriptionEntryLeftButton}"
                                   ButtonCommand="{Binding ClearEntryDescriptionCommand}"/>
 
-            <Label Text="Coordinates"
+                <Label Text="Coordinates"
                    TextColor="#3D4E61" 
-                   Margin="16,15,0,0"/>
+                   Padding="16,15,0,0"/>
 
-            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" Spacing="0">
 
-                <controls:CustomEntry x:Name="Longitude"
+                    <controls:CustomEntry x:Name="Longitude"
                                       BorderColor="{Binding EntryBorderLongitudeColor}"
-                                      
+                                      HorizontalOptions="FillAndExpand"
                                       Placeholder="Longitude"
                                       PlaceholderColor="#858E9E"
                                       Keyboard="Numeric"
+                                      MaxLength="12"
                                       Text="{Binding Longitude}"
                                       ImageSource="ic_clear"
                                       IsVisibleButton ="{Binding IsVisibleLongitudeEntryLeftButton}"
                                       ButtonCommand="{Binding ClearEntryLongitudeCommand}"
                                       TextColor="Black"
-                                      Margin="16, 0, 0, 0">
-                   
-                </controls:CustomEntry>
+                                      Padding="16, 0, 0, 0">
+
+                    </controls:CustomEntry>
 
 
-                <controls:CustomEntry x:Name="Latitude"
+                    <controls:CustomEntry x:Name="Latitude"
                                       BorderColor="{Binding EntryBorderLatitudeColor}"
-                                      
-                                      Placeholder="Latitude"
+                                      HorizontalOptions="FillAndExpand"
+                                      Placeholder="Latitude   "
+                                      MaxLength="12"
                                       Keyboard="Numeric"
                                       PlaceholderColor="#858E9E" 
                                       Text="{Binding Latitude}"
@@ -86,10 +89,12 @@
                                       IsVisibleButton ="{Binding IsVisibleLatitudeEntryLeftButton}"
                                       ButtonCommand="{Binding ClearEntryLatitudeCommand}"
                                       TextColor="Black"
-                                      Margin="0, 0, 16, 0">
+                                      Padding="0, 0, 16, 0">
 
-                </controls:CustomEntry>
+                    </controls:CustomEntry>
+                </StackLayout>
             </StackLayout>
+           
 
             <controls:CustomMap PinsSource="{Binding Pins}">
                 <controls:CustomMap.Behaviors>

@@ -1,14 +1,20 @@
 ﻿using Acr.UserDialogs;
 using MapNotepad.Helpers;
+using MapNotepad.Helpers.AuthHelpers;
 using MapNotepad.Helpers.Validation;
 using MapNotepad.Model;
 using MapNotepad.Services.Authentication;
 using MapNotepad.Services.ProfileService;
 using MapNotepad.Views;
+using Newtonsoft.Json;
 using Prism.Navigation;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Auth;
+using Xamarin.Auth.Presenters;
 using Xamarin.Forms;
 
 namespace MapNotepad.ViewModel
@@ -41,7 +47,8 @@ namespace MapNotepad.ViewModel
         private ICommand _hideEntryPasswordCommand;
         public ICommand HideEntryPasswordCommand => _hideEntryPasswordCommand ?? (_hideEntryPasswordCommand = SingleExecutionCommand.FromFunc(OnHidePasswordEntryCommand));
 
-     
+        public ICommand GoogleAuthCommand { get; set; }
+
         private string _email;
         public string Email
         {
@@ -90,6 +97,7 @@ namespace MapNotepad.ViewModel
 
         public override void Initialize(INavigationParameters parameters)
         {
+            GoogleAuthCommand = new Command(OnGoogleAuthCommand);
             var res = parameters.TryGetValue("_email", out string userEmail);
             Email = userEmail;
         }
@@ -126,6 +134,82 @@ namespace MapNotepad.ViewModel
         #endregion
 
         #region -- Private helpers --
+
+        void OnGoogleAuthCommand()
+        {
+            string clientId = null;
+            string redirectUri = null;
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    clientId = Constants.iOSClientId;
+                    redirectUri = Constants.iOSRedirectUrl;
+                    break;
+
+                case Device.Android:
+                    clientId = Constants.AndroidClientId;
+                    redirectUri = Constants.AndroidRedirectUrl;
+                    break;
+            }
+            var authenticator = new OAuth2Authenticator(
+                clientId,
+                null,
+                Constants.Scope,
+                new Uri(Constants.AuthorizeUrl),
+                new Uri(redirectUri),
+                new Uri(Constants.AccessTokenUrl),
+                null,
+                true);
+
+            authenticator.Completed += OnAuthCompleted;
+            authenticator.Error += OnAuthError;
+
+            AuthenticationState.Authenticator = authenticator;
+
+            var presenter = new OAuthLoginPresenter();
+            presenter.Login(authenticator);
+        }
+        async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
+        {
+            var authenticator = sender as OAuth2Authenticator;
+            if (authenticator != null)
+            {
+                authenticator.Completed -= OnAuthCompleted;
+                authenticator.Error -= OnAuthError;
+            }
+            User user = null;
+            if (e.IsAuthenticated)
+            {
+                // If the user is authenticated, request their basic user data from Google
+                // UserInfoUrl = https://www.googleapis.com/oauth2/v2/userinfo
+                var request = new OAuth2Request("GET", new Uri(Constants.UserInfoUrl), null, e.Account);
+                var response = await request.GetResponseAsync();
+                if (response != null)
+                {
+                    // Deserialize the data and store it in the account store
+                    // The users email address will be used to identify data in SimpleDB
+                    string userJson = await response.GetResponseTextAsync();
+                    user = JsonConvert.DeserializeObject<User>(userJson);
+                }
+                if (user != null)
+                {
+                    _authenticationService.RegisterWithGoogleAccount(user.Name, user.Email);
+
+                    await NavigationService.NavigateAsync(nameof(MainProfilePage));
+                }
+            }
+        }
+        void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
+        {
+            var authenticator = sender as OAuth2Authenticator;
+            if (authenticator != null)
+            {
+                authenticator.Completed -= OnAuthCompleted;
+                authenticator.Error -= OnAuthError;
+            }
+            Debug.WriteLine("Authentication error: " + e.Message);
+        }
+
 
         private async Task OnButtonTapGoToBackPage()
         {

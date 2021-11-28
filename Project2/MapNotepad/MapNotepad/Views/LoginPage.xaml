@@ -3,7 +3,8 @@
                        xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
                        xmlns:converter="clr-namespace:MapNotepad.Converters" 
-                       xmlns:controls="clr-namespace:MapNotepad.Controls"
+                       xmlns:controls="clr-namespace:MapNotepad.Controls" 
+                       xmlns:viewmodel="clr-namespace:MapNotepad.ViewModel" x:DataType="viewmodel:LoginPageViewModel"
                        x:Class="MapNotepad.Views.LoginPage">
 
     <view:BaseContentPage.Resources>
@@ -45,8 +46,6 @@
                                       PlaceholderColor="#858E9E"
                                       Text="{Binding Password}"
                                       TextColor="Black"
-                                      Message="the password is incorrect"
-                                      IsMessageVisible="{Binding IsMessagePasswordVisible}"
                                       IsPassword="{Binding IsPassword}"
                                       IsVisibleButton ="{Binding IsVisibleEntryPasswordLeftButton}"
                                       ButtonCommand="{Binding HideEntryPasswordCommand}">
@@ -110,7 +109,7 @@
 
                 </StackLayout>
 
-                <ImageButton Style="{DynamicResource GoogleButton}"/>
+                <ImageButton Style="{DynamicResource GoogleButton}" Command="{Binding GoogleAuthCommand}"/>
 
             </StackLayout>
         </StackLayout>

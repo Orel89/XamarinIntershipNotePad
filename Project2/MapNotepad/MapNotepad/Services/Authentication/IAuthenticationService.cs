@@ -10,6 +10,8 @@ namespace MapNotepad.Services.Authentication
     public interface IAuthenticationService
     {
         UserModel User { get; }
+
+        void RegisterWithGoogleAccount(string username, string email);
         Task<AOResult<bool>> AuthorizationAsync(string email, string password);
         void LogOut();
     }

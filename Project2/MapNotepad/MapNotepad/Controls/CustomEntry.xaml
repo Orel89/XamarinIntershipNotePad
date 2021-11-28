@@ -9,15 +9,17 @@
 
         <Frame HasShadow="False"
                Padding="12"
+               
                BorderColor="{Binding BorderColor, Source={x:Reference customEntry}}">
 
             <StackLayout>
 
                 <StackLayout Orientation="Horizontal"
-                             Padding="5,4,5,0">
+                             >
 
                     <controls:NoBorderEntry Text="{Binding Text, Source={x:Reference customEntry}}"
                                             HorizontalOptions="FillAndExpand"
+                                            MaxLength="{Binding MaxLength, Source={x:Reference customEntry}}"
                                             TextColor="{Binding TextColor, Source={x:Reference customEntry}}"
                                             Placeholder="{Binding Placeholder, Source={x:Reference customEntry}}"
                                             Keyboard="{Binding Keyboard, Source={x:Reference customEntry}}"
